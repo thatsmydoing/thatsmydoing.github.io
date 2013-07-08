@@ -34,6 +34,26 @@
     <div class="span8">
     
         <div class="postbox">
+        <h1><a href="posts/one-bus-or-maybe-jeep-away.html">One Bus (or maybe Jeep) Away</a>
+        <small>  
+             Posted: <time class="published" datetime="2013-07-09T01:53:59">2013-07-09 01:53</time></small></h1>
+        <hr><p>Link: <a href="http://onebusaway.org/">http://onebusaway.org/</a></p>
+<p><strong>TL;DR</strong> no routing; useless in Philippines</p>
+<p>OneBusAway is a transit information app. It provides data on what bus stops are near you, which buses pass by. You can also get schedules and the route of a particular bus given the number. It can also provide realtime updates like how many minutes until the next bus arrives. It does not, however, provide routing. There is no support for providing directions to get from point A to point B.</p>
+<p>It's comparable to what you get in some bus stops abroad. You'd get a vicinity map and a list of buses passing through the stop. You might also get the times when the next buses will pass. It's useful for locals who already know how to get around, and want to avoid waiting for the bus. But it's not particularly good for people who want to know how to get around the city.</p>
+<p>OneBusAway is quite comprehensive in its platform support though. There is a webapp, apps for iOS, Android and Windows Phone, as well as SMS and Voice support. This would all be nice but we don't have the necessary infrastructure yet in the Philippines. We don't have bus or jeepney stops. We also wouldn't have realtime data to make the app particularly useful.</p>
+<p>You can try it out for yourself by following their <a href="https://github.com/OneBusAway/onebusaway-application-modules/wiki/OneBusAway-Quickstart-Guide">Quickstart Guide</a>. One caveat is you will have to add <code>-P tripEntriesFactory.throwExceptionOnInvalidStopToShapeMappingException=false</code> when building the bundle. This has to do with the OneBusAway having difficulty matching the <a href="https://github.com/OneBusAway/onebusaway-application-modules/wiki/Stop-to-Shape-Matching">stops to the shape data</a>.</p>
+<p>Here's some screenshots of the app with the Philippine data. Notice how you only see the stops but there isn't a line for the route. This is a problem with our GTFS data. Also, at some points it's hard to tell where the jeep is going to pass since there isn't any indication of order either. This is more of a OneBusAway problem. It usually expects there to be shape data available.</p>
+<p><a href="galleries/transit/onebusaway1.png"><img alt="OneBusAway" src="galleries/transit/onebusaway1.png" title="All the stops along Katipunan Avenue are named Katipunan Avenue."></a></p>
+<p>It doesn't really handle too many routes passing through a stop. The list just overflows past the bubble. You can still actually read it by panning the map. It's just a bit weird though.</p>
+<p>If you also noticed, there are usually 2 of each route. This is how the jeepney data was modeled as jeep routes might be different going one way and going back. This isn't the case for all jeeps though, so it might also be an implementation issue with the GTFS editor.</p>
+<p><a href="galleries/transit/onebusaway2.png"><img alt="OneBusAway" src="galleries/transit/onebusaway2.png"></a></p>
+<p><a href="galleries/transit/onebusaway3.png"><img alt="OneBusAway" src="galleries/transit/onebusaway3.png"></a></p>
+            
+    <p>
+
+        </p></div>
+        <div class="postbox">
         <h1><a href="posts/jeepney-and-bus-routes.html">Jeepney and Bus Routes</a>
         <small>  
              Posted: <time class="published" datetime="2013-07-07T10:32:36">2013-07-07 10:32</time></small></h1>
