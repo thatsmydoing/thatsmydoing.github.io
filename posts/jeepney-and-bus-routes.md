@@ -15,7 +15,7 @@ One potential problem is the nature of the jeeps and buses. GTFS routes are a co
 
 From what I've seen of the data, they handled the first problem well enough. Stops are defined as where people typically get on the jeep or bus. This is good, but they didn't define a shape for the routes. There is no information as to which exact roads they pass through. All we have to go by are the stops to show the route on a map.
 
-![sample route](../galleries/transit/gtfs_preview.jpg)
+![sample route](http://i.imgur.com/NSVlryE.jpg)
 
 The problem isn't that bad though. The agencies could still add the shapes later on. Or maybe an app challenge participant could make an app around fixing the routes via crowd-sourcing or similar. The shape itself isn't that important for a rudimentary directions app, but if we want better apps, we will need better data.
 
