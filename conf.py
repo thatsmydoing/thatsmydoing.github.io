@@ -13,7 +13,7 @@ BLOG_AUTHOR = "Thomas Dy"
 BLOG_TITLE = "Pleasant Programmer"
 # This is the main URL for your site. It will be used
 # in a prominent link
-SITE_URL = "http://thatsmydoing.github.io"
+SITE_URL = "http://pleasantprogrammer.com"
 # This is the URL where nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "http://nikola.ralsina.com.ar"
@@ -284,7 +284,7 @@ CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
 # If you want to disable comments, set it to False.
 # Default is "nikolademo", used by the demo sites
 # DISQUS_FORUM = "nikolademo"
-DISQUS_FORUM = False
+DISQUS_FORUM = "pleasantprog"
 
 # Create index.html for story folders?
 # STORY_INDEX = False
@@ -411,7 +411,7 @@ ADD_THIS_BUTTONS = False
 # If you want to use formatted post time in W3C-DTF Format(ex. 2012-03-30T23:00:00+02:00),
 # set timzone if you want a localized posted date.
 #
-# TIMEZONE = 'Asia/Manila'
+TIMEZONE = 'Asia/Manila'
 
 # If webassets is installed, bundle JS and CSS to make site loading faster
 # USE_BUNDLES = True

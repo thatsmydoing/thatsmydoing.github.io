@@ -36,7 +36,7 @@
         <div class="postbox">
         <h1><a href="posts/one-bus-or-maybe-jeep-away.html">One Bus (or maybe Jeep) Away</a>
         <small>  
-             Posted: <time class="published" datetime="2013-07-09T01:53:59">2013-07-09 01:53</time></small></h1>
+             Posted: <time class="published" datetime="2013-07-09T01:53:59+08:00">2013-07-09 01:53</time></small></h1>
         <hr><p>Link: <a href="http://onebusaway.org/">http://onebusaway.org/</a></p>
 <p><strong>TL;DR</strong> no routing; useless in Philippines</p>
 <p>OneBusAway is a transit information app. It provides data on what bus stops are near you, which buses pass by. You can also get schedules and the route of a particular bus given the number. It can also provide realtime updates like how many minutes until the next bus arrives. It does not, however, provide routing. There is no support for providing directions to get from point A to point B.</p>
@@ -51,12 +51,13 @@
 <p><a href="galleries/transit/onebusaway3.png"><img alt="OneBusAway" src="galleries/transit/onebusaway3.png"></a></p>
             
     <p>
+        <a href="posts/one-bus-or-maybe-jeep-away.html#disqus_thread" data-disqus-identifier="cache/posts/one-bus-or-maybe-jeep-away.html">Comments</a>
 
         </p></div>
         <div class="postbox">
         <h1><a href="posts/jeepney-and-bus-routes.html">Jeepney and Bus Routes</a>
         <small>  
-             Posted: <time class="published" datetime="2013-07-07T10:32:36">2013-07-07 10:32</time></small></h1>
+             Posted: <time class="published" datetime="2013-07-07T10:32:36+08:00">2013-07-07 10:32</time></small></h1>
         <hr><p>In the <a href="posts/philippine-transit-app-challenge.html">last post</a>, I talked about how we now have data about jeepney and bus routes in the Philippines. The data is actually in the <a href="https://developers.google.com/transit/gtfs/">GTFS format</a>, which is the format the Google Maps consumes transit data. Apparently, the government will be submitting the GTFS data later this year. Transit directions for Metro Manila in Google Maps would be wonderful. That said, it definitely raises the bar for the app challenge people.</p>
 <p>In the last post, I mentioned the quality of the data isn't quite good. Even before seeing the data, I was already a bit unsure of it. The key problem is how you model the routes. The GTFS format was inherently designed for more well developed and organized transit agencies which isn't exactly what we have in the Philippines now.</p>
 <p>One potential problem is the nature of the jeeps and buses. GTFS routes are a collection of trips which are a sequence of stops. However, we don't have jeepney stops, and even if we did they still just stop anywhere. There are also times where jeeps will take a shortcut if no passengers need to get dropped off along their normal route.</p>
@@ -66,12 +67,13 @@
 <p>There were also some minor issues with the data itself. Some of the files had extra columns. This normally isn't an issue, but it caused problems for <a href="https://github.com/harrisony/gtfs_SQL_importer">GTFS SQL importer</a>. There were also problems with matching the shape data with the stops when I tried it with <a href="http://onebusaway.org">OneBusAway</a>. They could probably be <a href="https://github.com/OneBusAway/onebusaway-application-modules/wiki/Stop-to-Shape-Matching">fixed</a> but that's for another day.</p>
             
     <p>
+        <a href="posts/jeepney-and-bus-routes.html#disqus_thread" data-disqus-identifier="cache/posts/jeepney-and-bus-routes.html">Comments</a>
 
         </p></div>
         <div class="postbox">
         <h1><a href="posts/philippine-transit-app-challenge.html">Philippine Transit App Challenge</a>
         <small>  
-             Posted: <time class="published" datetime="2013-07-07T00:17:37">2013-07-07 00:17</time></small></h1>
+             Posted: <time class="published" datetime="2013-07-07T00:17:37+08:00">2013-07-07 00:17</time></small></h1>
         <hr><p>Last week, the DOTC launched the <a href="http://philippine-transit.hackathome.com">Philippine Transit App Challenge</a>. It's a competition to build something great using the newly available 1) jeepney/bus/rail routes and 2) traffic incident data in Metro Manila and Cebu.</p>
 <p>I'm actually quite excited about this as it's not everyday our government does wonderful things. Many people have been waiting for this kind of data to be available. Before, the only way to figure out which jeeps to ride to get from A to B is by asking other people. The website of the LTFRB used to just have a list of jeepney routes, but nothing else, no maps or list of stops.</p>
 <p>During the launch, they also presented how CITOM (the Cebu MMDA) is pilot-testing a <a href="http://cebutraffic.org/">traffic tracking system</a>. What they did was supply Android phones to taxi drivers. The phones send GPS data which can then be aggregated to see what the average speeds along streets are. This also benefits the taxi company as it provides easy tracking of their taxis compared to their old telephone/radio with pen-and-paper process.</p>
@@ -79,6 +81,7 @@
 <p>I've just started looking at the route data and playing around with it. The quality could be better, but I'm glad we at least have something to work with.</p>
             
     <p>
+        <a href="posts/philippine-transit-app-challenge.html#disqus_thread" data-disqus-identifier="cache/posts/philippine-transit-app-challenge.html">Comments</a>
 
         </p></div>
     
@@ -86,11 +89,7 @@
 <ul class="pager"></ul></div>
 
     
-
-    
-
-
-    </div>
+       <script type="text/javascript">var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.type="text/javascript";a.src="http://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("HEAD")[0]||document.getElementsByTagName("BODY")[0]).appendChild(a)}());</script></div>
     </div>
     <!--End of body content-->
 </div>
