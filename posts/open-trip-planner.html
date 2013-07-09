@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Open Trip Planner | Pleasant Programmer</title><link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml"></head><body>
+<!-- Menubar -->
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+            <a class="brand" href="../">
+            Pleasant Programmer
+            </a>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <ul class="nav"><li><a href="../archive.html">Archives</a>
+            </li><li><a href="../categories/index.html">Tags</a>
+            </li><li><a href="../rss.xml">RSS</a>
+
+                </li></ul><ul class="nav pull-right"><li>
+    <a href="open-trip-planner.md" id="sourcelink">Source</a>
+    </li>
+
+                </ul></div>
+        </div>
+    </div>
+</div>
+<!-- End of Menubar -->
+<div class="container-fluid" id="container-fluid">
+    <!--Body content-->
+    <div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+    
+    <div class="postbox">
+    
+    <h1>Open Trip Planner</h1>
+
+    <hr><small>
+        Posted: <time class="published" datetime="2013-07-09T23:16:12+08:00">2013-07-09 23:16</time>
+        
+
+        
+          |  More posts about
+            <a class="tag" href="../categories/philippine-transit-app.html"><span class="badge badge-info">philippine-transit-app</span></a>
+            <a class="tag" href="../categories/programming.html"><span class="badge badge-info">programming</span></a>
+
+    </small>
+    <hr><p>Link: <a href="http://www.opentripplanner.org">http://www.opentripplanner.org</a></p>
+<p><strong>TL;DR</strong> routes pretty well; data might cause weird issues</p>
+<p>OpenTripPlanner, as the name implies, is a routing app. Given point A and point B, it can provide possible routes by taking transit, riding a bike, or a mix of both. You can also specify options on how much walking you're willing to do or if you prefer fewer transfers over trip time. It could be a good competitor to the transit directions of Google Maps.</p>
+<p>It's actually in general use by the <a href="http://maps.trimet.org/">Trimet</a>, Portland's public transit system. I think a good reason why they deployed OpenTripPlanner is that Portland is a very bike friendly area. OpenTripPlanner's support for multi-modal (bike + transit) routing is one thing that even Google Maps doesn't have. This actually just screams <a href="http://philippine-transit.hackathome.com/prizes/">Inclusive Technology Award</a>.</p>
+<h4>Setup</h4>
+<p>Getting OpenTripPlanner up and running involves a bit more downloading than OneBusAway. I'd suggest going through the <a href="https://github.com/openplans/OpenTripPlanner/wiki/FiveMinutes">5-minute introduction</a> if you want to actually work with the Philippine data. You will also need to download the <a href="http://download.geofabrik.de/asia/philippines.html">Philippine data dump</a> from OSM. You will want the <code>osm.bz2</code> one (WARNING: 900MB unzipped).</p>
+<p>Once you get the webapp running, you'll notice the map tiles won't load correctly. This is because the default tileset used is from Mapbox which doesn't provide publicly free tilesets anymore. To actually see things on the map, you should click the + on the upper-right of the map and change the base layer to something like Open Street Map or OSM Mapquest. This has been fixed in their latest sources.</p>
+<h4>Issues</h4>
+<p>The next thing you'll notice is that you can't search for a place. You can only just pick points on the map and route between those. I'm still not exactly sure if it's supposed to have it, since the Trimet one has it. But even then adding it by using the Google Maps or MapQuest APIs shouldn't be too difficult.</p>
+<p>Another missing thing compared to the Trimet planner is being able to look at the routes akin to OneBusAway. And even then, Trimet's implementation isn't as good for exploring as OneBusAway is. Seeing the schedule or seeing which routes pass through a stop are left to an external site to do.</p>
+<p>There have been some weird issues with the routing though. A common occurence is the steps are somewhat disconnected (see image below). The left half shows OpenTripPlanner, it shows that you get off at a "stop" in EDSA and you should magically teleport to Arguilla street and start walking. To be fair, Google Maps (right half) shows that there is a street from the "stop" to Arguilla.</p>
+<p><img alt="OpenTripPlanner disconnected route" src="../galleries/transit/otp1.png"></p>
+<p>I can't say this isn't a bug. After all, OpenTripPlanner couldn't have magically known there really was a street there. If it did, it wouldn't just teleport you to the corner. I'm more inclined to think though that this is a result of not having any shape data. As a result, OpenTripPlanner might try to assume the stop could mean places within a certain radius of where it was defined.</p>
+<p>Another weird issue that pops up sometimes is where it tells you to ride a jeep past the stop you want and then after a while, get off and ride a jeep back to your stop. A more general issue is that sometimes it won't give you the best route because it thinks you have to loop around to get to where you want to be. I don't really know how common this issue pops up though. It's highly dependent on where you put the marker. If you just move the marker down a little bit, it actually does give the correct route.</p>
+<p><img alt="OpenTripPlanner loopy route" src="../galleries/transit/otp2.png"></p>
+<p>Much like the earlier problem, I can't tell if this is a bug or it's a result of the bad data. Once again though, I think the issue is more of bad data. If you look at the plotted UP-Katipunan route, the stops aren't even on the road. This probably makes it more difficult for OpenTripPlanner to actually tell if the stop and road are connected.</p>
+<p><img alt="UP Katipunan Route" src="../galleries/transit/upkatipunan.jpg"></p>
+<p>From what they said during the launch, most of the route data was collected by getting a person to ride a jeep with a smartphone. That would explain why the coordinates aren't that exact. Even then, it would have been nice if they at least cleaned up the data by moving the stops to the road. They would have had to go over them to name the stops anyway.</p>
+<h4>Conclusion</h4>
+<p>Overall though, I really like OpenTripPlanner. It handles most of the hard parts of the challenge. It provides a REST API for doing routing with the GTFS + OSM data. There's also a lot of potential for additional open source work. A lot can be done to improve the default webapp. Adding a default location searcher would greatly improve usability. Adding in the route viewing features of OneBusAway would also be nice. Alternatively, you could even write your own client that just interfaces with the API.</p>
+    
+    <ul class="pager"><li class="previous">
+            <a href="one-bus-or-maybe-jeep-away.html">← Previous post</a>
+        </li>
+    </ul><div id="disqus_thread"></div>
+        <script type="text/javascript">
+        var disqus_shortname ="pleasantprog";
+            var disqus_url="http://pleasantprogrammer.com/posts/open-trip-planner.html";
+        var disqus_title="Open Trip Planner";
+        var disqus_identifier="cache/posts/open-trip-planner.html";
+        var disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    
+
+    </div>
+
+    </div>
+    </div>
+    <!--End of body content-->
+</div>
+<div class="footerbox">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a>
+</div>
+
+
+
+            <script src="../assets/js/jquery-1.7.2.min.js" type="text/javascript"></script><script src="../assets/js/bootstrap.min.js" type="text/javascript"></script><script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script><script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script></body></html>
