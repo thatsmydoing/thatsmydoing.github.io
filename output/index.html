@@ -34,6 +34,55 @@
     <div class="span8">
     
         <div class="postbox">
+        <h1><a href="posts/fare-data.html">Fare Data</a>
+        <small>  
+             Posted: <time class="published" datetime="2013-07-13T21:15:09+08:00">2013-07-13 21:15</time></small></h1>
+        <hr><p>As part of the data released by the DOTC, we also have the <a href="http://philippine-transit.hackathome.com/dataset-philippines-transit-information-service-gtfs/">fare matrix</a> for aircon buses, ordinary buses and jeeps. All as wonderful images. The data is also actually available from the <a href="http://ltfrb.gov.ph/main/farerates">LTFRB website</a>. Generally, the fare scheme is represented as "pay <em>X</em> pesos for the first <em>Y</em> kilometers, pay <em>Z</em> for every succeeding kilometer." Instead of a table, we can simply represent this as a formula instead,</p>
+<div class="code"><pre><span class="n">base_fare</span> <span class="o">+</span> <span class="p">(</span><span class="n">distance</span> <span class="o">-</span> <span class="n">initial</span><span class="p">)</span> <span class="o">*</span> <span class="n">per_km</span>
+</pre></div>
+
+
+<p>The relevant values for the three services are:</p>
+<table><tr><td>type</td>
+    <td>base_fare</td>
+    <td>initial</td>
+    <td>per_km</td>
+  </tr><tr><td>bus aircon</td>
+    <td>12.00</td>
+    <td>5 km</td>
+    <td>2.20</td>
+  </tr><tr><td>bus ordinary</td>
+    <td>10.00</td>
+    <td>5 km</td>
+    <td>1.85</td>
+  </tr><tr><td>jeep aircon</td>
+    <td>8.00</td>
+    <td>4 km</td>
+    <td>1.40</td>
+  </tr></table><p>It isn't as simple as that though. Fares are also rounded to the nearest 25 centavos. So we'd need to round them off correctly. This can be achieved by doing,</p>
+<div class="code"><pre><span class="n">round</span><span class="p">(</span><span class="n">calculated_fare</span> <span class="o">*</span> <span class="mf">4.0</span><span class="p">)</span><span class="o">/</span><span class="mf">4.0</span>
+</pre></div>
+
+
+<p>There's also the discounted fare for students, senior citizens and persons with disability. They get 20% off the fare (prior to rounding) and the resulting fare is rounded off as well.</p>
+<p>Doing just this, we actually do get the same results as the fare matrices in the image for the most part. There are some discrepancies with the discounted jeep fares. I've tried to resolve it by tweaking around with the formulas, but it really doesn't make sense in any way. I presume these were manually adjusted for one reason or another.</p>
+<p>Here's a <a href="uploads/farematrix.rb">script</a> that generates CSVs of all the three fare matrices. If you're too lazy to run it, here are links to the <a href="uploads/pub_aircon.csv">aircon bus</a>, <a href="uploads/pub_ordinary.csv">ordinary bus</a> and <a href="uploads/puj.csv">jeep</a> fare matrices.</p>
+<h4>GTFS compatibility</h4>
+<p>As is, the provided GTFS data does not have any fare data. I imagine this is because the existing spec doesn't have good support for distance-based fares like we have in the Philippines. Judging from the <a href="https://code.google.com/p/googletransitdatafeed/wiki/FareExamples">fare examples</a>, the only reasonable way we could implement distance-based fares is following example 6. This would involve setting a fare for each possible pair of stops based on the distance between them. This isn't exactly ideal. In fact, the people originally working on the DOTC project have voiced <a href="https://groups.google.com/forum/#!topic/gtfs-fare-wg/V63xRSnQJGw">issues</a> and made <a href="https://groups.google.com/forum/#!msg/gtfs-changes/uybrAokZ9Cg/rqlzXdMypUgJ">proposals</a> for having distance-based fares included into GTFS.</p>
+<p>Apparently, public transit fares are a really complicated thing. You have fares based on distance, number of stops passed through, and transfers which may or may not cost extra. Not only that, you might have discounted fares, or first-class vs economy fares. The community will want to get it right before it's formally included in the spec. You can see the current state of the consolidated <a href="https://docs.google.com/document/d/1mK3--o5g4-3cCXaqmch92U63JTwChh0L2VCmcDViIlM/edit">GTFS fare proposal here</a>.</p>
+<p>Even in it's proposal form though, we might have hope of being able to see these being used. There's currently a <a href="https://github.com/OneBusAway/onebusaway-gtfs-modules/pull/30">pull request</a> for supporting the distance-based fare scheme into the OneBusAway libraries. The libraries actually used by GTFS Editor and OpenTripPlanner for working with GTFS data.</p>
+<h4>Remaining Problems</h4>
+<p>Given all that, it would probably still be a long way before this allows us to make a really good routing app. We still don't have shape data, so the distance estimates would really be rough estimates at best. There's no support for rounding to the nearest centavo. I realize that's just nitpicking, but if we want something truly polished, even that has to be taken care of.</p>
+<p>We also don't know if the jeeps or buses strictly follow the distance-based scheme. After all, if you can get on and off anywhere, you can't really measure distance that exactly. I assume they generally work off the notion of "zones" than actual distance travelled. In that sense, they work more similarly to the LRT which has fares based on how many stops you pass. For jeeps and buses, your fare is probably based more on how many "zones" you pass through.</p>
+<h4>Conclusion</h4>
+<p>Philip, a co-worker of mine at By Implication, had suggested that we might want to use a different model than what the GTFS proposes. I have to agree with him. At this point, the GTFS doesn't really fit with our system. But I do think that open data and standards are great. In fact, I applaud the developers who made proposals for the fare system, as those are great first steps towards making the GTFS a more universal standard.</p>
+<p>Side note: I'd also actually really like to hear about the DOTC developers' experience with the project. It would be nice if they had a devblog.</p>
+            
+    <p>
+        <a href="posts/fare-data.html#disqus_thread" data-disqus-identifier="cache/posts/fare-data.html">Comments</a>
+
+        </p></div>
+        <div class="postbox">
         <h1><a href="posts/gtfs-editor.html">GTFS Editor</a>
         <small>  
              Posted: <time class="published" datetime="2013-07-10T11:30:01+08:00">2013-07-10 11:30</time></small></h1>
