@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>GraphServer | Pleasant Programmer</title><link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]>
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Elevation Data in OTP | Pleasant Programmer</title><link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml"></head><body>
 <!-- Menubar -->
@@ -23,7 +23,7 @@
             </li><li><a href="../rss.xml">RSS</a>
 
                 </li></ul><ul class="nav pull-right"><li>
-    <a href="graphserver.md" id="sourcelink">Source</a>
+    <a href="elevation-data-in-otp.md" id="sourcelink">Source</a>
     </li>
 
                 </ul></div>
@@ -39,10 +39,10 @@
     
     <div class="postbox">
     
-    <h1>GraphServer</h1>
+    <h1>Elevation Data in OTP</h1>
 
     <hr><small>
-        Posted: <time class="published" datetime="2013-07-23T14:48:29+08:00">2013-07-23 14:48</time>
+        Posted: <time class="published" datetime="2013-07-23T18:23:00+08:00">2013-07-23 18:23</time>
         
 
         
@@ -51,25 +51,26 @@
             <a class="tag" href="../categories/programming.html"><span class="badge badge-info">programming</span></a>
 
     </small>
-    <hr><p>Link: <a href="http://graphserver.github.io/graphserver/">http://graphserver.github.io/graphserver/</a></p>
-<p>One other routing webapp I saw was GraphServer. It's actually more of a general purpose Graph library which supports GTFS and OSM data than an actual dedicated routing software like OpenTripPlanner. It's also based off python and C instead of Java, so it feels a lot less heavy.</p>
-<p>The instructions on the website are already pretty good. There are just some minor errors with it. Where it says <code>gs_gtfsdb_build</code>, you should actually use <code>gs_gtfsdb_compile</code>. Also, when running <code>gs_osmdb_compile</code> you might need to use <code>-t</code> for tolerant in case you follow the instructions on chopping up the original OSM data.</p>
-<p>A nice suggestion from the GraphServer instructions was to crop the OSM data to minimize the graph size. This is actually quite helpful if you downloaded the entire Philippine OSM dump. It reduced the original 900MB file to 135MB which was a lot more workable. I did hit a problem with their instructions though. The linked version of osmosis is an old one, which doesn't support 64-bit ids. The <a href="http://wiki.openstreetmap.org/wiki/Osmosis">latest version of Osmosis</a> easily did the job though.</p>
-<p>The actual routing though, was not exactly good. I only tried one route which should normally take 1-2 transfers, it suggested a route which involved 4+ transfers. It also didn't provide any alternate routes aside from that one. I'm not sure if it's a limitation of the provided routeserver, but I didn't bother checking if it supported parameters which might provide better routes.</p>
-<p>I think graphserver could be useful, but it seems more involved than say OpenTripPlanner. There do seem to be people who use graphserver for their routing apps, but for the bounds of the contest, or just as a side project, it might require too much effort.</p>
+    <hr><p><img alt="OpenTripPlanner showing elevation data" src="../galleries/transit/otpelevation.png"></p>
+<p>One thing I hadn't tested out last time was OTP's support for elevation data. It makes use of this by showing the elevation you have to traverse while walking along the suggested route. It can also take it into account when suggesting bike routes.</p>
+<p>The <a href="https://github.com/openplans/OpenTripPlanner/wiki/FiveMinutes">5 minute tutorial</a> actually discusses the elevation data briefly, but a more in-depth thing you can look at is the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#elevation-data">GraphBuilder documentation</a>. It suggests using the ASTER dataset which is free but requires registration. I just opted to use the SRTM data available from the <a href="http://www.philgis.org/freegisdata.htm">PhilGIS website</a>.</p>
+<p>I don't know about the ASTER dataset, but the PhilGIS data was in the ERDAS img format. OTP only supports GeoTIFF so there was a need to convert it beforehand. You can use <a href="http://www.gdal.org/">GDAL</a> for this. You'd just then run,</p>
+<div class="code"><pre> <span class="n">gdal_translate</span> <span class="n">srtm41_90m_phl</span><span class="p">.</span><span class="n">img</span> <span class="n">phil</span><span class="p">.</span><span class="n">tiff</span>
+</pre></div>
+
+
+<p>Afterwards, it's just a matter of following the OTP instructions on using a local elevation dataset. The process actually doubled the size of the generated Graph.obj so it might not be ideal if you're running on limited RAM.</p>
+<p>I've actually hosted a <a href="http://maps.pleasantprogrammer.com">working example</a>. It's pretty much at the limits of the RAM so it might be slow and unreliable, but you can test it out just for fun. Please don't abuse it though.</p>
     
     <ul class="pager"><li class="previous">
-            <a href="transit-wand.html">← Previous post</a>
-        </li>
-        <li class="next">
-            <a href="elevation-data-in-otp.html">Next post →</a>
+            <a href="graphserver.html">← Previous post</a>
         </li>
     </ul><div id="disqus_thread"></div>
         <script type="text/javascript">
         var disqus_shortname ="pleasantprog";
-            var disqus_url="http://pleasantprogrammer.com/posts/graphserver.html";
-        var disqus_title="GraphServer";
-        var disqus_identifier="cache/posts/graphserver.html";
+            var disqus_url="http://pleasantprogrammer.com/posts/elevation-data-in-otp.html";
+        var disqus_title="Elevation Data in OTP";
+        var disqus_identifier="cache/posts/elevation-data-in-otp.html";
         var disqus_config = function () {
             this.language = "en";
         };
