@@ -34,6 +34,21 @@
     <div class="span8">
     
         <div class="postbox">
+        <h1><a href="posts/graphserver.html">GraphServer</a>
+        <small>  
+             Posted: <time class="published" datetime="2013-07-23T14:48:29+08:00">2013-07-23 14:48</time></small></h1>
+        <hr><p>Link: <a href="http://graphserver.github.io/graphserver/">http://graphserver.github.io/graphserver/</a></p>
+<p>One other routing webapp I saw was GraphServer. It's actually more of a general purpose Graph library which supports GTFS and OSM data than an actual dedicated routing software like OpenTripPlanner. It's also based off python and C instead of Java, so it feels a lot less heavy.</p>
+<p>The instructions on the website are already pretty good. There are just some minor errors with it. Where it says <code>gs_gtfsdb_build</code>, you should actually use <code>gs_gtfsdb_compile</code>. Also, when running <code>gs_osmdb_compile</code> you might need to use <code>-t</code> for tolerant in case you follow the instructions on chopping up the original OSM data.</p>
+<p>A nice suggestion from the GraphServer instructions was to crop the OSM data to minimize the graph size. This is actually quite helpful if you downloaded the entire Philippine OSM dump. It reduced the original 900MB file to 135MB which was a lot more workable. I did hit a problem with their instructions though. The linked version of osmosis is an old one, which doesn't support 64-bit ids. The <a href="http://wiki.openstreetmap.org/wiki/Osmosis">latest version of Osmosis</a> easily did the job though.</p>
+<p>The actual routing though, was not exactly good. I only tried one route which should normally take 1-2 transfers, it suggested a route which involved 4+ transfers. It also didn't provide any alternate routes aside from that one. I'm not sure if it's a limitation of the provided routeserver, but I didn't bother checking if it supported parameters which might provide better routes.</p>
+<p>I think graphserver could be useful, but it seems more involved than say OpenTripPlanner. There do seem to be people who use graphserver for their routing apps, but for the bounds of the contest, or just as a side project, it might require too much effort.</p>
+            
+    <p>
+        <a href="posts/graphserver.html#disqus_thread" data-disqus-identifier="cache/posts/graphserver.html">Comments</a>
+
+        </p></div>
+        <div class="postbox">
         <h1><a href="posts/transit-wand.html">Transit Wand</a>
         <small>  
              Posted: <time class="published" datetime="2013-07-15T22:45:20+08:00">2013-07-15 22:45</time></small></h1>
