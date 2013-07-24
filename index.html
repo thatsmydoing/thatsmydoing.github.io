@@ -34,6 +34,25 @@
     <div class="span8">
     
         <div class="postbox">
+        <h1><a href="posts/elevation-data-in-otp.html">Elevation Data in OTP</a>
+        <small>  
+             Posted: <time class="published" datetime="2013-07-23T18:23:00+08:00">2013-07-23 18:23</time></small></h1>
+        <hr><p><img alt="OpenTripPlanner showing elevation data" src="galleries/transit/otpelevation.png"></p>
+<p>One thing I hadn't tested out last time was OTP's support for elevation data. It makes use of this by showing the elevation you have to traverse while walking along the suggested route. It can also take it into account when suggesting bike routes.</p>
+<p>The <a href="https://github.com/openplans/OpenTripPlanner/wiki/FiveMinutes">5 minute tutorial</a> actually discusses the elevation data briefly, but a more in-depth thing you can look at is the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#elevation-data">GraphBuilder documentation</a>. It suggests using the ASTER dataset which is free but requires registration. I just opted to use the SRTM data available from the <a href="http://www.philgis.org/freegisdata.htm">PhilGIS website</a>.</p>
+<p>I don't know about the ASTER dataset, but the PhilGIS data was in the ERDAS img format. OTP only supports GeoTIFF so there was a need to convert it beforehand. You can use <a href="http://www.gdal.org/">GDAL</a> for this. You'd just then run,</p>
+<div class="code"><pre> <span class="n">gdal_translate</span> <span class="n">srtm41_90m_phl</span><span class="p">.</span><span class="n">img</span> <span class="n">phil</span><span class="p">.</span><span class="n">tiff</span>
+</pre></div>
+
+
+<p>Afterwards, it's just a matter of following the OTP instructions on using a local elevation dataset. The process actually doubled the size of the generated Graph.obj so it might not be ideal if you're running on limited RAM.</p>
+<p>I've actually hosted a <a href="http://maps.pleasantprogrammer.com">working example</a>. It's pretty much at the limits of the RAM so it might be slow and unreliable, but you can test it out just for fun. Please don't abuse it though.</p>
+            
+    <p>
+        <a href="posts/elevation-data-in-otp.html#disqus_thread" data-disqus-identifier="cache/posts/elevation-data-in-otp.html">Comments</a>
+
+        </p></div>
+        <div class="postbox">
         <h1><a href="posts/graphserver.html">GraphServer</a>
         <small>  
              Posted: <time class="published" datetime="2013-07-23T14:48:29+08:00">2013-07-23 14:48</time></small></h1>
