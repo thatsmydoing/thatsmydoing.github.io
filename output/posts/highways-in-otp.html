@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Highways in OTP | Pleasant Programmer</title><link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml"></head><body>
+<!-- Menubar -->
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+            <a class="brand" href="../">
+            Pleasant Programmer
+            </a>
+            <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+                <ul class="nav"><li><a href="../archive.html">Archives</a>
+            </li><li><a href="../categories/index.html">Tags</a>
+            </li><li><a href="../rss.xml">RSS</a>
+
+                </li></ul><ul class="nav pull-right"><li>
+    <a href="highways-in-otp.md" id="sourcelink">Source</a>
+    </li>
+
+                </ul></div>
+        </div>
+    </div>
+</div>
+<!-- End of Menubar -->
+<div class="container-fluid" id="container-fluid">
+    <!--Body content-->
+    <div class="row-fluid">
+    <div class="span2"></div>
+    <div class="span8">
+    
+    <div class="postbox">
+    
+    <h1>Highways in OTP</h1>
+
+    <hr><small>
+        Posted: <time class="published" datetime="2013-07-24T23:15:57+08:00">2013-07-24 23:15</time>
+        
+
+        
+          |  More posts about
+            <a class="tag" href="../categories/philippine-transit-app.html"><span class="badge badge-info">philippine-transit-app</span></a>
+            <a class="tag" href="../categories/programming.html"><span class="badge badge-info">programming</span></a>
+
+    </small>
+    <hr><p>One of the weird things that happens with OTP is sometimes it gives absurdly roundabout routes. Here is OTP's suggested route for walking from UP to Ateneo:</p>
+<p><img alt="Roundabout route from UP to Ateneo" src="../galleries/transit/otproundabout.png"></p>
+<p>This is just so hilariously wrong. It's much simpler to just walk along Katipunan Avenue.</p>
+<p>OTP couldn't possibly be that dumb though, so there must be something we're doing wrong. If you notice, Katipunan Avenue is colored red compared to the other streets. OTP seems to be avoiding any path that goes along Katipunan Avenue. The problem might have something to do with the "road type" designated to Katipunan.</p>
+<p>Apparently, by default OTP will consider roads of type <code>trunk</code> to be non-walkable and non-bikable. This is documented in the <a href="http://wiki.openstreetmap.org/wiki/OpenTripPlanner">OpenStreetMap wiki</a> and the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#permissions-and-bicycle-safety">OTP wiki</a> as well. There are actually multiple ways to go about this then. The first solution that came to mind was to just edit the original OSM XML file.</p>
+<div class="code"><pre><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="p">.</span><span class="n">bak</span> <span class="n">s</span><span class="o">/</span><span class="n">trunk</span><span class="o">/</span><span class="n">primary</span><span class="o">/</span><span class="n">g</span> <span class="n">manila</span><span class="p">.</span><span class="n">osm</span>
+</pre></div>
+
+
+<p>And rebuild the graph. It doesn't really matter much because the OSM data isn't used to render the maps. It's just used to build the routing data. This is actually what I did for <a href="http://maps.pleasantprogrammer.com">maps.pleasantprogrammer.com</a>.</p>
+<p>It's also possible to set the default way properties in OTP. Instead of disallowing walking and biking on <code>highway=trunk</code> we could allow that. This is not much better than the <code>sed</code> solution though. It's better since you keep the weighting done by OTP, but you're still saying that all trunks are walkable which might not be the case.</p>
+<p>The most correct way to actually fix this is to go through each of the trunks and specifying <code>foot=yes</code> and <code>bicycle=yes</code> for those trunks that are actually walkable. You could either do this locally with the dumped data, or contribute it directly to OSM. I'm not sure on the particulars with updating OSM though.</p>
+    
+    <ul class="pager"><li class="previous">
+            <a href="elevation-data-in-otp.html">← Previous post</a>
+        </li>
+    </ul><div id="disqus_thread"></div>
+        <script type="text/javascript">
+        var disqus_shortname ="pleasantprog";
+            var disqus_url="http://pleasantprogrammer.com/posts/highways-in-otp.html";
+        var disqus_title="Highways in OTP";
+        var disqus_identifier="cache/posts/highways-in-otp.html";
+        var disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    
+
+    </div>
+
+    </div>
+    </div>
+    <!--End of body content-->
+</div>
+<div class="footerbox">
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a>
+</div>
+
+
+
+            <script src="../assets/js/jquery-1.7.2.min.js" type="text/javascript"></script><script src="../assets/js/bootstrap.min.js" type="text/javascript"></script><script src="../assets/js/jquery.colorbox-min.js" type="text/javascript"></script><script type="text/javascript">jQuery("a.image-reference").colorbox({rel:"gal",maxWidth:"80%",maxHeight:"80%",scalePhotos:true});</script></body></html>
