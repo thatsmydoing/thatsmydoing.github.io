@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Pleasant Programmer (programming)</title><link>http://pleasantprogrammer.com</link><description></description><lastBuildDate>Wed, 24 Jul 2013 23:54:41 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Highways in OTP</title><link>http://pleasantprogrammer.com/posts/highways-in-otp.html</link><description>&lt;html&gt;&lt;body&gt;&lt;p&gt;One of the weird things that happens with OTP is sometimes it gives absurdly roundabout routes. Here is OTP's suggested route for walking from UP to Ateneo:&lt;/p&gt;
+<rss version="2.0"><channel><title>Pleasant Programmer (programming)</title><link>http://pleasantprogrammer.com</link><description></description><lastBuildDate>Sun, 28 Jul 2013 16:24:44 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Highways in OTP</title><link>http://pleasantprogrammer.com/posts/highways-in-otp.html</link><description>&lt;html&gt;&lt;body&gt;&lt;p&gt;One of the weird things that happens with OTP is sometimes it gives absurdly roundabout routes. Here is OTP's suggested route for walking from UP to Ateneo:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Roundabout route from UP to Ateneo" src="/galleries/transit/otproundabout.png"&gt;&lt;/p&gt;
 &lt;p&gt;This is just so hilariously wrong. It's much simpler to just walk along Katipunan Avenue.&lt;/p&gt;
 &lt;p&gt;OTP couldn't possibly be that dumb though, so there must be something we're doing wrong. If you notice, Katipunan Avenue is colored red compared to the other streets. OTP seems to be avoiding any path that goes along Katipunan Avenue. The problem might have something to do with the "road type" designated to Katipunan.&lt;/p&gt;
@@ -39,11 +39,11 @@
 
 
 &lt;p&gt;The relevant values for the three services are:&lt;/p&gt;
-&lt;table&gt;&lt;tr&gt;&lt;td&gt;type&lt;/td&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;td&gt;type&lt;/td&gt;
     &lt;td&gt;base_fare&lt;/td&gt;
     &lt;td&gt;initial&lt;/td&gt;
     &lt;td&gt;per_km&lt;/td&gt;
-  &lt;/tr&gt;&lt;tr&gt;&lt;td&gt;bus aircon&lt;/td&gt;
+  &lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;bus aircon&lt;/td&gt;
     &lt;td&gt;12.00&lt;/td&gt;
     &lt;td&gt;5 km&lt;/td&gt;
     &lt;td&gt;2.20&lt;/td&gt;
@@ -55,7 +55,7 @@
     &lt;td&gt;8.00&lt;/td&gt;
     &lt;td&gt;4 km&lt;/td&gt;
     &lt;td&gt;1.40&lt;/td&gt;
-  &lt;/tr&gt;&lt;/table&gt;&lt;p&gt;It isn't as simple as that though. Fares are also rounded to the nearest 25 centavos. So we'd need to round them off correctly. This can be achieved by doing,&lt;/p&gt;
+  &lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;It isn't as simple as that though. Fares are also rounded to the nearest 25 centavos. So we'd need to round them off correctly. This can be achieved by doing,&lt;/p&gt;
 &lt;div class="code"&gt;&lt;pre&gt;&lt;span class="n"&gt;round&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;calculated_fare&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mf"&gt;4.0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;4.0&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
