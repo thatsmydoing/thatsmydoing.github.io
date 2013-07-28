@@ -1,80 +1,137 @@
+
 body {
-  padding-top: 60px;
-}
-@media (max-width: 979px) {
-  body {
-    padding-top: 0px;
-  }
-}
-#container {
-    width: 960px;
-    margin: 50 auto;
+	font-family: Garamond, Georgia, serif;
+	font-size: 24px;
+	line-height: 34px;
 }
 
-#contentcolumn {
-    max-width: 760px;
-}
-#q {
-    width: 150px;
+p {
+	text-align: justify;
+	hyphens: auto;
+	-moz-hyphens: auto;
 }
 
-img {
-    max-width: 90%;
+hr {
+	border-color: #D3D3D3;
+	border-width: 1px 0px;
+}
+
+a {
+	color: #6495ED;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+code, pre {
+	font-family: Monaco, Menlo, Consolas, monospace;
+}
+
+code {
+	background: #FFFFE0;
+	font-size: 18px;
+	padding: 0px 4px;
+	border-radius: 4px;
+}
+
+.code {
+	padding: 2px 10px;
+	border-radius: 5px;
+}
+
+.code pre {
+	font-size: 16px;
+	line-height: 24px;
+	overflow-x: auto;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	padding: 0px 10px;
+}
+
+thead tr {
+	font-weight: bold;
+	border-bottom: solid 1px #808080;
+}
+
+.clearfix:after {
+   content: " ";
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+.header > h1 {
+	display: inline;
+}
+
+.header a {
+	color: black;
+}
+
+.nav {
+	display: inline;
+	padding: 0px;
+}
+
+.nav li {
+	list-style: none;
+	margin: 0px 8px;
+	float: right;
+	font-size: 20px;
+}
+
+.container {
+	max-width: 780px;
+	margin: 0 auto;
+}
+
+.footer {
+	text-align: center;
 }
 
 .postbox {
-    border-bottom: 2px solid darkgrey;
-    margin-bottom: 12px;
+	margin-top: 50px;
 }
 
-.footerbox {padding: 15px; text-align: center; margin-bottom: 15px;}
-
-td.label {
-    /* Issue #290 */
-    background-color: inherit;
+.postbox img {
+	max-width: 100%;
 }
 
-.footnote-reference {
-    /* Issue 290 */
-    vertical-align: super;
-    font-size: xx-small;
+.postbox .title h1 a {
+	color: black;
 }
 
-.caption {
-    /* Issue 292 */
-    text-align: center;
+.postbox .title h1 small {
+	float: right;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 22px;
+	color: #808080;
 }
 
-div.figure > a > img {
-    /* Issue 292 */
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.pager {
+	list-style: none;
+	margin: 20px 0px;
+	text-align: center;
+	line-height: 20px;
+	padding: 0px;
 }
 
-div.sidebar, div.admonition, div.attention, div.caution, div.danger, div.error, div.hint, div.important, div.note, div.tip, div.warning {
-    /* Issue 277 */
-    border: 1px solid #aaa;
-    border-radius: 5px;
+.pager li > a {
+	display: inline-block;
 }
 
-blockquote p, blockquote {
-  font-size: 17.5px;
-  font-weight: 300;
-  line-height: 1.25;
+.pager .previous a {
+	float: left;
 }
 
-ul.bricks > li {
-    display: inline;
-    background-color: lightblue;
-    padding: 8px;
-    border-radius: 5px;
-    line-height: 3;
-    white-space:nowrap;
-    margin: 3px;
-}
-
-h1, h2, h3, h4, h5, h6, h7 {
-    margin-top: -40px;
-    padding-top: 40px;
+.pager .next a {
+	float: right;
 }

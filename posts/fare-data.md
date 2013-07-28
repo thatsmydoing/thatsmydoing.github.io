@@ -1,6 +1,6 @@
-<!-- 
-.. link: 
-.. description: 
+<!--
+.. link:
+.. description:
 .. tags: philippine-transit-app, programming
 .. date: 2013/07/13 21:15:09
 .. title: Fare Data
@@ -14,12 +14,15 @@ As part of the data released by the DOTC, we also have the [fare matrix](http://
 The relevant values for the three services are:
 
 <table>
+<thead>
   <tr>
     <td>type</td>
     <td>base_fare</td>
     <td>initial</td>
     <td>per_km</td>
   </tr>
+</thead>
+<tbody>
   <tr>
   	<td>bus aircon</td>
   	<td>12.00</td>
@@ -38,6 +41,7 @@ The relevant values for the three services are:
   	<td>4 km</td>
   	<td>1.40</td>
   </tr>
+</tbody>
 </table>
 
 It isn't as simple as that though. Fares are also rounded to the nearest 25 centavos. So we'd need to round them off correctly. This can be achieved by doing,
