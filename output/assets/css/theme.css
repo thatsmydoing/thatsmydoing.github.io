@@ -7,6 +7,8 @@ body {
 
 p {
 	text-align: justify;
+	hyphens: auto;
+	-moz-hyphens: auto;
 }
 
 hr {
