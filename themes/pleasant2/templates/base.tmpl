@@ -1,0 +1,47 @@
+## -*- coding: utf-8 -*-
+<%namespace file="base_helper.tmpl" import="*"/>
+${set_locale(lang)}
+<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    ${html_head()}
+    <%block name="extra_head">
+    </%block>
+    ${extra_head_data}
+</head>
+<body>
+    <div class="header">
+        ## TODO: fix this shit
+        <a href="${abs_link('/')}" title="${blog_title}">
+            <img src="/assets/img/thomas.png" alt="pleasant thomas">
+            <h1 id="blog-title">
+                ${blog_title}
+            </h1>
+        </a>
+        <br />
+            ## ${html_sidebar_links()}
+        <a class="twitter" href="http://twitter.com/pleasantprog">@pleasantprog</a>
+
+        <%block name="belowtitle">
+            %if len(translations) > 1:
+            <small>
+                ${(messages("Also available in"))}:&nbsp;
+                ${html_translations()}
+            </small>
+            %endif
+        </%block>
+    </div>
+    <div class="container">
+        <div class="content">
+            <%block name="content"></%block>
+        </div>
+
+        <div class="footer"><small>${content_footer}</small></div>
+    </div>
+
+    %if add_this_buttons:
+    <script type="text/javascript">var addthis_config={"ui_language":"${lang}"};</script>
+    % endif
+    ${analytics}
+</body>
