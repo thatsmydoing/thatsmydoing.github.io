@@ -182,9 +182,19 @@ thead tr {
 }
 
 .postbox .title h1 a {
-	color: black;
+	color: #534741;
+	border-bottom: 0px solid transparent;
+	-webkit-transition: all 0.2s;
+	   -moz-transition: all 0.2s;
+		-ms-transition: all 0.2s;
+			transition: all 0.2s;
+	padding-bottom: 12px;
 }
 
+.postbox .title h1 a:hover {
+	border-bottom: 2px solid #534741;
+	padding-bottom: 0;
+}
 .postbox .title h1 small {
 	float: right;
 	font-size: 50%;
