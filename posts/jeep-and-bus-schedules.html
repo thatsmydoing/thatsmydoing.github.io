@@ -1,17 +1,20 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Jeep and Bus Schedules | Pleasant Programmer</title><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]>
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Jeep and Bus Schedules | Pleasant Programmer</title><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script><!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml"></head><body>
-    <div class="container">
-        <div class="header clearfix">
-        <h1 id="blog-title">
-            <a href="../" title="Pleasant Programmer">Pleasant Programmer</a>
-        </h1>
-        <ul class="nav"><li><a href="../archive.html">Archives</a>
+    <header><a href="../" title="Pleasant Programmer">
+            <div class="thomas">
+                <img src="../assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS"><img src="../assets/img/thomas.png" alt="Pleasant Programmer"></div>
+            <h1 id="blog-title">
+                Pleasant Programmer
+            </h1>
+        </a>
+        <ul class="nav"><li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+            
+            <li><a href="../archive.html">Archives</a>
             </li><li><a href="../categories/index.html">Tags</a>
             </li><li><a href="../rss.xml">RSS</a>
 
-            </li><li><a href="http://www.twitter.com/pleasantprog">@pleasantprog</a></li>
-        <ul class="nav"></ul></ul></div>
+        </li></ul></header><div class="container">
         <div class="content">
             
     <div class="postbox">
@@ -19,7 +22,7 @@
         
     <h1>Jeep and Bus Schedules</h1>
 
-        <hr><small>
+        <small>
             Posted: 2013-07-28 16:26
             
 
@@ -30,7 +33,7 @@
 
         </small>
     </div>
-    <hr><p>Wouldn't it be wonderful if there were no buses or jeepneys in the Philippines over the weekends? It would truly be a cyclist's paradise. Imagine biking along EDSA, normally that would be a death sentence, but according to the GTFS data, you shouldn't worry. I can assure you, it's still a death sentence.</p>
+    <p>Wouldn't it be wonderful if there were no buses or jeepneys in the Philippines over the weekends? It would truly be a cyclist's paradise. Imagine biking along EDSA, normally that would be a death sentence, but according to the GTFS data, you shouldn't worry. I can assure you, it's still a death sentence.</p>
 <p>The GTFS spec defines 2 ways of statically specifying trip schedules. You can define the exact times that a service will arrive at a stop. You can also specify between what times the service is active and how often a new bus or jeep leaves the first stop. You also define which days those rules apply. You could say every MWF, the bus operates from 9:00AM to 9:00PM and every TTH, the bus services from 3:00AM to 11:00PM.</p>
 <p>This should be sufficient in theory, but real world conditions like traffic or the weather could throw the schedules off. To solve this, there's another spec, GTFS-realtime. This allows transit agencies to push temporary schedule updates and service announcements.</p>
 <p>Like much everything else about the Philippine transit system, there aren't really any "schedules" to speak of. It's generally whenever the buses or jeeps feel like it. So we have no static schedules. We don't have a central agency or the tracking technology to make it feasible to push updates via GTFS-RT.</p>
@@ -73,9 +76,16 @@ sed -i .bak <span class="s1">'/^72/ s/,600/,60/'</span> frequencies.txt
     </div>
 
         </div>
-
-        <div class="footer"><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small></div>
     </div>
+    <footer><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        <script src="../assets/js/konami.js"></script><script src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>
+            var easter_egg = new Konami();
+            easter_egg.code = function() { 
+                $(".thomas").toggleClass("whoa");
+                $("body").scrollTop(0);
+            }
+            easter_egg.load();
 
-    
-</body></html>
+            // love you, thomas!
+            // yours, @_phi + @meggykawsek
+        </script></footer></body></html>

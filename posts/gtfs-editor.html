@@ -1,17 +1,20 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>GTFS Editor | Pleasant Programmer</title><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]>
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>GTFS Editor | Pleasant Programmer</title><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script><!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml"></head><body>
-    <div class="container">
-        <div class="header clearfix">
-        <h1 id="blog-title">
-            <a href="../" title="Pleasant Programmer">Pleasant Programmer</a>
-        </h1>
-        <ul class="nav"><li><a href="../archive.html">Archives</a>
+    <header><a href="../" title="Pleasant Programmer">
+            <div class="thomas">
+                <img src="../assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS"><img src="../assets/img/thomas.png" alt="Pleasant Programmer"></div>
+            <h1 id="blog-title">
+                Pleasant Programmer
+            </h1>
+        </a>
+        <ul class="nav"><li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+            
+            <li><a href="../archive.html">Archives</a>
             </li><li><a href="../categories/index.html">Tags</a>
             </li><li><a href="../rss.xml">RSS</a>
 
-            </li><li><a href="http://www.twitter.com/pleasantprog">@pleasantprog</a></li>
-        <ul class="nav"></ul></ul></div>
+        </li></ul></header><div class="container">
         <div class="content">
             
     <div class="postbox">
@@ -19,7 +22,7 @@
         
     <h1>GTFS Editor</h1>
 
-        <hr><small>
+        <small>
             Posted: 2013-07-10 11:30
             
 
@@ -31,7 +34,7 @@
 
         </small>
     </div>
-    <hr><p>Link: <a href="https://github.com/conveyal/gtfs-editor">https://github.com/conveyal/gtfs-editor</a></p>
+    <p>Link: <a href="https://github.com/conveyal/gtfs-editor">https://github.com/conveyal/gtfs-editor</a></p>
 <p><strong>TL;DR</strong> they really meant under development</p>
 <p>When I first saw the source of GTFS Editor, I was ecstatic. They used <a href="http://playframework.com/">Play framework</a>!!! Not only that, they're targeting PostgreSQL as the main database. Those are our favorite tools for building webapps at By Implication. I was a bit sad though, when I saw it was on the 1.x release of Play though. I did have some experience with that release, but not as much compared to 2.x.</p>
 <p>Getting it to actually run though, wasn't very pleasant. The initial setup was easy enough. Get <a href="http://www.playframework.com/download">Play 1.2.5</a>, install Postgres with PostGIS, clone the repo and create backing database in Postgres. Some minor additional steps you need are to create the PostGIS extension on the database. The schema is automatically generated and applied by Play so that should be all that's necessary. Wonderful. Then, run play, open a browser, go to <a href="http://localhost:9000">http://localhost:9000</a>, compilation error. Fantastic.</p>
@@ -234,9 +237,16 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
     </div>
 
         </div>
-
-        <div class="footer"><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small></div>
     </div>
+    <footer><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        <script src="../assets/js/konami.js"></script><script src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>
+            var easter_egg = new Konami();
+            easter_egg.code = function() { 
+                $(".thomas").toggleClass("whoa");
+                $("body").scrollTop(0);
+            }
+            easter_egg.load();
 
-    
-</body></html>
+            // love you, thomas!
+            // yours, @_phi + @meggykawsek
+        </script></footer></body></html>
