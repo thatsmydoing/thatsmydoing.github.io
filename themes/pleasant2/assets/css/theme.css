@@ -181,22 +181,27 @@ footer {
 	border-bottom: 2px solid #534741;
 	padding-bottom: 0;
 }
-.postbox .title small {
+.postbox .title h1 small {
 	float: right;
 	font-size: 50%;
 	font-weight: normal;
-	color: #808080;
 	line-height: 3;
+}
+
+.postbox .title small {
+	opacity: 0.75;
 }
 
 .pager {
 	list-style: none;
 	text-align: center;
 	padding: 0px;
+	font-size: 1.5em;
 }
 
 .pager li > a {
 	display: inline-block;
+	color: #534741;
 }
 
 .pager .previous a {
