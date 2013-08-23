@@ -1,17 +1,20 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Elevation Data in OTP | Pleasant Programmer</title><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><link href="../assets/css/custom.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]>
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Elevation Data in OTP | Pleasant Programmer</title><link href="../assets/css/rst.css" rel="stylesheet" type="text/css"><link href="../assets/css/code.css" rel="stylesheet" type="text/css"><link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="../assets/css/theme.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script><!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml"></head><body>
-    <div class="container">
-        <div class="header clearfix">
-        <h1 id="blog-title">
-            <a href="../" title="Pleasant Programmer">Pleasant Programmer</a>
-        </h1>
-        <ul class="nav"><li><a href="../archive.html">Archives</a>
+    <header><a href="../" title="Pleasant Programmer">
+            <div class="thomas">
+                <img src="../assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS"><img src="../assets/img/thomas.png" alt="Pleasant Programmer"></div>
+            <h1 id="blog-title">
+                Pleasant Programmer
+            </h1>
+        </a>
+        <ul class="nav"><li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+            
+            <li><a href="../archive.html">Archives</a>
             </li><li><a href="../categories/index.html">Tags</a>
             </li><li><a href="../rss.xml">RSS</a>
 
-            </li><li><a href="http://www.twitter.com/pleasantprog">@pleasantprog</a></li>
-        <ul class="nav"></ul></ul></div>
+        </li></ul></header><div class="container">
         <div class="content">
             
     <div class="postbox">
@@ -19,7 +22,7 @@
         
     <h1>Elevation Data in OTP</h1>
 
-        <hr><small>
+        <small>
             Posted: 2013-07-23 18:23
             
 
@@ -30,7 +33,7 @@
 
         </small>
     </div>
-    <hr><p><img alt="OpenTripPlanner showing elevation data" src="../galleries/transit/otpelevation.png"></p>
+    <p><img alt="OpenTripPlanner showing elevation data" src="../galleries/transit/otpelevation.png"></p>
 <p>One thing I hadn't tested out last time was OTP's support for elevation data. It makes use of this by showing the elevation you have to traverse while walking along the suggested route. It can also take it into account when suggesting bike routes.</p>
 <p>The <a href="https://github.com/openplans/OpenTripPlanner/wiki/FiveMinutes">5 minute tutorial</a> actually discusses the elevation data briefly, but a more in-depth thing you can look at is the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#elevation-data">GraphBuilder documentation</a>. It suggests using the ASTER dataset which is free but requires registration. I just opted to use the SRTM data available from the <a href="http://www.philgis.org/freegisdata.htm">PhilGIS website</a>.</p>
 <p>I don't know about the ASTER dataset, but the PhilGIS data was in the ERDAS img format. OTP only supports GeoTIFF so there was a need to convert it beforehand. You can use <a href="http://www.gdal.org/">GDAL</a> for this. You'd just then run,</p>
@@ -66,9 +69,16 @@
     </div>
 
         </div>
-
-        <div class="footer"><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small></div>
     </div>
+    <footer><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        <script src="../assets/js/konami.js"></script><script src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>
+            var easter_egg = new Konami();
+            easter_egg.code = function() { 
+                $(".thomas").toggleClass("whoa");
+                $("body").scrollTop(0);
+            }
+            easter_egg.load();
 
-    
-</body></html>
+            // love you, thomas!
+            // yours, @_phi + @meggykawsek
+        </script></footer></body></html>

@@ -1,27 +1,30 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Pleasant Programmer (old posts page 1) | Pleasant Programmer</title><link href="assets/css/rst.css" rel="stylesheet" type="text/css"><link href="assets/css/code.css" rel="stylesheet" type="text/css"><link href="assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="assets/css/theme.css" rel="stylesheet" type="text/css"><link href="assets/css/custom.css" rel="stylesheet" type="text/css"><!--[if lt IE 9]>
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Pleasant Programmer (old posts page 1) | Pleasant Programmer</title><link href="assets/css/rst.css" rel="stylesheet" type="text/css"><link href="assets/css/code.css" rel="stylesheet" type="text/css"><link href="assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="assets/css/theme.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script><!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml"></head><body>
-    <div class="container">
-        <div class="header clearfix">
-        <h1 id="blog-title">
-            <a href="." title="Pleasant Programmer">Pleasant Programmer</a>
-        </h1>
-        <ul class="nav"><li><a href="archive.html">Archives</a>
+    <header><a href="." title="Pleasant Programmer">
+            <div class="thomas">
+                <img src="assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS"><img src="assets/img/thomas.png" alt="Pleasant Programmer"></div>
+            <h1 id="blog-title">
+                Pleasant Programmer
+            </h1>
+        </a>
+        <ul class="nav"><li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+            
+            <li><a href="archive.html">Archives</a>
             </li><li><a href="categories/index.html">Tags</a>
             </li><li><a href="rss.xml">RSS</a>
 
-            </li><li><a href="http://www.twitter.com/pleasantprog">@pleasantprog</a></li>
-        <ul class="nav"></ul></ul></div>
+        </li></ul></header><div class="container">
         <div class="content">
             
         <div class="postbox">
         <div class="title">
             <h1><a href="posts/fare-data.html">Fare Data</a>
-            <small>  
+            <small>
                  Posted: 2013-07-13 21:15
             </small></h1>
         </div>
-        <hr><p>As part of the data released by the DOTC, we also have the <a href="http://philippine-transit.hackathome.com/dataset-philippines-transit-information-service-gtfs/">fare matrix</a> for aircon buses, ordinary buses and jeeps. All as wonderful images. The data is also actually available from the <a href="http://ltfrb.gov.ph/main/farerates">LTFRB website</a>. Generally, the fare scheme is represented as "pay <em>X</em> pesos for the first <em>Y</em> kilometers, pay <em>Z</em> for every succeeding kilometer." Instead of a table, we can simply represent this as a formula instead,</p>
+        <p>As part of the data released by the DOTC, we also have the <a href="http://philippine-transit.hackathome.com/dataset-philippines-transit-information-service-gtfs/">fare matrix</a> for aircon buses, ordinary buses and jeeps. All as wonderful images. The data is also actually available from the <a href="http://ltfrb.gov.ph/main/farerates">LTFRB website</a>. Generally, the fare scheme is represented as "pay <em>X</em> pesos for the first <em>Y</em> kilometers, pay <em>Z</em> for every succeeding kilometer." Instead of a table, we can simply represent this as a formula instead,</p>
 <div class="code"><pre><span class="n">base_fare</span> <span class="o">+</span> <span class="p">(</span><span class="n">distance</span> <span class="o">-</span> <span class="n">initial</span><span class="p">)</span> <span class="o">*</span> <span class="n">per_km</span>
 </pre></div>
 
@@ -69,11 +72,11 @@
         <div class="postbox">
         <div class="title">
             <h1><a href="posts/gtfs-editor.html">GTFS Editor</a>
-            <small>  
+            <small>
                  Posted: 2013-07-10 11:30
             </small></h1>
         </div>
-        <hr><p>Link: <a href="https://github.com/conveyal/gtfs-editor">https://github.com/conveyal/gtfs-editor</a></p>
+        <p>Link: <a href="https://github.com/conveyal/gtfs-editor">https://github.com/conveyal/gtfs-editor</a></p>
 <p><strong>TL;DR</strong> they really meant under development</p>
 <p>When I first saw the source of GTFS Editor, I was ecstatic. They used <a href="http://playframework.com/">Play framework</a>!!! Not only that, they're targeting PostgreSQL as the main database. Those are our favorite tools for building webapps at By Implication. I was a bit sad though, when I saw it was on the 1.x release of Play though. I did have some experience with that release, but not as much compared to 2.x.</p>
 <p>Getting it to actually run though, wasn't very pleasant. The initial setup was easy enough. Get <a href="http://www.playframework.com/download">Play 1.2.5</a>, install Postgres with PostGIS, clone the repo and create backing database in Postgres. Some minor additional steps you need are to create the PostGIS extension on the database. The schema is automatically generated and applied by Play so that should be all that's necessary. Wonderful. Then, run play, open a browser, go to <a href="http://localhost:9000">http://localhost:9000</a>, compilation error. Fantastic.</p>
@@ -258,11 +261,11 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
         <div class="postbox">
         <div class="title">
             <h1><a href="posts/open-trip-planner.html">Open Trip Planner</a>
-            <small>  
+            <small>
                  Posted: 2013-07-09 23:16
             </small></h1>
         </div>
-        <hr><p>Link: <a href="http://www.opentripplanner.org">http://www.opentripplanner.org</a></p>
+        <p>Link: <a href="http://www.opentripplanner.org">http://www.opentripplanner.org</a></p>
 <p><strong>TL;DR</strong> routes pretty well; data might cause weird issues</p>
 <p>OpenTripPlanner, as the name implies, is a routing app. Given point A and point B, it can provide possible routes by taking transit, riding a bike, or a mix of both. You can also specify options on how much walking you're willing to do or if you prefer fewer transfers over trip time. It could be a good competitor to the transit directions of Google Maps.</p>
 <p>It's actually in general use by the <a href="http://maps.trimet.org/">Trimet</a>, Portland's public transit system. I think a good reason why they deployed OpenTripPlanner is that Portland is a very bike friendly area. OpenTripPlanner's support for multi-modal (bike + transit) routing is one thing that even Google Maps doesn't have. This actually just screams <a href="http://philippine-transit.hackathome.com/prizes/">Inclusive Technology Award</a>.</p>
@@ -290,11 +293,11 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
         <div class="postbox">
         <div class="title">
             <h1><a href="posts/one-bus-or-maybe-jeep-away.html">One Bus (or maybe Jeep) Away</a>
-            <small>  
+            <small>
                  Posted: 2013-07-09 01:53
             </small></h1>
         </div>
-        <hr><p>Link: <a href="http://onebusaway.org/">http://onebusaway.org/</a></p>
+        <p>Link: <a href="http://onebusaway.org/">http://onebusaway.org/</a></p>
 <p><strong>TL;DR</strong> no routing; useless in Philippines</p>
 <p>OneBusAway is a transit information app. It provides data on what bus stops are near you, which buses pass by. You can also get schedules and the route of a particular bus given the number. It can also provide realtime updates like how many minutes until the next bus arrives. It does not, however, provide routing. There is no support for providing directions to get from point A to point B.</p>
 <p>It's comparable to what you get in some bus stops abroad. You'd get a vicinity map and a list of buses passing through the stop. You might also get the times when the next buses will pass. It's useful for locals who already know how to get around, and want to avoid waiting for the bus. But it's not particularly good for people who want to know how to get around the city.</p>
@@ -314,11 +317,11 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
         <div class="postbox">
         <div class="title">
             <h1><a href="posts/jeepney-and-bus-routes.html">Jeepney and Bus Routes</a>
-            <small>  
+            <small>
                  Posted: 2013-07-07 10:32
             </small></h1>
         </div>
-        <hr><p>In the <a href="posts/philippine-transit-app-challenge.html">last post</a>, I talked about how we now have data about jeepney and bus routes in the Philippines. The data is actually in the <a href="https://developers.google.com/transit/gtfs/">GTFS format</a>, which is the format the Google Maps consumes transit data. Apparently, the government will be submitting the GTFS data later this year. Transit directions for Metro Manila in Google Maps would be wonderful. That said, it definitely raises the bar for the app challenge people.</p>
+        <p>In the <a href="posts/philippine-transit-app-challenge.html">last post</a>, I talked about how we now have data about jeepney and bus routes in the Philippines. The data is actually in the <a href="https://developers.google.com/transit/gtfs/">GTFS format</a>, which is the format the Google Maps consumes transit data. Apparently, the government will be submitting the GTFS data later this year. Transit directions for Metro Manila in Google Maps would be wonderful. That said, it definitely raises the bar for the app challenge people.</p>
 <p>In the last post, I mentioned the quality of the data isn't quite good. Even before seeing the data, I was already a bit unsure of it. The key problem is how you model the routes. The GTFS format was inherently designed for more well developed and organized transit agencies which isn't exactly what we have in the Philippines now.</p>
 <p>One potential problem is the nature of the jeeps and buses. GTFS routes are a collection of trips which are a sequence of stops. However, we don't have jeepney stops, and even if we did they still just stop anywhere. There are also times where jeeps will take a shortcut if no passengers need to get dropped off along their normal route.</p>
 <p>From what I've seen of the data, they handled the first problem well enough. Stops are defined as where people typically get on the jeep or bus. This is good, but they didn't define a shape for the routes. There is no information as to which exact roads they pass through. All we have to go by are the stops to show the route on a map.</p>
@@ -342,9 +345,16 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
 
     
        <script type="text/javascript">var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.type="text/javascript";a.src="http://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("HEAD")[0]||document.getElementsByTagName("BODY")[0]).appendChild(a)}());</script></div>
-
-        <div class="footer"><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small></div>
     </div>
+    <footer><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        <script src="assets/js/konami.js"></script><script src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>
+            var easter_egg = new Konami();
+            easter_egg.code = function() { 
+                $(".thomas").toggleClass("whoa");
+                $("body").scrollTop(0);
+            }
+            easter_egg.load();
 
-    
-</body></html>
+            // love you, thomas!
+            // yours, @_phi + @meggykawsek
+        </script></footer></body></html>
