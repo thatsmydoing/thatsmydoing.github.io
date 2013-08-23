@@ -258,3 +258,41 @@ footer {
 	}
 
 }
+
+header {
+	-webkit-perspective: 800;
+	   -moz-perspective: 800;
+		-ms-perspective: 800;
+			perspective: 800;			
+}
+
+.thomas {
+	position: relative;
+	display: inline-block;
+	-webkit-transform-style: preserve-3d;
+	   -moz-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+	-webkit-transition: all 0.4s;
+	   -moz-transition: all 0.4s;
+		-ms-transition: all 0.4s;
+			transition: all 0.4s;
+}
+
+.thomas.whoa {
+	-webkit-transform: rotateY(180deg);
+	   -moz-transform: rotateY(180deg);
+		-ms-transform: rotateY(180deg);
+			transform: rotateY(180deg);		
+}
+
+.thomas img:nth-child(2) {
+	position: relative;
+}
+
+.thomas img:nth-child(1) {
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-transform: rotateY(180deg) translateZ(0.1px);
+}

@@ -14,7 +14,10 @@ ${set_locale(lang)}
     <header>
         ## TODO: fix this shit
         <a href="${abs_link('/')}" title="${blog_title}">
-            <img src="/assets/img/thomas.png" alt="${blog_title}">
+            <div class="thomas">
+                <img src="/assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS">
+                <img src="/assets/img/thomas.png" alt="${blog_title}">
+            </div>
             <h1 id="blog-title">
                 ${blog_title}
             </h1>
@@ -39,6 +42,19 @@ ${set_locale(lang)}
     </div>
     <footer>
         <small>${content_footer}</small>
+        <script src="/assets/js/konami.js"></script>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script>
+            var easter_egg = new Konami();
+            easter_egg.code = function() { 
+                $(".thomas").toggleClass("whoa");
+                $("body").scrollTo(0);
+            }
+            easter_egg.load();
+
+            // love you, thomas!
+            // yours, @_phi + @meggykawsek
+        </script>
     </footer>
 
 
