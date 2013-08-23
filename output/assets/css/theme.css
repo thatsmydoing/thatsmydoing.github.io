@@ -295,4 +295,9 @@ header {
 	top: 0;
 	left: 0;
 	-webkit-transform: rotateY(180deg) translateZ(0.1px);
+	   -moz-transform: rotateY(180deg) translateZ(0.1px);
+		-ms-transform: rotateY(180deg) translateZ(0.1px);
+			transform: rotateY(180deg) translateZ(0.1px);
+	-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
 }
