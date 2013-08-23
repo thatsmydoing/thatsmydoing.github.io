@@ -85,7 +85,7 @@ thead tr {
    clear: both;
 }
 
-.header {
+header {
 	background: #F0E5D8;
 	text-align: center;
 	padding: 20px 0;
@@ -93,23 +93,21 @@ thead tr {
 
 /* TODO: Fix this shit. */
 
-.header h1 {
-	/*float: left;*/
-	/*display: inline-block;*/
+header h1 {
 	font-size: 1.75em;
-	margin: 0.125em auto;
+	margin: 0.125em auto 0 auto;
 	text-transform: lowercase;
 	font-weight: 300;
 }
 
-.header img {
+header img {
 	width: 128px;
 	height: 128px;
 	border: 2px solid #534741;
 	border-radius: 50%;
 }
 
-.header > a {
+header a {
 	font-family: "Museo";
 	color: #534741;
 	display: inline-block;
@@ -117,36 +115,39 @@ thead tr {
 	transition: all 0.4s;
 }
 
-.header > a:hover {
+header a:hover {
 	text-decoration: none;
 	border-bottom: 1px solid black;
 }
 
-.header .twitter {
-	font-size: 1.25em;
-	font-weight: 100;
-}
-
 .nav {
-	float: right;
-	display: inline-block;
 	padding: 0px;
-	margin: 0px;
+	margin: 6px 0 0 0px;
 }
 
 .nav li {
 	list-style: none;
 	margin: 0.5em 0.2em;
 	display: inline;
-	font-size: 80%;
+	text-transform: lowercase;
+	font-weight: 300;
+}
+
+.nav .twitter {
+	font-size: 1.25em;
+	font-weight: 100;
 }
 
 .container {
-	max-width: 800px;
+	max-width: 840px;
 	margin: 0 auto;
 }
 
-.footer {
+.content {
+	padding: 0 12px;
+}
+
+footer {
 	text-align: center;
 }
 
@@ -163,6 +164,7 @@ thead tr {
 
 .postbox .title h1 {
 	font-size: 1.9em;
+	line-height: 1.4;
 }
 
 .postbox .title h1 a {
@@ -184,7 +186,7 @@ thead tr {
 	font-size: 50%;
 	font-weight: normal;
 	color: #808080;
-	line-height: 4.1;
+	line-height: 3;
 }
 
 .pager {
@@ -205,35 +207,28 @@ thead tr {
 	float: right;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
-	.header img {
+	header {
+		font-size: 85%;
+	}
+
+	header img {
 		width: 100px;
 		height: 100px;
 		border: 2px solid #534741;
 		border-radius: 50%;
 	}
 
-	.header > h1 {
+	header > h1 {
 		display: block;
 		float: none;
 		line-height: 1.1;
 	}
 
-	.nav {
-		display: block;
-		float: none;
-	}
-
-	.nav li {
-		display: block;
-		font-size: 100%;
-	}
-
 	.content {
 		-webkit-text-size-adjust: none;
 		font-size: 80%;
-		padding: 0 12px;
 	}
 
 	.title {

@@ -11,18 +11,18 @@ ${set_locale(lang)}
     ${extra_head_data}
 </head>
 <body>
-    <div class="header">
+    <header>
         ## TODO: fix this shit
         <a href="${abs_link('/')}" title="${blog_title}">
-            <img src="/assets/img/thomas.png" alt="pleasant thomas">
+            <img src="/assets/img/thomas.png" alt="${blog_title}">
             <h1 id="blog-title">
                 ${blog_title}
             </h1>
         </a>
-        <br />
-            ## ${html_sidebar_links()}
-        <a class="twitter" href="http://twitter.com/pleasantprog">@pleasantprog</a>
-
+        <ul class="nav">
+            <li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+            ${html_sidebar_links()}
+        </ul>
         <%block name="belowtitle">
             %if len(translations) > 1:
             <small>
@@ -31,14 +31,16 @@ ${set_locale(lang)}
             </small>
             %endif
         </%block>
-    </div>
+    </header>
     <div class="container">
         <div class="content">
             <%block name="content"></%block>
         </div>
-
-        <div class="footer"><small>${content_footer}</small></div>
     </div>
+    <footer>
+        <small>${content_footer}</small>
+    </footer>
+
 
     %if add_this_buttons:
     <script type="text/javascript">var addthis_config={"ui_language":"${lang}"};</script>
