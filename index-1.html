@@ -19,6 +19,28 @@
             
         <div class="postbox">
         <div class="title">
+            <h1><a href="posts/transit-wand.html">Transit Wand</a>
+            <small>
+                 Posted: 2013-07-15 22:45
+            </small></h1>
+        </div>
+        <p>Link: <a href="https://play.google.com/store/apps/details?id=com.conveyal.transitwand">http://transitwand.com</a></p>
+<p>Overall, this was the simplest of the <a href="http://philippine-transit.hackathome.com/use-this-code/">open-source transit tools</a> to actually get up and running. There's already a deployed instance of the server, and you can easily download the phone app via the <a href="https://play.google.com/store/apps/details?id=com.conveyal.transitwand">Play Store</a>. Even running the server by yourself didn't have any of the hiccups I had with GTFS Editor.</p>
+<p>The phone app is actually quite simple. It allows you to capture a trip, which will record your GPS coordinates as you ride public transit. It also allows you to mark points of the trip where you stop and also how long the stop took. Lastly, it allows you to record embarking and disembarking passengers which is potentially useful for ridership data.</p>
+<p>After doing a capture session, you can review the data on the phone. It will plot out the route on a map, with markers for the stops. You then either delete the data if it looks wrong, or you can upload it to the Transit Wand server. Uploading involves registering an account, but it's free and you don't even actually need to put in a username or anything. It simply registers the phone's IMEI on the server and gives you a 6-digit identifier.</p>
+<p>You can then use the 6-digit identifier to view the data on Transit Wand's server, which is good since uploading any data automatically deletes it from the phone. There really isn't much else you can do with it though. It just allows you to view the data, and export it as a <a href="https://en.wikipedia.org/wiki/Shapefile">Shapefile</a>.</p>
+<p>As is, this is purely a data collection client-server app. Barring looking at the database, there is no way to get a list of phones which have collected data. Only the person who initiated the data collection knows the 6-digit code to view their data. There's also no way to extract the ridership information from the server yet. This isn't to say that the data won't eventually go public though.</p>
+<p>An interesting thing you <em>can</em> do with the Transit Wand data is import it into GTFS Editor to make a new route. You don't even have to manually download and upload the data. Just type in your 6-digit identifier and it will give you a list of routes you've captured via Transit Wand. This is wonderful as you get all the stop data, as well as the shape of the route.</p>
+<p>I imagine these two tools were how the DOTC came up with all the GTFS data we have now. What I don't understand is why the shape data isn't present. Importing from Transit Wand already gets you shape data. There are even facilities to edit the shape within the editor if clean up is necessary. The only problem I saw was the fact that you can't easily move stops, you have to input coordinates to change the position.</p>
+<p>It <em>might</em> also be possible that when the DOTC was still collecting the data, the route collection or editing features weren't present yet. That would just be lame and depressing though.</p>
+<p>Overall, Transit Wand does what it's supposed to do. You collect data, and then upload it to a server. There is a lot of room for improvement though. It would be nice to have a better API that allows access to more of the data. Building in analysis tools for the ridership data might also be a welcome thing. I imagine it would also be great if you could encourage people to use the app and upload their own trips.</p>
+            
+    <p>
+        <a href="posts/transit-wand.html#disqus_thread" data-disqus-identifier="cache/posts/transit-wand.html">Comments</a>
+
+        </p></div>
+        <div class="postbox">
+        <div class="title">
             <h1><a href="posts/fare-data.html">Fare Data</a>
             <small>
                  Posted: 2013-07-13 21:15
@@ -312,25 +334,6 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
             
     <p>
         <a href="posts/one-bus-or-maybe-jeep-away.html#disqus_thread" data-disqus-identifier="cache/posts/one-bus-or-maybe-jeep-away.html">Comments</a>
-
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/jeepney-and-bus-routes.html">Jeepney and Bus Routes</a>
-            <small>
-                 Posted: 2013-07-07 10:32
-            </small></h1>
-        </div>
-        <p>In the <a href="posts/philippine-transit-app-challenge.html">last post</a>, I talked about how we now have data about jeepney and bus routes in the Philippines. The data is actually in the <a href="https://developers.google.com/transit/gtfs/">GTFS format</a>, which is the format the Google Maps consumes transit data. Apparently, the government will be submitting the GTFS data later this year. Transit directions for Metro Manila in Google Maps would be wonderful. That said, it definitely raises the bar for the app challenge people.</p>
-<p>In the last post, I mentioned the quality of the data isn't quite good. Even before seeing the data, I was already a bit unsure of it. The key problem is how you model the routes. The GTFS format was inherently designed for more well developed and organized transit agencies which isn't exactly what we have in the Philippines now.</p>
-<p>One potential problem is the nature of the jeeps and buses. GTFS routes are a collection of trips which are a sequence of stops. However, we don't have jeepney stops, and even if we did they still just stop anywhere. There are also times where jeeps will take a shortcut if no passengers need to get dropped off along their normal route.</p>
-<p>From what I've seen of the data, they handled the first problem well enough. Stops are defined as where people typically get on the jeep or bus. This is good, but they didn't define a shape for the routes. There is no information as to which exact roads they pass through. All we have to go by are the stops to show the route on a map.</p>
-<p><img alt="sample route" src="http://i.imgur.com/NSVlryE.jpg"></p>
-<p>The problem isn't that bad though. The agencies could still add the shapes later on. Or maybe an app challenge participant could make an app around fixing the routes via crowd-sourcing or similar. The shape itself isn't that important for a rudimentary directions app, but if we want better apps, we will need better data.</p>
-<p>There were also some minor issues with the data itself. Some of the files had extra columns. This normally isn't an issue, but it caused problems for <a href="https://github.com/harrisony/gtfs_SQL_importer">GTFS SQL importer</a>. There were also problems with matching the shape data with the stops when I tried it with <a href="http://onebusaway.org">OneBusAway</a>. They could probably be <a href="https://github.com/OneBusAway/onebusaway-application-modules/wiki/Stop-to-Shape-Matching">fixed</a> but that's for another day.</p>
-            
-    <p>
-        <a href="posts/jeepney-and-bus-routes.html#disqus_thread" data-disqus-identifier="cache/posts/jeepney-and-bus-routes.html">Comments</a>
 
         </p></div>
     
