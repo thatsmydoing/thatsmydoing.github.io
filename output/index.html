@@ -19,6 +19,25 @@
             
         <div class="postbox">
         <div class="title">
+            <h1><a href="posts/geocoding-services.html">Geocoding Services</a>
+            <small>
+                 Posted: 2013-09-25 12:26
+            </small></h1>
+        </div>
+        <p>A key component for any routing service is being able to do geocoding. Most people who are looking for routes most probably don't know exactly where their start and end points are on the map. Even then, manually looking for a location on a map is a time-consuming task.</p>
+<p>The gold standard for doing geocoding right now is Google Maps. It's hard to find a better location search experience. If they actually provided routing for jeeps here in the Philippines, I imagine there wouldn't be <em>that</em> much you could do for the competition.</p>
+<p>When the competition started though, I took it as a challenge to avoid Google Maps as much as possible. I wanted to see how much is currently possible with other options such as OpenStreetMap. In fact, OSM does have a geocoding service called <a href="http://nominatim.openstreetmap.org">Nominatim</a>.</p>
+<p>Sadly, for a mapping app, what you want to do is not simply just geocoding. With geocoding, you take an address and turn it into coordinates. When you want to search for a place in a mapping app, you take part of an address, infer the rest of it, and give the user options to choose from.</p>
+<p>Given a typical mapping app, you might type in "ateneo" and expect it to give you Ateneo de Manila University. With typical geocoding services like Nominatim or even Google's <a href="https://developers.google.com/maps/documentation/javascript/geocoding">geocoding API</a>, you probably won't get any result for this. What you want to use is the <a href="https://developers.google.com/maps/documentation/javascript/places">Places API</a> which provides an autocomplete search box. Using it, when you type in "ateneo", it automatically suggests in the dropdown, "Ateneo de Manila University".</p>
+<p>A downside to using the Places API is that it's against the terms of service to use it with something that isn't Google Maps, which means no OpenStreetMap. If there were more time, writing your own autocompletion engine using OpenStreetMap's data will probably be a better long term solution.</p>
+<p>For now, since the competition's deadline is just a few days away, I'll be using Google Maps.</p>
+            
+    <p>
+        <a href="posts/geocoding-services.html#disqus_thread" data-disqus-identifier="cache/posts/geocoding-services.html">Comments</a>
+
+        </p></div>
+        <div class="postbox">
+        <div class="title">
             <h1><a href="posts/jeep-and-bus-schedules.html">Jeep and Bus Schedules</a>
             <small>
                  Posted: 2013-07-28 16:26
@@ -111,28 +130,6 @@ sed -i .bak <span class="s1">'/^72/ s/,600/,60/'</span> frequencies.txt
             
     <p>
         <a href="posts/graphserver.html#disqus_thread" data-disqus-identifier="cache/posts/graphserver.html">Comments</a>
-
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/transit-wand.html">Transit Wand</a>
-            <small>
-                 Posted: 2013-07-15 22:45
-            </small></h1>
-        </div>
-        <p>Link: <a href="https://play.google.com/store/apps/details?id=com.conveyal.transitwand">http://transitwand.com</a></p>
-<p>Overall, this was the simplest of the <a href="http://philippine-transit.hackathome.com/use-this-code/">open-source transit tools</a> to actually get up and running. There's already a deployed instance of the server, and you can easily download the phone app via the <a href="https://play.google.com/store/apps/details?id=com.conveyal.transitwand">Play Store</a>. Even running the server by yourself didn't have any of the hiccups I had with GTFS Editor.</p>
-<p>The phone app is actually quite simple. It allows you to capture a trip, which will record your GPS coordinates as you ride public transit. It also allows you to mark points of the trip where you stop and also how long the stop took. Lastly, it allows you to record embarking and disembarking passengers which is potentially useful for ridership data.</p>
-<p>After doing a capture session, you can review the data on the phone. It will plot out the route on a map, with markers for the stops. You then either delete the data if it looks wrong, or you can upload it to the Transit Wand server. Uploading involves registering an account, but it's free and you don't even actually need to put in a username or anything. It simply registers the phone's IMEI on the server and gives you a 6-digit identifier.</p>
-<p>You can then use the 6-digit identifier to view the data on Transit Wand's server, which is good since uploading any data automatically deletes it from the phone. There really isn't much else you can do with it though. It just allows you to view the data, and export it as a <a href="https://en.wikipedia.org/wiki/Shapefile">Shapefile</a>.</p>
-<p>As is, this is purely a data collection client-server app. Barring looking at the database, there is no way to get a list of phones which have collected data. Only the person who initiated the data collection knows the 6-digit code to view their data. There's also no way to extract the ridership information from the server yet. This isn't to say that the data won't eventually go public though.</p>
-<p>An interesting thing you <em>can</em> do with the Transit Wand data is import it into GTFS Editor to make a new route. You don't even have to manually download and upload the data. Just type in your 6-digit identifier and it will give you a list of routes you've captured via Transit Wand. This is wonderful as you get all the stop data, as well as the shape of the route.</p>
-<p>I imagine these two tools were how the DOTC came up with all the GTFS data we have now. What I don't understand is why the shape data isn't present. Importing from Transit Wand already gets you shape data. There are even facilities to edit the shape within the editor if clean up is necessary. The only problem I saw was the fact that you can't easily move stops, you have to input coordinates to change the position.</p>
-<p>It <em>might</em> also be possible that when the DOTC was still collecting the data, the route collection or editing features weren't present yet. That would just be lame and depressing though.</p>
-<p>Overall, Transit Wand does what it's supposed to do. You collect data, and then upload it to a server. There is a lot of room for improvement though. It would be nice to have a better API that allows access to more of the data. Building in analysis tools for the ridership data might also be a welcome thing. I imagine it would also be great if you could encourage people to use the app and upload their own trips.</p>
-            
-    <p>
-        <a href="posts/transit-wand.html#disqus_thread" data-disqus-identifier="cache/posts/transit-wand.html">Comments</a>
 
         </p></div>
     
