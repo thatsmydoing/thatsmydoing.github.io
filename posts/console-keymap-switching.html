@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="Thomas Dy">
+    <title>Console Keymap Switching | Pleasant Programmer</title>
+    
+        <link href="../assets/css/rst.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css">
+        <link href="../assets/css/theme.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+            <link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml">
+
+    
+    
+    
+</head>
+<body>
+    <header>
+        <a href="../" title="Pleasant Programmer">
+            <div class="thomas">
+                <img src="../assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS">
+                <img src="../assets/img/thomas.png" alt="Pleasant Programmer">
+            </div>
+            <h1 id="blog-title">
+                Pleasant Programmer
+            </h1>
+        </a>
+        <ul class="nav">
+            <li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+            
+            <li><a href="../archive.html">Archives</a>
+            </li><li><a href="../categories/index.html">Tags</a>
+            </li><li><a href="../rss.xml">RSS</a>
+
+        </li></ul>
+        
+        
+    </header>
+    <div class="container">
+        <div class="content">
+            
+    <div class="postbox">
+    <div class="title">
+        
+    <h1>Console Keymap Switching</h1>
+
+        <small>
+            Posted: 2013-10-29 20:02
+            
+
+            
+          |  More posts about
+            <a class="tag" href="../categories/sysadmin.html"><span class="badge badge-info">sysadmin</span></a>
+            <a class="tag" href="../categories/systemd.html"><span class="badge badge-info">systemd</span></a>
+
+        </small>
+    </div>
+    <p>At the office, we have some people who use DVORAK. Normally, this isn't a problem. To each his own after all. It does become a bit problematic though, when we're dealing with the servers around the office.</p>
+<p>We normally leave the servers on QWERTY. After all, most people start off as QWERTY typists and migrate to something else. That said, it's apparently difficult to stay fluent in both. People tend to forget how to type in QWERTY once they learn DVORAK or something else. While it is true that they can just look a the keyboard while typing, my coworkers would prefer it to just be in DVORAK.</p>
+<p>For the console, they'd typically do <code>sudo loadkeys dvorak</code> after logging in. The problem with this is, after they logout, the keymapping is still on DVORAK. This has been quite annoying for a few times since I can't even login to change the keymap. What I wanted was something like you get in the graphical login screens where you can pick your keymap before logging in. Apparently, there isn't a readily available thing for the console.</p>
+<p>I googled around for solutions and came across <a href="http://superuser.com/questions/548234/how-can-i-easily-toggle-between-dvorak-and-qwerty-keyboard-layouts-from-a-linux">a nice idea</a>. You could alias <code>asdf</code> to load the DVORAK mapping and <code>aoeu</code> (the equivalent to asdf in DVORAK) to load the QWERTY mapping. This actually makes sense since you don't really have to know where the letters are. The only problem is, you once again have to be logged in to change the key mappings.</p>
+<p>After some further searching, I found <a href="http://unix.stackexchange.com/questions/2884/toggle-between-dvorak-and-qwerty">something close to what I wanted</a>. Apparently, Alt+Up sends a KeyboardSignal keycode to the init process, which can act on that. It also works anywhere, even before being logged in. For SysVinit systems, you can just add a line to your inittab for a command to be run when Alt+Up is pressed.</p>
+<p>In the office, however, we generally use Arch Linux which uses SystemD. But apparently, it also has a mechanism of accepting the Alt+Up press. It runs the kbrequest target whenever it gets the keypress. <code>kbrequest.target</code> is normally aliased to run the rescue service though, so you have to manually create the file in <code>/etc/systemd/system/kbrequest.target</code> and fill it with a description:</p>
+<div class="code"><pre><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">kbrequest target</span>
+</pre></div>
+
+
+<p>We can then add a service to be run whenever the target is called. Something like <code>/etc/systemd/system/keymap-switch.service</code>:</p>
+<div class="code"><pre><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Keymap Switch Service</span>
+
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/keymap-switch</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">kbrequest.target</span>
+</pre></div>
+
+
+<p>After enabling said service, we only need the actual keymap switcher, <code>/usr/local/bin/keymap-switch</code>. The StackOverflow answer provides different ways of detecting the current keymap so we know which one to switch to. Since we're using SystemD, we can use that instead for managing which keymap we're actually using. It stores the current settings inside <code>/etc/vconsole.conf</code>. We can also then switch keymaps by using <code>localectl set-keymap</code>.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="code"><pre><span class="c">#!/bin/sh</span>
+<span class="nb">source</span> /etc/vconsole.conf
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"$TERM"</span> <span class="o">=</span> <span class="s2">"dumb"</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">  if</span> <span class="o">[</span> <span class="s2">"$KEYMAP"</span> <span class="o">=</span> <span class="s2">"dvorak"</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span>localectl <span class="nb">set</span>-keymap us
+  <span class="k">else</span>
+<span class="k">    </span>localectl <span class="nb">set</span>-keymap dvorak
+  <span class="k">fi</span>
+<span class="k">fi</span>
+</pre></div>
+</td></tr></table>
+
+<p>After putting it all together, it works! We can switch keymaps on the fly by simply pressing Alt+Up.</p>
+    
+    <ul class="pager clearfix">
+        <li class="previous">
+            <a href="geocoding-services.html">← Previous post</a>
+        </li>
+    </ul>
+
+        
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        var disqus_shortname ="pleasantprog";
+            var disqus_url="http://pleasantprogrammer.com/posts/console-keymap-switching.html";
+        var disqus_title="Console Keymap Switching";
+        var disqus_identifier="cache/posts/console-keymap-switching.html";
+        var disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+        </div>
+    </div>
+    <footer>
+        <small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
+        <script src="../assets/js/konami.js"></script>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script>
+            var easter_egg = new Konami();
+            easter_egg.code = function() { 
+                $(".thomas").toggleClass("whoa");
+                $("body").scrollTop(0);
+            }
+            easter_egg.load();
+
+            // love you, thomas!
+            // yours, @_phi + @meggykawsek
+        </script>
+    </footer>
+
+
+    <script type="text/javascript">var addthis_config={"ui_language":"en"};</script>
+    
+</body>
+</html>
