@@ -47,6 +47,8 @@ a {
 code, pre {
 	font-family: Monaco, Menlo, Consolas, monospace;
 	font-size: 75%;
+	hyphens: none;
+	-moz-hyphens: none;
 }
 
 code {
@@ -263,7 +265,7 @@ header {
 	-webkit-perspective: 800;
 	   -moz-perspective: 800;
 		-ms-perspective: 800;
-			perspective: 800;			
+			perspective: 800;
 }
 
 .thomas {
@@ -283,7 +285,7 @@ header {
 	-webkit-transform: rotateY(180deg);
 	   -moz-transform: rotateY(180deg);
 		-ms-transform: rotateY(180deg);
-			transform: rotateY(180deg);		
+			transform: rotateY(180deg);
 }
 
 .thomas img:nth-child(2) {
