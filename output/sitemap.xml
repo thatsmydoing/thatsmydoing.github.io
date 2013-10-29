@@ -50,6 +50,16 @@
   <priority>0.5000</priority>
  </url>
  <url>
+  <loc>http://pleasantprogrammer.com/categories/sysadmin.html</loc>
+  <lastmod>2013-10-29</lastmod>
+  <priority>0.5000</priority>
+ </url>
+ <url>
+  <loc>http://pleasantprogrammer.com/categories/systemd.html</loc>
+  <lastmod>2013-10-29</lastmod>
+  <priority>0.5000</priority>
+ </url>
+ <url>
   <loc>http://pleasantprogrammer.com/galleries/</loc>
   <lastmod>2013-10-29</lastmod>
   <priority>0.5000</priority>
@@ -91,6 +101,11 @@
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/listings/index.html</loc>
+  <lastmod>2013-10-29</lastmod>
+  <priority>0.5000</priority>
+ </url>
+ <url>
+  <loc>http://pleasantprogrammer.com/posts/console-keymap-switching.html</loc>
   <lastmod>2013-10-29</lastmod>
   <priority>0.5000</priority>
  </url>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pleasant Programmer (sysadmin)</title><link>http://pleasantprogrammer.com/</link><description></description><atom:link href="http://pleasantprogrammer.com/categories/sysadmin.xml" type="application/rss+xml" rel="self"></atom:link><language>en</language><lastBuildDate>Tue, 29 Oct 2013 20:38:49 GMT</lastBuildDate><generator>nikola</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Console Keymap Switching</title><link>http://pleasantprogrammer.com/posts/console-keymap-switching.html</link><description>&lt;p&gt;At the office, we have some people who use DVORAK. Normally, this isn't a problem. To each his own after all. It does become a bit problematic though, when we're dealing with the servers around the office.&lt;/p&gt;
+&lt;p&gt;We normally leave the servers on QWERTY. After all, most people start off as QWERTY typists and migrate to something else. That said, it's apparently difficult to stay fluent in both. People tend to forget how to type in QWERTY once they learn DVORAK or something else. While it is true that they can just look a the keyboard while typing, my coworkers would prefer it to just be in DVORAK.&lt;/p&gt;
+&lt;p&gt;For the console, they'd typically do &lt;code&gt;sudo loadkeys dvorak&lt;/code&gt; after logging in. The problem with this is, after they logout, the keymapping is still on DVORAK. This has been quite annoying for a few times since I can't even login to change the keymap. What I wanted was something like you get in the graphical login screens where you can pick your keymap before logging in. Apparently, there isn't a readily available thing for the console.&lt;/p&gt;
+&lt;p&gt;I googled around for solutions and came across &lt;a href="http://superuser.com/questions/548234/how-can-i-easily-toggle-between-dvorak-and-qwerty-keyboard-layouts-from-a-linux"&gt;a nice idea&lt;/a&gt;. You could alias &lt;code&gt;asdf&lt;/code&gt; to load the DVORAK mapping and &lt;code&gt;aoeu&lt;/code&gt; (the equivalent to asdf in DVORAK) to load the QWERTY mapping. This actually makes sense since you don't really have to know where the letters are. The only problem is, you once again have to be logged in to change the key mappings.&lt;/p&gt;
+&lt;p&gt;After some further searching, I found &lt;a href="http://unix.stackexchange.com/questions/2884/toggle-between-dvorak-and-qwerty"&gt;something close to what I wanted&lt;/a&gt;. Apparently, Alt+Up sends a KeyboardSignal keycode to the init process, which can act on that. It also works anywhere, even before being logged in. For SysVinit systems, you can just add a line to your inittab for a command to be run when Alt+Up is pressed.&lt;/p&gt;
+&lt;p&gt;In the office, however, we generally use Arch Linux which uses SystemD. But apparently, it also has a mechanism of accepting the Alt+Up press. It runs the kbrequest target whenever it gets the keypress. &lt;code&gt;kbrequest.target&lt;/code&gt; is normally aliased to run the rescue service though, so you have to manually create the file in &lt;code&gt;/etc/systemd/system/kbrequest.target&lt;/code&gt; and fill it with a description:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;kbrequest target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can then add a service to be run whenever the target is called. Something like &lt;code&gt;/etc/systemd/system/keymap-switch.service&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;Keymap Switch Service&lt;/span&gt;
+
+&lt;span class="k"&gt;[Service]&lt;/span&gt;
+&lt;span class="na"&gt;Type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;oneshot&lt;/span&gt;
+&lt;span class="na"&gt;ExecStart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/usr/local/bin/keymap-switch&lt;/span&gt;
+
+&lt;span class="k"&gt;[Install]&lt;/span&gt;
+&lt;span class="na"&gt;WantedBy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;kbrequest.target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After enabling said service, we only need the actual keymap switcher, &lt;code&gt;/usr/local/bin/keymap-switch&lt;/code&gt;. The StackOverflow answer provides different ways of detecting the current keymap so we know which one to switch to. Since we're using SystemD, we can use that instead for managing which keymap we're actually using. It stores the current settings inside &lt;code&gt;/etc/vconsole.conf&lt;/code&gt;. We can also then switch keymaps by using &lt;code&gt;localectl set-keymap&lt;/code&gt;.&lt;/p&gt;
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="code"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class="nb"&gt;source&lt;/span&gt; /etc/vconsole.conf
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;"$TERM"&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"dumb"&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;  if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="s2"&gt;"$KEYMAP"&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"dvorak"&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;; &lt;span class="k"&gt;then&lt;/span&gt;
+&lt;span class="k"&gt;    &lt;/span&gt;localectl &lt;span class="nb"&gt;set&lt;/span&gt;-keymap us
+  &lt;span class="k"&gt;else&lt;/span&gt;
+&lt;span class="k"&gt;    &lt;/span&gt;localectl &lt;span class="nb"&gt;set&lt;/span&gt;-keymap dvorak
+  &lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;After putting it all together, it works! We can switch keymaps on the fly by simply pressing Alt+Up.&lt;/p&gt;</description><author></author><category>sysadmin</category><category>systemd</category><guid>http://pleasantprogrammer.com/posts/console-keymap-switching.html</guid><pubDate>Tue, 29 Oct 2013 12:02:06 GMT</pubDate></item></channel></rss>

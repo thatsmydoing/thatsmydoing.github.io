@@ -49,6 +49,66 @@
             
         <div class="postbox">
         <div class="title">
+            <h1><a href="posts/console-keymap-switching.html">Console Keymap Switching</a>
+            <small>
+                 Posted: 2013-10-29 20:02
+            </small></h1>
+        </div>
+        <p>At the office, we have some people who use DVORAK. Normally, this isn't a problem. To each his own after all. It does become a bit problematic though, when we're dealing with the servers around the office.</p>
+<p>We normally leave the servers on QWERTY. After all, most people start off as QWERTY typists and migrate to something else. That said, it's apparently difficult to stay fluent in both. People tend to forget how to type in QWERTY once they learn DVORAK or something else. While it is true that they can just look a the keyboard while typing, my coworkers would prefer it to just be in DVORAK.</p>
+<p>For the console, they'd typically do <code>sudo loadkeys dvorak</code> after logging in. The problem with this is, after they logout, the keymapping is still on DVORAK. This has been quite annoying for a few times since I can't even login to change the keymap. What I wanted was something like you get in the graphical login screens where you can pick your keymap before logging in. Apparently, there isn't a readily available thing for the console.</p>
+<p>I googled around for solutions and came across <a href="http://superuser.com/questions/548234/how-can-i-easily-toggle-between-dvorak-and-qwerty-keyboard-layouts-from-a-linux">a nice idea</a>. You could alias <code>asdf</code> to load the DVORAK mapping and <code>aoeu</code> (the equivalent to asdf in DVORAK) to load the QWERTY mapping. This actually makes sense since you don't really have to know where the letters are. The only problem is, you once again have to be logged in to change the key mappings.</p>
+<p>After some further searching, I found <a href="http://unix.stackexchange.com/questions/2884/toggle-between-dvorak-and-qwerty">something close to what I wanted</a>. Apparently, Alt+Up sends a KeyboardSignal keycode to the init process, which can act on that. It also works anywhere, even before being logged in. For SysVinit systems, you can just add a line to your inittab for a command to be run when Alt+Up is pressed.</p>
+<p>In the office, however, we generally use Arch Linux which uses SystemD. But apparently, it also has a mechanism of accepting the Alt+Up press. It runs the kbrequest target whenever it gets the keypress. <code>kbrequest.target</code> is normally aliased to run the rescue service though, so you have to manually create the file in <code>/etc/systemd/system/kbrequest.target</code> and fill it with a description:</p>
+<div class="code"><pre><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">kbrequest target</span>
+</pre></div>
+
+
+<p>We can then add a service to be run whenever the target is called. Something like <code>/etc/systemd/system/keymap-switch.service</code>:</p>
+<div class="code"><pre><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Keymap Switch Service</span>
+
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/keymap-switch</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">kbrequest.target</span>
+</pre></div>
+
+
+<p>After enabling said service, we only need the actual keymap switcher, <code>/usr/local/bin/keymap-switch</code>. The StackOverflow answer provides different ways of detecting the current keymap so we know which one to switch to. Since we're using SystemD, we can use that instead for managing which keymap we're actually using. It stores the current settings inside <code>/etc/vconsole.conf</code>. We can also then switch keymaps by using <code>localectl set-keymap</code>.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="code"><pre><span class="c">#!/bin/sh</span>
+<span class="nb">source</span> /etc/vconsole.conf
+
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"$TERM"</span> <span class="o">=</span> <span class="s2">"dumb"</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">  if</span> <span class="o">[</span> <span class="s2">"$KEYMAP"</span> <span class="o">=</span> <span class="s2">"dvorak"</span> <span class="o">]</span>; <span class="k">then</span>
+<span class="k">    </span>localectl <span class="nb">set</span>-keymap us
+  <span class="k">else</span>
+<span class="k">    </span>localectl <span class="nb">set</span>-keymap dvorak
+  <span class="k">fi</span>
+<span class="k">fi</span>
+</pre></div>
+</td></tr></table>
+
+<p>After putting it all together, it works! We can switch keymaps on the fly by simply pressing Alt+Up.</p>
+            
+    <p>
+        <a href="posts/console-keymap-switching.html#disqus_thread" data-disqus-identifier="cache/posts/console-keymap-switching.html">Comments</a>
+
+        </p></div>
+        <div class="postbox">
+        <div class="title">
             <h1><a href="posts/geocoding-services.html">Geocoding Services</a>
             <small>
                  Posted: 2013-09-25 12:26
@@ -470,30 +530,6 @@ Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
             
     <p>
         <a href="posts/open-trip-planner.html#disqus_thread" data-disqus-identifier="cache/posts/open-trip-planner.html">Comments</a>
-
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/one-bus-or-maybe-jeep-away.html">One Bus (or maybe Jeep) Away</a>
-            <small>
-                 Posted: 2013-07-09 01:53
-            </small></h1>
-        </div>
-        <p>Link: <a href="http://onebusaway.org/">http://onebusaway.org/</a></p>
-<p><strong>TL;DR</strong> no routing; useless in Philippines</p>
-<p>OneBusAway is a transit information app. It provides data on what bus stops are near you, which buses pass by. You can also get schedules and the route of a particular bus given the number. It can also provide realtime updates like how many minutes until the next bus arrives. It does not, however, provide routing. There is no support for providing directions to get from point A to point B.</p>
-<p>It's comparable to what you get in some bus stops abroad. You'd get a vicinity map and a list of buses passing through the stop. You might also get the times when the next buses will pass. It's useful for locals who already know how to get around, and want to avoid waiting for the bus. But it's not particularly good for people who want to know how to get around the city.</p>
-<p>OneBusAway is quite comprehensive in its platform support though. There is a webapp, apps for iOS, Android and Windows Phone, as well as SMS and Voice support. This would all be nice but we don't have the necessary infrastructure yet in the Philippines. We don't have bus or jeepney stops. We also wouldn't have realtime data to make the app particularly useful.</p>
-<p>You can try it out for yourself by following their <a href="https://github.com/OneBusAway/onebusaway-application-modules/wiki/OneBusAway-Quickstart-Guide">Quickstart Guide</a>. One caveat is you will have to add <code>-P tripEntriesFactory.throwExceptionOnInvalidStopToShapeMappingException=false</code> when building the bundle. This has to do with the OneBusAway having difficulty matching the <a href="https://github.com/OneBusAway/onebusaway-application-modules/wiki/Stop-to-Shape-Matching">stops to the shape data</a>.</p>
-<p>Here's some screenshots of the app with the Philippine data. Notice how you only see the stops but there isn't a line for the route. This is a problem with our GTFS data. Also, at some points it's hard to tell where the jeep is going to pass since there isn't any indication of order either. This is more of a OneBusAway problem. It usually expects there to be shape data available.</p>
-<p><a href="galleries/transit/onebusaway1.png"><img alt="OneBusAway" src="galleries/transit/onebusaway1.png" title="All the stops along Katipunan Avenue are named Katipunan Avenue."></a></p>
-<p>It doesn't really handle too many routes passing through a stop. The list just overflows past the bubble. You can still actually read it by panning the map. It's just a bit weird though.</p>
-<p>If you also noticed, there are usually 2 of each route. This is how the jeepney data was modeled as jeep routes might be different going one way and going back. This isn't the case for all jeeps though, so it might also be an implementation issue with the GTFS editor.</p>
-<p><a href="galleries/transit/onebusaway2.png"><img alt="OneBusAway" src="galleries/transit/onebusaway2.png"></a></p>
-<p><a href="galleries/transit/onebusaway3.png"><img alt="OneBusAway" src="galleries/transit/onebusaway3.png"></a></p>
-            
-    <p>
-        <a href="posts/one-bus-or-maybe-jeep-away.html#disqus_thread" data-disqus-identifier="cache/posts/one-bus-or-maybe-jeep-away.html">Comments</a>
 
         </p></div>
     
