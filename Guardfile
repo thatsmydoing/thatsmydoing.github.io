@@ -1,6 +1,13 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from livereload.task import Task
-from livereload.compiler import shell
+import json
+import subprocess
 
-for path in ['conf.py', 'files/', 'galleries/', 'plugins/', 'posts/', 'stories/', 'themes/']:
-    Task.add(path, shell('nikola build'))
+def f():
+    subprocess.call(("nikola", "build"))
+
+fdata = json.loads('''["conf.py", "themes", "templates", "galleries", "posts", "posts", "stories", "stories", ""]''')
+
+for watch in fdata:
+    Task.add(watch, f)
