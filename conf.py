@@ -70,6 +70,9 @@ NAVIGATION_LINKS = {
     ),
 }
 
+USE_BUNDLES = False
+WRITE_TAG_CLOUD = False
+
 ##############################################
 # Below this point, everything is optional
 ##############################################
@@ -183,10 +186,12 @@ COMPILERS = {
 # "rsync -rav output/* joe@my.site:/srv/www/site"
 # And then do a backup, or ping pingomatic.
 # To do manual deployment, set it to []
-DEPLOY_COMMANDS = [
-    'git commit-tree -p master -m "updated" source:output | xargs git update-ref refs/heads/master',
-    'git push'
-]
+DEPLOY_COMMANDS = {
+    'default': [
+        'git commit-tree -p master -m "updated" source:output | xargs git update-ref refs/heads/master',
+        'git push'
+    ]
+}
 
 # Where the output site should be located
 # If you don't use an absolute path, it will be considered as relative
@@ -254,7 +259,7 @@ DEPLOY_COMMANDS = [
 # translated
 
 # Name of the theme to use.
-THEME = "pleasant2"
+THEME = "pleasant3"
 
 # Color scheme to be used for code blocks. If your theme provides
 # "assets/css/code.css" this is ignored.
@@ -312,7 +317,7 @@ src="http://i.creativecommons.org/l/by-nc-sa/2.5/ar/88x31.png"></a>"""
 
 # A small copyright notice for the page footer (in HTML).
 # Default is ''
-CONTENT_FOOTER = '<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> &copy; {date} {author} - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a>'
+CONTENT_FOOTER = '<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> &copy; {date} {author} - Powered by <a href="http://getnikola.com">Nikola</a>'
 CONTENT_FOOTER = CONTENT_FOOTER.format(email=BLOG_EMAIL,
                                        author=BLOG_AUTHOR,
                                        date=time.gmtime().tm_year)
@@ -433,6 +438,7 @@ COMMENT_SYSTEM_ID = "pleasantprog"
 # <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script>
 # <!-- End of social buttons -->
 # """
+SOCIAL_BUTTONS_CODE = ""
 
 # Hide link to source for the posts?
 # HIDE_SOURCELINK = False
@@ -442,7 +448,7 @@ COMMENT_SYSTEM_ID = "pleasantprog"
 
 # Modify the number of Post per Index Page
 # Defaults to 10
-# INDEX_DISPLAY_POST_COUNT = 10
+INDEX_DISPLAY_POST_COUNT = 5
 
 # RSS_LINK is a HTML fragment to link the RSS or Atom feeds. If set to None,
 # the base.tmpl will use the feed Nikola generates. However, you may want to

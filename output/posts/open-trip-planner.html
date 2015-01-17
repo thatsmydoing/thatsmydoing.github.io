@@ -1,69 +1,113 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="Thomas Dy">
+    <meta name="viewport" content="width=device-width">
     <title>Open Trip Planner | Pleasant Programmer</title>
+
     
         <link href="../assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/code.css" rel="stylesheet" type="text/css">
-        <link href="../assets/css/colorbox.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/theme.css" rel="stylesheet" type="text/css">
+            <link href="../assets/css/custom.css" rel="stylesheet" type="text/css">
+
+    
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+
+      <link rel="canonical" href="http://pleasantprogrammer.com/posts/open-trip-planner.html">
+
+
+
+
     <script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-    <![endif]-->
-            <link rel="alternate" type="application/rss+xml" title="RSS (en)" href="../rss.xml">
 
     
+        <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]-->
+
     
+
+
     
+
+    <meta name="author" content="Thomas Dy">
+        <link rel="prev" href="one-bus-or-maybe-jeep-away.html" title="One Bus (or maybe Jeep) Away" type="text/html">
+        <link rel="next" href="gtfs-editor.html" title="GTFS Editor" type="text/html">
+    
+    <meta property="og:site_name" content="Pleasant Programmer">
+    <meta property="og:title" content="Open Trip Planner">
+    <meta property="og:url" content="http://pleasantprogrammer.com/posts/open-trip-planner.html">
+    <meta property="og:description" content="Link: http://www.opentripplanner.org
+TL;DR routes pretty well; data might cause weird issues
+OpenTripPlanner, as the name implies, is a routing app. Given point A and point B, it can provide possible ">
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2013-07-09T23:16:12+08:00">
+           <meta property="article:tag" content="philippine-transit-app">
+           <meta property="article:tag" content="programming">
+
+    
+
+    
+
+
+
 </head>
 <body>
-    <header>
-        <a href="../" title="Pleasant Programmer">
-            <div class="thomas">
-                <img src="../assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS">
-                <img src="../assets/img/thomas.png" alt="Pleasant Programmer">
-            </div>
-            <h1 id="blog-title">
-                Pleasant Programmer
-            </h1>
-        </a>
-        <ul class="nav">
-            <li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
-            
-            <li><a href="../archive.html">Archives</a>
-            </li><li><a href="../categories/index.html">Tags</a>
-            </li><li><a href="../rss.xml">RSS</a>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+    <header id="header" role="banner">
+        <div class="thomas">
+            <img src="../assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS">
+            <img src="../assets/img/thomas.png" alt="Pleasant Programmer">
+        </div>
+        
+    <h1 id="brand"><a href="http://pleasantprogrammer.com/" title="Pleasant Programmer" rel="home">
 
-        </li></ul>
+        <span id="blog-title">Pleasant Programmer</span>
+    </a></h1>
+
         
+
         
+    <nav id="menu" role="navigation">
+    <ul>
+            <li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+                <li><a href="../archive.html">Archives</a></li>
+                <li><a href="../categories/index.html">Tags</a></li>
+                <li><a href="../rss.xml">RSS</a></li>
+    
+    
+    </ul>
+    </nav>
+
     </header>
-    <div class="container">
-        <div class="content">
+    
+
+    <div id="container">
+         <main id="content" role="main">
             
-    <div class="postbox">
-    <div class="title">
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article">
+    
+    <header>
         
-    <h1>Open Trip Planner</h1>
+    <h1 class="p-name entry-title" itemprop="headline name"><a href="#" class="u-url">Open Trip Planner</a></h1>
 
         <small>
-            Posted: 2013-07-09 23:16
-            
-
-            
-          |  More posts about
-            <a class="tag" href="../categories/philippine-transit-app.html"><span class="badge badge-info">philippine-transit-app</span></a>
-            <a class="tag" href="../categories/programming.html"><span class="badge badge-info">programming</span></a>
+        <span class="dateline">Posted: <a href="#" rel="bookmark"><time class="published dt-published" datetime="2013-07-09T23:16:12+08:00" itemprop="datePublished" title="2013-07-09 23:16">2013-07-09 23:16</time></a></span>
+        |
+        More posts about
+        
+           <a class="tag p-category" href="../categories/philippine-transit-app.html" rel="tag">philippine-transit-app</a>
+           <a class="tag p-category" href="../categories/programming.html" rel="tag">programming</a>
 
         </small>
-    </div>
-    <p>Link: <a href="http://www.opentripplanner.org">http://www.opentripplanner.org</a></p>
+        
+
+    </header>
+
+    <div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>Link: <a href="http://www.opentripplanner.org">http://www.opentripplanner.org</a></p>
 <p><strong>TL;DR</strong> routes pretty well; data might cause weird issues</p>
 <p>OpenTripPlanner, as the name implies, is a routing app. Given point A and point B, it can provide possible routes by taking transit, riding a bike, or a mix of both. You can also specify options on how much walking you're willing to do or if you prefer fewer transfers over trip time. It could be a good competitor to the transit directions of Google Maps.</p>
 <p>It's actually in general use by the <a href="http://maps.trimet.org/">Trimet</a>, Portland's public transit system. I think a good reason why they deployed OpenTripPlanner is that Portland is a very bike friendly area. OpenTripPlanner's support for multi-modal (bike + transit) routing is one thing that even Google Maps doesn't have. This actually just screams <a href="http://philippine-transit.hackathome.com/prizes/">Inclusive Technology Award</a>.</p>
@@ -83,57 +127,80 @@
 <p>From what they said during the launch, most of the route data was collected by getting a person to ride a jeep with a smartphone. That would explain why the coordinates aren't that exact. Even then, it would have been nice if they at least cleaned up the data by moving the stops to the road. They would have had to go over them to name the stops anyway.</p>
 <h4>Conclusion</h4>
 <p>Overall though, I really like OpenTripPlanner. It handles most of the hard parts of the challenge. It provides a REST API for doing routing with the GTFS + OSM data. There's also a lot of potential for additional open source work. A lot can be done to improve the default webapp. Adding a default location searcher would greatly improve usability. Adding in the route viewing features of OneBusAway would also be nice. Alternatively, you could even write your own client that just interfaces with the API.</p>
+</div>
+    </div>
+    <aside class="postpromonav">
+    <nav>
     
-    <ul class="pager clearfix">
-        <li class="previous">
-            <a href="one-bus-or-maybe-jeep-away.html">← Previous post</a>
-        </li>
-        <li class="next">
-            <a href="gtfs-editor.html">Next post →</a>
-        </li>
-    </ul>
+        <ul class="pager clearfix">
+            <li class="previous">
+                <a href="one-bus-or-maybe-jeep-away.html" rel="prev" title="One Bus (or maybe Jeep) Away">← Previous post</a>
+            </li>
+            <li class="next">
+                <a href="gtfs-editor.html" rel="next" title="GTFS Editor">Next post →</a>
+            </li>
+        </ul>
 
+    </nav>
+    </aside>
+        <section class="comments">
+        
         
         <div id="disqus_thread"></div>
-        <script type="text/javascript">
-        var disqus_shortname ="pleasantprog";
-            var disqus_url="http://pleasantprogrammer.com/posts/open-trip-planner.html";
-        var disqus_title="Open Trip Planner";
-        var disqus_identifier="cache/posts/open-trip-planner.html";
-        var disqus_config = function () {
+        <script>
+        var disqus_shortname ="pleasantprog",
+            disqus_url="http://pleasantprogrammer.com/posts/open-trip-planner.html",
+        disqus_title="Open Trip Planner",
+        disqus_identifier="cache/posts/open-trip-planner.html",
+        disqus_config = function () {
             this.language = "en";
         };
         (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
     </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-    </div>
-
-        </div>
-    </div>
-    <footer>
-        <small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
-        <script src="../assets/js/konami.js"></script>
-        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script>
-            var easter_egg = new Konami();
-            easter_egg.code = function() { 
-                $(".thomas").toggleClass("whoa");
-                $("body").scrollTop(0);
-            }
-            easter_egg.load();
-
-            // love you, thomas!
-            // yours, @_phi + @meggykawsek
-        </script>
-    </footer>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="//disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
-    <script type="text/javascript">var addthis_config={"ui_language":"en"};</script>
+        </section>
     
+
+</article>
+
+        
+       <script>var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+
+
+
+         </main>
+         
+        <footer id="footer" role="contentinfo">
+            <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2015 Thomas Dy - Powered by <a href="http://getnikola.com">Nikola</a></p>
+            
+        </footer>
+
+    </div>
+    
+    
+    
+    
+
+    <script src="../assets/js/konami.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script>
+        var easter_egg = new Konami();
+        easter_egg.code = function() {
+            $(".thomas").toggleClass("whoa");
+            $("body").scrollTop(0);
+        }
+        easter_egg.load();
+
+        // love you, thomas!
+        // yours, @_phi + @meggykawsek
+    </script>
 </body>
 </html>

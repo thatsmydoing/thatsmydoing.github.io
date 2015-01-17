@@ -1,77 +1,268 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta name="description" content=""><meta name="author" content="Thomas Dy"><title>Pleasant Programmer (old posts page 2) | Pleasant Programmer</title><link href="assets/css/rst.css" rel="stylesheet" type="text/css"><link href="assets/css/code.css" rel="stylesheet" type="text/css"><link href="assets/css/colorbox.css" rel="stylesheet" type="text/css"><link href="assets/css/theme.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script><!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-    <![endif]--><link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml"></head><body>
-    <header><a href="." title="Pleasant Programmer">
-            <div class="thomas">
-                <img src="assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS"><img src="assets/img/thomas.png" alt="Pleasant Programmer"></div>
-            <h1 id="blog-title">
-                Pleasant Programmer
-            </h1>
-        </a>
-        <ul class="nav"><li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
-            
-            <li><a href="archive.html">Archives</a>
-            </li><li><a href="categories/index.html">Tags</a>
-            </li><li><a href="rss.xml">RSS</a>
-
-        </li></ul></header><div class="container">
-        <div class="content">
-            
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/jeepney-and-bus-routes.html">Jeepney and Bus Routes</a>
-            <small>
-                 Posted: 2013-07-07 10:32
-            </small></h1>
-        </div>
-        <p>In the <a href="posts/philippine-transit-app-challenge.html">last post</a>, I talked about how we now have data about jeepney and bus routes in the Philippines. The data is actually in the <a href="https://developers.google.com/transit/gtfs/">GTFS format</a>, which is the format the Google Maps consumes transit data. Apparently, the government will be submitting the GTFS data later this year. Transit directions for Metro Manila in Google Maps would be wonderful. That said, it definitely raises the bar for the app challenge people.</p>
-<p>In the last post, I mentioned the quality of the data isn't quite good. Even before seeing the data, I was already a bit unsure of it. The key problem is how you model the routes. The GTFS format was inherently designed for more well developed and organized transit agencies which isn't exactly what we have in the Philippines now.</p>
-<p>One potential problem is the nature of the jeeps and buses. GTFS routes are a collection of trips which are a sequence of stops. However, we don't have jeepney stops, and even if we did they still just stop anywhere. There are also times where jeeps will take a shortcut if no passengers need to get dropped off along their normal route.</p>
-<p>From what I've seen of the data, they handled the first problem well enough. Stops are defined as where people typically get on the jeep or bus. This is good, but they didn't define a shape for the routes. There is no information as to which exact roads they pass through. All we have to go by are the stops to show the route on a map.</p>
-<p><img alt="sample route" src="http://i.imgur.com/NSVlryE.jpg"></p>
-<p>The problem isn't that bad though. The agencies could still add the shapes later on. Or maybe an app challenge participant could make an app around fixing the routes via crowd-sourcing or similar. The shape itself isn't that important for a rudimentary directions app, but if we want better apps, we will need better data.</p>
-<p>There were also some minor issues with the data itself. Some of the files had extra columns. This normally isn't an issue, but it caused problems for <a href="https://github.com/harrisony/gtfs_SQL_importer">GTFS SQL importer</a>. There were also problems with matching the shape data with the stops when I tried it with <a href="http://onebusaway.org">OneBusAway</a>. They could probably be <a href="https://github.com/OneBusAway/onebusaway-application-modules/wiki/Stop-to-Shape-Matching">fixed</a> but that's for another day.</p>
-            
-    <p>
-        <a href="posts/jeepney-and-bus-routes.html#disqus_thread" data-disqus-identifier="cache/posts/jeepney-and-bus-routes.html">Comments</a>
-
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/philippine-transit-app-challenge.html">Philippine Transit App Challenge</a>
-            <small>
-                 Posted: 2013-07-07 00:17
-            </small></h1>
-        </div>
-        <p>Last week, the DOTC launched the <a href="http://philippine-transit.hackathome.com">Philippine Transit App Challenge</a>. It's a competition to build something great using the newly available 1) jeepney/bus/rail routes and 2) traffic incident data in Metro Manila and Cebu.</p>
-<p>I'm actually quite excited about this as it's not everyday our government does wonderful things. Many people have been waiting for this kind of data to be available. Before, the only way to figure out which jeeps to ride to get from A to B is by asking other people. The website of the LTFRB used to just have a list of jeepney routes, but nothing else, no maps or list of stops.</p>
-<p>During the launch, they also presented how CITOM (the Cebu MMDA) is pilot-testing a <a href="http://cebutraffic.org/">traffic tracking system</a>. What they did was supply Android phones to taxi drivers. The phones send GPS data which can then be aggregated to see what the average speeds along streets are. This also benefits the taxi company as it provides easy tracking of their taxis compared to their old telephone/radio with pen-and-paper process.</p>
-<p>The <a href="http://philippine-transit.hackathome.com/dataset-philippines-transit-information-service-gtfs/">route data</a> are already available, as well as the <a href="http://philippine-transit.hackathome.com/dataset-citom-traffic-alert-platform/">Cebu</a> and <a href="http://philippine-transit.hackathome.com/dataset-mmda-traffic-alert-platform/">Metro Manila</a> incident data. You do have to register to access them though. Right now, they're just one-off dumps of the data but the various agencies have promised to provide consistently updated data. This will be provided via ASTI later in the year.</p>
-<p>I've just started looking at the route data and playing around with it. The quality could be better, but I'm glad we at least have something to work with.</p>
-            
-    <p>
-        <a href="posts/philippine-transit-app-challenge.html#disqus_thread" data-disqus-identifier="cache/posts/philippine-transit-app-challenge.html">Comments</a>
-
-        </p></div>
-    
-<div>
-<ul class="pager clearfix"><li class="previous">
-        <a href="index-1.html">← Newer posts</a>
-    </li>
-</ul></div>
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Pleasant Programmer (old posts, page 2) | Pleasant Programmer</title>
 
     
-       <script type="text/javascript">var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.type="text/javascript";a.src="http://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("HEAD")[0]||document.getElementsByTagName("BODY")[0]).appendChild(a)}());</script></div>
+        <link href="assets/css/rst.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/theme.css" rel="stylesheet" type="text/css">
+            <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
+
+    
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+
+      <link rel="canonical" href="http://pleasantprogrammer.com/index-2.html">
+
+
+
+        <link rel="prev" href="index.html" type="text/html">
+        <link rel="next" href="index-1.html" type="text/html">
+
+    <script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    
+        <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
+
+    
+
+
+
+
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+    <header id="header" role="banner">
+        <div class="thomas">
+            <img src="assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS">
+            <img src="assets/img/thomas.png" alt="Pleasant Programmer">
+        </div>
+        
+    <h1 id="brand"><a href="http://pleasantprogrammer.com/" title="Pleasant Programmer" rel="home">
+
+        <span id="blog-title">Pleasant Programmer</span>
+    </a></h1>
+
+        
+
+        
+    <nav id="menu" role="navigation">
+    <ul>
+            <li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+                <li><a href="archive.html">Archives</a></li>
+                <li><a href="categories/index.html">Tags</a></li>
+                <li><a href="rss.xml">RSS</a></li>
+    
+    
+    </ul>
+    </nav>
+
+    </header>
+    
+
+    <div id="container">
+         <main id="content" role="main">
+            
+<div class="postindex">
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/elevation-data-in-otp.html" class="u-url">Elevation Data in OTP</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p><img alt="OpenTripPlanner showing elevation data" src="galleries/transit/otpelevation.png"></p>
+<p>One thing I hadn't tested out last time was OTP's support for elevation data. It makes use of this by showing the elevation you have to traverse while walking along the suggested route. It can also take it into account when suggesting bike routes.</p>
+<p>The <a href="https://github.com/openplans/OpenTripPlanner/wiki/FiveMinutes">5 minute tutorial</a> actually discusses the elevation data briefly, but a more in-depth thing you can look at is the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#elevation-data">GraphBuilder documentation</a>. It suggests using the ASTER dataset which is free but requires registration. I just opted to use the SRTM data available from the <a href="http://www.philgis.org/freegisdata.htm">PhilGIS website</a>.</p>
+<p>I don't know about the ASTER dataset, but the PhilGIS data was in the ERDAS img format. OTP only supports GeoTIFF so there was a need to convert it beforehand. You can use <a href="http://www.gdal.org/">GDAL</a> for this. You'd just then run,</p>
+<pre class="code literal-block"> gdal_translate srtm41_90m_phl.img phil.tiff
+</pre>
+
+
+<p>Afterwards, it's just a matter of following the OTP instructions on using a local elevation dataset. The process actually doubled the size of the generated Graph.obj so it might not be ideal if you're running on limited RAM.</p>
+<p>I've actually hosted a <a href="http://maps.pleasantprogrammer.com">working example</a>. It's pretty much at the limits of the RAM so it might be slow and unreliable, but you can test it out just for fun. Please don't abuse it though.</p>
+</div>
     </div>
-    <footer><small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
-        <script src="assets/js/konami.js"></script><script src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>
-            var easter_egg = new Konami();
-            easter_egg.code = function() { 
-                $(".thomas").toggleClass("whoa");
-                $("body").scrollTop(0);
-            }
-            easter_egg.load();
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-23T18:23:00+08:00" title="2013-07-23 18:23">2013-07-23 18:23</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/elevation-data-in-otp.html#disqus_thread" data-disqus-identifier="cache/posts/elevation-data-in-otp.html">Comments</a>
 
-            // love you, thomas!
-            // yours, @_phi + @meggykawsek
-        </script></footer></body></html>
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/graphserver.html" class="u-url">GraphServer</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>Link: <a href="http://graphserver.github.io/graphserver/">http://graphserver.github.io/graphserver/</a></p>
+<p>One other routing webapp I saw was GraphServer. It's actually more of a general purpose Graph library which supports GTFS and OSM data than an actual dedicated routing software like OpenTripPlanner. It's also based off python and C instead of Java, so it feels a lot less heavy.</p>
+<p>The instructions on the website are already pretty good. There are just some minor errors with it. Where it says <code>gs_gtfsdb_build</code>, you should actually use <code>gs_gtfsdb_compile</code>. Also, when running <code>gs_osmdb_compile</code> you might need to use <code>-t</code> for tolerant in case you follow the instructions on chopping up the original OSM data.</p>
+<p>A nice suggestion from the GraphServer instructions was to crop the OSM data to minimize the graph size. This is actually quite helpful if you downloaded the entire Philippine OSM dump. It reduced the original 900MB file to 135MB which was a lot more workable. I did hit a problem with their instructions though. The linked version of osmosis is an old one, which doesn't support 64-bit ids. The <a href="http://wiki.openstreetmap.org/wiki/Osmosis">latest version of Osmosis</a> easily did the job though.</p>
+<p>The actual routing though, was not exactly good. I only tried one route which should normally take 1-2 transfers, it suggested a route which involved 4+ transfers. It also didn't provide any alternate routes aside from that one. I'm not sure if it's a limitation of the provided routeserver, but I didn't bother checking if it supported parameters which might provide better routes.</p>
+<p>I think graphserver could be useful, but it seems more involved than say OpenTripPlanner. There do seem to be people who use graphserver for their routing apps, but for the bounds of the contest, or just as a side project, it might require too much effort.</p>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-23T14:48:29+08:00" title="2013-07-23 14:48">2013-07-23 14:48</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/graphserver.html#disqus_thread" data-disqus-identifier="cache/posts/graphserver.html">Comments</a>
+
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/transit-wand.html" class="u-url">Transit Wand</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>Link: <a href="https://play.google.com/store/apps/details?id=com.conveyal.transitwand">http://transitwand.com</a></p>
+<p>Overall, this was the simplest of the <a href="http://philippine-transit.hackathome.com/use-this-code/">open-source transit tools</a> to actually get up and running. There's already a deployed instance of the server, and you can easily download the phone app via the <a href="https://play.google.com/store/apps/details?id=com.conveyal.transitwand">Play Store</a>. Even running the server by yourself didn't have any of the hiccups I had with GTFS Editor.</p>
+<p>The phone app is actually quite simple. It allows you to capture a trip, which will record your GPS coordinates as you ride public transit. It also allows you to mark points of the trip where you stop and also how long the stop took. Lastly, it allows you to record embarking and disembarking passengers which is potentially useful for ridership data.</p>
+<p>After doing a capture session, you can review the data on the phone. It will plot out the route on a map, with markers for the stops. You then either delete the data if it looks wrong, or you can upload it to the Transit Wand server. Uploading involves registering an account, but it's free and you don't even actually need to put in a username or anything. It simply registers the phone's IMEI on the server and gives you a 6-digit identifier.</p>
+<p>You can then use the 6-digit identifier to view the data on Transit Wand's server, which is good since uploading any data automatically deletes it from the phone. There really isn't much else you can do with it though. It just allows you to view the data, and export it as a <a href="https://en.wikipedia.org/wiki/Shapefile">Shapefile</a>.</p>
+<p>As is, this is purely a data collection client-server app. Barring looking at the database, there is no way to get a list of phones which have collected data. Only the person who initiated the data collection knows the 6-digit code to view their data. There's also no way to extract the ridership information from the server yet. This isn't to say that the data won't eventually go public though.</p>
+<p>An interesting thing you <em>can</em> do with the Transit Wand data is import it into GTFS Editor to make a new route. You don't even have to manually download and upload the data. Just type in your 6-digit identifier and it will give you a list of routes you've captured via Transit Wand. This is wonderful as you get all the stop data, as well as the shape of the route.</p>
+<p>I imagine these two tools were how the DOTC came up with all the GTFS data we have now. What I don't understand is why the shape data isn't present. Importing from Transit Wand already gets you shape data. There are even facilities to edit the shape within the editor if clean up is necessary. The only problem I saw was the fact that you can't easily move stops, you have to input coordinates to change the position.</p>
+<p>It <em>might</em> also be possible that when the DOTC was still collecting the data, the route collection or editing features weren't present yet. That would just be lame and depressing though.</p>
+<p>Overall, Transit Wand does what it's supposed to do. You collect data, and then upload it to a server. There is a lot of room for improvement though. It would be nice to have a better API that allows access to more of the data. Building in analysis tools for the ridership data might also be a welcome thing. I imagine it would also be great if you could encourage people to use the app and upload their own trips.</p>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-15T22:45:20+08:00" title="2013-07-15 22:45">2013-07-15 22:45</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/transit-wand.html#disqus_thread" data-disqus-identifier="cache/posts/transit-wand.html">Comments</a>
+
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/fare-data.html" class="u-url">Fare Data</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>As part of the data released by the DOTC, we also have the <a href="http://philippine-transit.hackathome.com/dataset-philippines-transit-information-service-gtfs/">fare matrix</a> for aircon buses, ordinary buses and jeeps. All as wonderful images. The data is also actually available from the <a href="http://ltfrb.gov.ph/main/farerates">LTFRB website</a>. Generally, the fare scheme is represented as "pay <em>X</em> pesos for the first <em>Y</em> kilometers, pay <em>Z</em> for every succeeding kilometer." Instead of a table, we can simply represent this as a formula instead,</p>
+<pre class="code literal-block">base_fare + (distance - initial) * per_km
+</pre>
+
+
+<p>The relevant values for the three services are:</p>
+<table>
+<thead>
+  <tr>
+    <td>type</td>
+    <td>base_fare</td>
+    <td>initial</td>
+    <td>per_km</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>bus aircon</td>
+    <td>12.00</td>
+    <td>5 km</td>
+    <td>2.20</td>
+  </tr>
+  <tr>
+    <td>bus ordinary</td>
+    <td>10.00</td>
+    <td>5 km</td>
+    <td>1.85</td>
+  </tr>
+  <tr>
+    <td>jeep aircon</td>
+    <td>8.00</td>
+    <td>4 km</td>
+    <td>1.40</td>
+  </tr>
+</tbody>
+</table>
+
+<p>It isn't as simple as that though. Fares are also rounded to the nearest 25 centavos. So we'd need to round them off correctly. This can be achieved by doing,</p>
+<pre class="code literal-block">round(calculated_fare * 4.0)/4.0
+</pre>
+
+
+<p>There's also the discounted fare for students, senior citizens and persons with disability. They get 20% off the fare (prior to rounding) and the resulting fare is rounded off as well.</p>
+<p>Doing just this, we actually do get the same results as the fare matrices in the image for the most part. There are some discrepancies with the discounted jeep fares. I've tried to resolve it by tweaking around with the formulas, but it really doesn't make sense in any way. I presume these were manually adjusted for one reason or another.</p>
+<p>Here's a <a href="uploads/farematrix.rb">script</a> that generates CSVs of all the three fare matrices. If you're too lazy to run it, here are links to the <a href="uploads/pub_aircon.csv">aircon bus</a>, <a href="uploads/pub_ordinary.csv">ordinary bus</a> and <a href="uploads/puj.csv">jeep</a> fare matrices.</p>
+<h4>GTFS compatibility</h4>
+<p>As is, the provided GTFS data does not have any fare data. I imagine this is because the existing spec doesn't have good support for distance-based fares like we have in the Philippines. Judging from the <a href="https://code.google.com/p/googletransitdatafeed/wiki/FareExamples">fare examples</a>, the only reasonable way we could implement distance-based fares is following example 6. This would involve setting a fare for each possible pair of stops based on the distance between them. This isn't exactly ideal. In fact, the people originally working on the DOTC project have voiced <a href="https://groups.google.com/forum/#!topic/gtfs-fare-wg/V63xRSnQJGw">issues</a> and made <a href="https://groups.google.com/forum/#!msg/gtfs-changes/uybrAokZ9Cg/rqlzXdMypUgJ">proposals</a> for having distance-based fares included into GTFS.</p>
+<p>Apparently, public transit fares are a really complicated thing. You have fares based on distance, number of stops passed through, and transfers which may or may not cost extra. Not only that, you might have discounted fares, or first-class vs economy fares. The community will want to get it right before it's formally included in the spec. You can see the current state of the consolidated <a href="https://docs.google.com/document/d/1mK3--o5g4-3cCXaqmch92U63JTwChh0L2VCmcDViIlM/edit">GTFS fare proposal here</a>.</p>
+<p>Even in it's proposal form though, we might have hope of being able to see these being used. There's currently a <a href="https://github.com/OneBusAway/onebusaway-gtfs-modules/pull/30">pull request</a> for supporting the distance-based fare scheme into the OneBusAway libraries. The libraries actually used by GTFS Editor and OpenTripPlanner for working with GTFS data.</p>
+<h4>Remaining Problems</h4>
+<p>Given all that, it would probably still be a long way before this allows us to make a really good routing app. We still don't have shape data, so the distance estimates would really be rough estimates at best. There's no support for rounding to the nearest centavo. I realize that's just nitpicking, but if we want something truly polished, even that has to be taken care of.</p>
+<p>We also don't know if the jeeps or buses strictly follow the distance-based scheme. After all, if you can get on and off anywhere, you can't really measure distance that exactly. I assume they generally work off the notion of "zones" than actual distance travelled. In that sense, they work more similarly to the LRT which has fares based on how many stops you pass. For jeeps and buses, your fare is probably based more on how many "zones" you pass through.</p>
+<h4>Conclusion</h4>
+<p>Philip, a co-worker of mine at By Implication, had suggested that we might want to use a different model than what the GTFS proposes. I have to agree with him. At this point, the GTFS doesn't really fit with our system. But I do think that open data and standards are great. In fact, I applaud the developers who made proposals for the fare system, as those are great first steps towards making the GTFS a more universal standard.</p>
+<p>Side note: I'd also actually really like to hear about the DOTC developers' experience with the project. It would be nice if they had a devblog.</p>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-13T21:15:09+08:00" title="2013-07-13 21:15">2013-07-13 21:15</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/fare-data.html#disqus_thread" data-disqus-identifier="cache/posts/fare-data.html">Comments</a>
+
+</small>
+    </article>
+</div>
+
+        <nav class="postindexpager">
+        <ul class="pager clearfix">
+            <li class="previous">
+                <a href="index.html" rel="prev">← Newer posts</a>
+            </li>
+            <li class="next">
+                <a href="index-1.html" rel="next">Older posts →</a>
+            </li>
+        </ul>
+        </nav>
+
+
+        
+       <script>var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+
+
+
+
+
+         </main>
+         
+        <footer id="footer" role="contentinfo">
+            <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2015 Thomas Dy - Powered by <a href="http://getnikola.com">Nikola</a></p>
+            
+        </footer>
+
+    </div>
+    
+    
+    
+    
+
+    <script src="assets/js/konami.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script>
+        var easter_egg = new Konami();
+        easter_egg.code = function() {
+            $(".thomas").toggleClass("whoa");
+            $("body").scrollTop(0);
+        }
+        easter_egg.load();
+
+        // love you, thomas!
+        // yours, @_phi + @meggykawsek
+    </script>
+</body>
+</html>

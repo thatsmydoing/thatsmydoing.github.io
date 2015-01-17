@@ -1,0 +1,33 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="content">
+<div class="postindex">
+% for post in posts:
+    <article class="h-entry post-${post.meta('type')}">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="${post.permalink()}" class="u-url">${post.title()}</a>
+        </h1>
+    </header>
+    %if index_teasers:
+    <div class="p-summary entry-summary">
+    ${post.text(teaser_only=True)}
+    %else:
+    <div class="e-content entry-content">
+    ${post.text(teaser_only=False)}
+    %endif
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="${post.date.isoformat()}" title="${post.formatted_date(date_format)}">${post.formatted_date(date_format)}</time></small>
+    % if not post.meta('nocomments') and site_has_comments:
+        | <small class="commentline">${comments.comment_link(post.permalink(), post._base_path)}</small>
+    % endif
+    </article>
+% endfor
+</div>
+${helper.html_pager()}
+${comments.comment_link_script()}
+${helper.mathjax_script(posts)}
+</%block>

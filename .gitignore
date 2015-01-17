@@ -1,3 +1,5 @@
+.doit.db
 .doit.db.db
+__pycache__
 cache
 .DS_Store
