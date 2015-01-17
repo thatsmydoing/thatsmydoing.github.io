@@ -87,7 +87,7 @@ thead tr {
    clear: both;
 }
 
-header {
+#header {
 	background: #F0E5D8;
 	text-align: center;
 	padding: 20px 0;
@@ -95,21 +95,21 @@ header {
 
 /* TODO: Fix this shit. */
 
-header h1 {
+#header h1 {
 	font-size: 1.75em;
 	margin: 0.125em auto 0 auto;
 	text-transform: lowercase;
 	font-weight: 300;
 }
 
-header img {
+#header img {
 	width: 128px;
 	height: 128px;
 	border: 2px solid #534741;
 	border-radius: 50%;
 }
 
-header a {
+#header a {
 	font-family: "Museo";
 	color: #534741;
 	display: inline-block;
@@ -117,17 +117,17 @@ header a {
 	transition: all 0.4s;
 }
 
-header a:hover {
+#header a:hover {
 	text-decoration: none;
 	border-bottom: 1px solid black;
 }
 
-.nav {
+#menu ul {
 	padding: 0px;
 	margin: 6px 0 0 0px;
 }
 
-.nav li {
+#menu li {
 	list-style: none;
 	margin: 0.5em 0.2em;
 	display: inline;
@@ -135,17 +135,17 @@ header a:hover {
 	font-weight: 300;
 }
 
-.nav .twitter {
+#menu .twitter {
 	font-size: 1.25em;
 	font-weight: 100;
 }
 
-.container {
+#container {
 	max-width: 840px;
 	margin: 0 auto;
 }
 
-.content {
+#content {
 	padding: 0 12px;
 }
 
@@ -153,23 +153,23 @@ footer {
 	text-align: center;
 }
 
-.postbox {
+article {
 	margin-top: 2em;
 	font-weight: 300;
 	font-size: 1.2em;
 	line-height: 1.8;
 }
 
-.postbox img {
+article img {
 	max-width: 100%;
 }
 
-.postbox .title h1 {
+article .entry-title {
 	font-size: 1.9em;
 	line-height: 1.4;
 }
 
-.postbox .title h1 a {
+article .entry-title a {
 	color: #534741;
 	border-bottom: 0px solid transparent;
 	-webkit-transition: all 0.2s;
@@ -179,18 +179,18 @@ footer {
 	padding-bottom: 12px;
 }
 
-.postbox .title h1 a:hover {
+article .entry-title a:hover {
 	border-bottom: 2px solid #534741;
 	padding-bottom: 0;
 }
-.postbox .title h1 small {
+article .entry-title .dateline {
 	float: right;
 	font-size: 50%;
 	font-weight: normal;
 	line-height: 3;
 }
 
-.postbox .title small {
+article .entry-title .dateline {
 	opacity: 0.75;
 }
 
@@ -233,21 +233,21 @@ footer {
 		line-height: 1.1;
 	}
 
-	.content {
+	#content {
 		-webkit-text-size-adjust: none;
 		font-size: 80%;
 	}
 
-	.title {
+	.entry-title {
 		line-height: 1;
 	}
 
-	.postbox {
+	article {
 		line-height: 1.5;
 		font-weight: 300;
 	}
 
-	.postbox .title h1 small {
+	article .entry-title .dateline {
 		float: none;
 		line-height: 1;
 		display: block;
@@ -255,7 +255,7 @@ footer {
 		margin-top: 6px;
 	}
 
-	.postbox .title h1 {
+	article .entry-title {
 		font-size: 1.4em;
 	}
 
@@ -290,6 +290,8 @@ header {
 
 .thomas img:nth-child(2) {
 	position: relative;
+	-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
 }
 
 .thomas img:nth-child(1) {
@@ -303,3 +305,25 @@ header {
 	-webkit-backface-visibility: hidden;
 			backface-visibility: hidden;
 }
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+	position: static;
+	width: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	clip: auto;
+}
+

@@ -1,90 +1,116 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="Thomas Dy">
+    <meta name="viewport" content="width=device-width">
     <title>Pleasant Programmer | Pleasant Programmer</title>
+
     
         <link href="assets/css/rst.css" rel="stylesheet" type="text/css">
         <link href="assets/css/code.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/colorbox.css" rel="stylesheet" type="text/css">
         <link href="assets/css/theme.css" rel="stylesheet" type="text/css">
+            <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
+
+    
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+
+      <link rel="canonical" href="http://pleasantprogrammer.com/index.html">
+
+
+
+        <link rel="next" href="index-2.html" type="text/html">
+
     <script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-    <![endif]-->
-            <link rel="alternate" type="application/rss+xml" title="RSS (en)" href="rss.xml">
 
     
+        <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
+
     
-    
+
+
+
+
 </head>
 <body>
-    <header>
-        <a href="." title="Pleasant Programmer">
-            <div class="thomas">
-                <img src="assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS">
-                <img src="assets/img/thomas.png" alt="Pleasant Programmer">
-            </div>
-            <h1 id="blog-title">
-                Pleasant Programmer
-            </h1>
-        </a>
-        <ul class="nav">
-            <li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
-            
-            <li><a href="archive.html">Archives</a>
-            </li><li><a href="categories/index.html">Tags</a>
-            </li><li><a href="rss.xml">RSS</a>
-
-        </li></ul>
-        
-        
-    </header>
-    <div class="container">
-        <div class="content">
-            
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html">Removing PLDTMyDSLBiz from the ZyXEL P-2612HNU</a>
-            <small>
-                 Posted: 2013-11-27 10:12
-            </small></h1>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+    <header id="header" role="banner">
+        <div class="thomas">
+            <img src="assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS">
+            <img src="assets/img/thomas.png" alt="Pleasant Programmer">
         </div>
-        <p>I've always thought that people were just too lazy to change their SSIDs when I see "PLDTMyDSLBizCafeJapan". It became apparent when we got our own PLDT line that it was because the bundled router/modem <em>does not</em> allow you to remove the prefix.</p>
+        
+    <h1 id="brand"><a href="http://pleasantprogrammer.com/" title="Pleasant Programmer" rel="home">
+
+        <span id="blog-title">Pleasant Programmer</span>
+    </a></h1>
+
+        
+
+        
+    <nav id="menu" role="navigation">
+    <ul>
+            <li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+                <li><a href="archive.html">Archives</a></li>
+                <li><a href="categories/index.html">Tags</a></li>
+                <li><a href="rss.xml">RSS</a></li>
+    
+    
+    </ul>
+    </nav>
+
+    </header>
+    
+
+    <div id="container">
+         <main id="content" role="main">
+            
+<div class="postindex">
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html" class="u-url">Removing PLDTMyDSLBiz from the ZyXEL P-2612HNU</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>I've always thought that people were just too lazy to change their SSIDs when I see "PLDTMyDSLBizCafeJapan". It became apparent when we got our own PLDT line that it was because the bundled router/modem <em>does not</em> allow you to remove the prefix.</p>
 <p>This is not the kind of thing you expect as a business customer. Even for home customers, I feel it's still a bit dishonest. I'd be fine if it was just the default SSID, but forcing people to have it as part of their SSID is like advertising that your company (I mean PLDT) is a douche.</p>
 <p>Of course, we couldn't just leave the SSID prefix there, so we tried a number of things to get rid of it. There are articles for removing it from the <a href="http://www.phandroidinternet.com/2013/06/how-to-remove-on-wifi-name-or-ssid-on.html">Prolink H5004N</a> or the <a href="http://www.symbianize.com/showthread.php?t=730091">ZyXEL P-660HN-T1A</a> but not for the one we got which was the ZyXEL P-2612HNU-F1F.</p>
 <p>We did still try the firebug/inspector tricks, but it seems that there is a server-side check that adds in the "PLDTMyDSLBiz". We tried a number of things, but the one that ultimately worked (and we had a good laugh about) was to backup the configuration, edit the dumped file and restore it.</p>
 <p>The backup is actually just an XML file. You can search for SSID and change the parameter there. It's a bit annoying because the router has to restart after restoring the configuration, but it works!</p>
 <p>A minor note, the router doesn't seem to support SSIDs with a comma (,) well. It just gets everything before the comma as the SSID for some reason.</p>
-            
-    <p>
-        <a href="posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html#disqus_thread" data-disqus-identifier="cache/posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html">Comments</a>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-11-27T10:12:31+08:00" title="2013-11-27 10:12">2013-11-27 10:12</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html#disqus_thread" data-disqus-identifier="cache/posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html">Comments</a>
 
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/console-keymap-switching.html">Console Keymap Switching</a>
-            <small>
-                 Posted: 2013-10-29 20:02
-            </small></h1>
-        </div>
-        <p>At the office, we have some people who use DVORAK. Normally, this isn't a problem. To each his own after all. It does become a bit problematic though, when we're dealing with the servers around the office.</p>
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/console-keymap-switching.html" class="u-url">Console Keymap Switching</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>At the office, we have some people who use DVORAK. Normally, this isn't a problem. To each his own after all. It does become a bit problematic though, when we're dealing with the servers around the office.</p>
 <p>We normally leave the servers on QWERTY. After all, most people start off as QWERTY typists and migrate to something else. That said, it's apparently difficult to stay fluent in both. People tend to forget how to type in QWERTY once they learn DVORAK or something else. While it is true that they can just look a the keyboard while typing, my coworkers would prefer it to just be in DVORAK.</p>
 <p>For the console, they'd typically do <code>sudo loadkeys dvorak</code> after logging in. The problem with this is, after they logout, the keymapping is still on DVORAK. This has been quite annoying for a few times since I can't even login to change the keymap. What I wanted was something like you get in the graphical login screens where you can pick your keymap before logging in. Apparently, there isn't a readily available thing for the console.</p>
 <p>I googled around for solutions and came across <a href="http://superuser.com/questions/548234/how-can-i-easily-toggle-between-dvorak-and-qwerty-keyboard-layouts-from-a-linux">a nice idea</a>. You could alias <code>asdf</code> to load the DVORAK mapping and <code>aoeu</code> (the equivalent to asdf in DVORAK) to load the QWERTY mapping. This actually makes sense since you don't really have to know where the letters are. The only problem is, you once again have to be logged in to change the key mappings.</p>
 <p>After some further searching, I found <a href="http://unix.stackexchange.com/questions/2884/toggle-between-dvorak-and-qwerty">something close to what I wanted</a>. Apparently, Alt+Up sends a KeyboardSignal keycode to the init process, which can act on that. It also works anywhere, even before being logged in. For SysVinit systems, you can just add a line to your inittab for a command to be run when Alt+Up is pressed.</p>
 <p>In the office, however, we generally use Arch Linux which uses SystemD. But apparently, it also has a mechanism of accepting the Alt+Up press. It runs the kbrequest target whenever it gets the keypress. <code>kbrequest.target</code> is normally aliased to run the rescue service though, so you have to manually create the file in <code>/etc/systemd/system/kbrequest.target</code> and fill it with a description:</p>
-<div class="code"><pre><span class="k">[Unit]</span>
+<pre class="code literal-block"><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">kbrequest target</span>
-</pre></div>
+</pre>
 
 
 <p>We can then add a service to be run whenever the target is called. Something like <code>/etc/systemd/system/keymap-switch.service</code>:</p>
-<div class="code"><pre><span class="k">[Unit]</span>
+<pre class="code literal-block"><span class="k">[Unit]</span>
 <span class="na">Description</span><span class="o">=</span><span class="s">Keymap Switch Service</span>
 
 <span class="k">[Service]</span>
@@ -93,11 +119,12 @@
 
 <span class="k">[Install]</span>
 <span class="na">WantedBy</span><span class="o">=</span><span class="s">kbrequest.target</span>
-</pre></div>
+</pre>
 
 
 <p>After enabling said service, we only need the actual keymap switcher, <code>/usr/local/bin/keymap-switch</code>. The StackOverflow answer provides different ways of detecting the current keymap so we know which one to switch to. Since we're using SystemD, we can use that instead for managing which keymap we're actually using. It stores the current settings inside <code>/etc/vconsole.conf</code>. We can also then switch keymaps by using <code>localectl set-keymap</code>.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -106,452 +133,165 @@
  7
  8
  9
-10</pre></div></td><td class="code"><div class="code"><pre><span class="c">#!/bin/sh</span>
+10</pre></div></td>
+<td class="code">
+<pre class="code literal-block"><span class="c">#!/bin/sh</span>
 <span class="nb">source</span> /etc/vconsole.conf
 
-<span class="k">if</span> <span class="o">[</span> <span class="s2">"$TERM"</span> <span class="o">=</span> <span class="s2">"dumb"</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">  if</span> <span class="o">[</span> <span class="s2">"$KEYMAP"</span> <span class="o">=</span> <span class="s2">"dvorak"</span> <span class="o">]</span>; <span class="k">then</span>
-<span class="k">    </span>localectl <span class="nb">set</span>-keymap us
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$TERM</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"dumb"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$KEYMAP</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"dvorak"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    localectl <span class="nb">set</span>-keymap us
   <span class="k">else</span>
-<span class="k">    </span>localectl <span class="nb">set</span>-keymap dvorak
+    localectl <span class="nb">set</span>-keymap dvorak
   <span class="k">fi</span>
 <span class="k">fi</span>
-</pre></div>
-</td></tr></table>
+</pre>
+</td>
+</tr></table>
 
 <p>After putting it all together, it works! We can switch keymaps on the fly by simply pressing Alt+Up.</p>
-            
-    <p>
-        <a href="posts/console-keymap-switching.html#disqus_thread" data-disqus-identifier="cache/posts/console-keymap-switching.html">Comments</a>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-10-29T20:02:06+08:00" title="2013-10-29 20:02">2013-10-29 20:02</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/console-keymap-switching.html#disqus_thread" data-disqus-identifier="cache/posts/console-keymap-switching.html">Comments</a>
 
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/geocoding-services.html">Geocoding Services</a>
-            <small>
-                 Posted: 2013-09-25 12:26
-            </small></h1>
-        </div>
-        <p>A key component for any routing service is being able to do geocoding. Most people who are looking for routes most probably don't know exactly where their start and end points are on the map. Even then, manually looking for a location on a map is a time-consuming task.</p>
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/geocoding-services.html" class="u-url">Geocoding Services</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>A key component for any routing service is being able to do geocoding. Most people who are looking for routes most probably don't know exactly where their start and end points are on the map. Even then, manually looking for a location on a map is a time-consuming task.</p>
 <p>The gold standard for doing geocoding right now is Google Maps. It's hard to find a better location search experience. If they actually provided routing for jeeps here in the Philippines, I imagine there wouldn't be <em>that</em> much you could do for the competition.</p>
 <p>When the competition started though, I took it as a challenge to avoid Google Maps as much as possible. I wanted to see how much is currently possible with other options such as OpenStreetMap. In fact, OSM does have a geocoding service called <a href="http://nominatim.openstreetmap.org">Nominatim</a>.</p>
 <p>Sadly, for a mapping app, what you want to do is not simply just geocoding. With geocoding, you take an address and turn it into coordinates. When you want to search for a place in a mapping app, you take part of an address, infer the rest of it, and give the user options to choose from.</p>
 <p>Given a typical mapping app, you might type in "ateneo" and expect it to give you Ateneo de Manila University. With typical geocoding services like Nominatim or even Google's <a href="https://developers.google.com/maps/documentation/javascript/geocoding">geocoding API</a>, you probably won't get any result for this. What you want to use is the <a href="https://developers.google.com/maps/documentation/javascript/places">Places API</a> which provides an autocomplete search box. Using it, when you type in "ateneo", it automatically suggests in the dropdown, "Ateneo de Manila University".</p>
 <p>A downside to using the Places API is that it's against the terms of service to use it with something that isn't Google Maps, which means no OpenStreetMap. If there were more time, writing your own autocompletion engine using OpenStreetMap's data will probably be a better long term solution.</p>
 <p>For now, since the competition's deadline is just a few days away, I'll be using Google Maps.</p>
-            
-    <p>
-        <a href="posts/geocoding-services.html#disqus_thread" data-disqus-identifier="cache/posts/geocoding-services.html">Comments</a>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-09-25T12:26:59+08:00" title="2013-09-25 12:26">2013-09-25 12:26</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/geocoding-services.html#disqus_thread" data-disqus-identifier="cache/posts/geocoding-services.html">Comments</a>
 
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/jeep-and-bus-schedules.html">Jeep and Bus Schedules</a>
-            <small>
-                 Posted: 2013-07-28 16:26
-            </small></h1>
-        </div>
-        <p>Wouldn't it be wonderful if there were no buses or jeepneys in the Philippines over the weekends? It would truly be a cyclist's paradise. Imagine biking along EDSA, normally that would be a death sentence, but according to the GTFS data, you shouldn't worry. I can assure you, it's still a death sentence.</p>
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/jeep-and-bus-schedules.html" class="u-url">Jeep and Bus Schedules</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>Wouldn't it be wonderful if there were no buses or jeepneys in the Philippines over the weekends? It would truly be a cyclist's paradise. Imagine biking along EDSA, normally that would be a death sentence, but according to the GTFS data, you shouldn't worry. I can assure you, it's still a death sentence.</p>
 <p>The GTFS spec defines 2 ways of statically specifying trip schedules. You can define the exact times that a service will arrive at a stop. You can also specify between what times the service is active and how often a new bus or jeep leaves the first stop. You also define which days those rules apply. You could say every MWF, the bus operates from 9:00AM to 9:00PM and every TTH, the bus services from 3:00AM to 11:00PM.</p>
 <p>This should be sufficient in theory, but real world conditions like traffic or the weather could throw the schedules off. To solve this, there's another spec, GTFS-realtime. This allows transit agencies to push temporary schedule updates and service announcements.</p>
 <p>Like much everything else about the Philippine transit system, there aren't really any "schedules" to speak of. It's generally whenever the buses or jeeps feel like it. So we have no static schedules. We don't have a central agency or the tracking technology to make it feasible to push updates via GTFS-RT.</p>
 <p>Ideally, we shouldn't bother inputting the schedule information into GTFS. Only the route data is really important for jeeps and buses. However, the schedule information is required in the GTFS, and routing apps wouldn't work without it. So we have to add a reasonable trip schedule for jeeps and buses.</p>
 <p>The current GTFS data does define these trip schedules. We assume that jeeps and buses operate between 6:00AM and 11:00PM and a new jeep passes by every 10 minutes. Also, jeeps and buses are defined to only operate on weekdays.</p>
 <p>While there might be jeeps who change routes or don't operate on weekends, I'm pretty sure that jeeps and buses run on weekends. We'll have to fix it ourselves temporarily since there's no central GTFS feed yet.</p>
-<div class="code"><pre><span class="c"># 724594 seems to be the service id used by jeeps and buses</span>
+<pre class="code literal-block"><span class="c"># 724594 seems to be the service id used by jeeps and buses</span>
 sed -i .bak <span class="s1">'/^724594/ s/0,0/1,1/'</span> calendar.txt
-</pre></div>
+</pre>
 
 
 <p>Another thing we could do is to adjust the time between buses, although the improvement is arguable. With the current 10 minutes between jeeps, it might provide some routes a significant advantage just because the timing is right. So you might get differing route suggestions depending on what time you planned the route. This makes sense when you're sure what the times are, so you can minimize the wait, but with jeeps, you never really know how long the wait will actually be.</p>
 <p>If we set the frequency to one minute, it <em>might</em> give better routes by eliminating the timing issue. Or not, it's kind of hard to tell.</p>
-<div class="code"><pre><span class="c"># jeep and bus route ids tend to start with 72</span>
+<pre class="code literal-block"><span class="c"># jeep and bus route ids tend to start with 72</span>
 sed -i .bak <span class="s1">'/^72/ s/,600/,60/'</span> frequencies.txt
-</pre></div>
+</pre>
 
 
 <p>Overall, the problems we're having is a symptom of the mismatch between our transit system and the GTFS. It would be great if our transit system gets better and we don't need to do hackish things for it to fit the GTFS, but that's still a dream. For now, all we can really do is fit a triangle into a square hole.</p>
-            
-    <p>
-        <a href="posts/jeep-and-bus-schedules.html#disqus_thread" data-disqus-identifier="cache/posts/jeep-and-bus-schedules.html">Comments</a>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-28T16:26:31+08:00" title="2013-07-28 16:26">2013-07-28 16:26</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/jeep-and-bus-schedules.html#disqus_thread" data-disqus-identifier="cache/posts/jeep-and-bus-schedules.html">Comments</a>
 
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/highways-in-otp.html">Highways in OTP</a>
-            <small>
-                 Posted: 2013-07-24 23:15
-            </small></h1>
-        </div>
-        <p>One of the weird things that happens with OTP is sometimes it gives absurdly roundabout routes. Here is OTP's suggested route for walking from UP to Ateneo:</p>
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
+            <a href="posts/highways-in-otp.html" class="u-url">Highways in OTP</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>One of the weird things that happens with OTP is sometimes it gives absurdly roundabout routes. Here is OTP's suggested route for walking from UP to Ateneo:</p>
 <p><img alt="Roundabout route from UP to Ateneo" src="galleries/transit/otproundabout.png"></p>
 <p>This is just so hilariously wrong. It's much simpler to just walk along Katipunan Avenue.</p>
 <p>OTP couldn't possibly be that dumb though, so there must be something we're doing wrong. If you notice, Katipunan Avenue is colored red compared to the other streets. OTP seems to be avoiding any path that goes along Katipunan Avenue. The problem might have something to do with the "road type" designated to Katipunan.</p>
 <p>Apparently, by default OTP will consider roads of type <code>trunk</code> to be non-walkable and non-bikable. This is documented in the <a href="http://wiki.openstreetmap.org/wiki/OpenTripPlanner">OpenStreetMap wiki</a> and the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#permissions-and-bicycle-safety">OTP wiki</a> as well. There are actually multiple ways to go about this then. The first solution that came to mind was to just edit the original OSM XML file.</p>
-<div class="code"><pre><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="p">.</span><span class="n">bak</span> <span class="n">s</span><span class="o">/</span><span class="n">trunk</span><span class="o">/</span><span class="n">primary</span><span class="o">/</span><span class="n">g</span> <span class="n">manila</span><span class="p">.</span><span class="n">osm</span>
-</pre></div>
+<pre class="code literal-block">sed -i .bak s/trunk/primary/g manila.osm
+</pre>
 
 
 <p>And rebuild the graph. It doesn't really matter much because the OSM data isn't used to render the maps. It's just used to build the routing data. This is actually what I did for <a href="http://maps.pleasantprogrammer.com">maps.pleasantprogrammer.com</a>.</p>
 <p>It's also possible to set the default way properties in OTP. Instead of disallowing walking and biking on <code>highway=trunk</code> we could allow that. This is not much better than the <code>sed</code> solution though. It's better since you keep the weighting done by OTP, but you're still saying that all trunks are walkable which might not be the case.</p>
 <p>The most correct way to actually fix this is to go through each of the trunks and specifying <code>foot=yes</code> and <code>bicycle=yes</code> for those trunks that are actually walkable. You could either do this locally with the dumped data, or contribute it directly to OSM. I'm not sure on the particulars with updating OSM though.</p>
-            
-    <p>
-        <a href="posts/highways-in-otp.html#disqus_thread" data-disqus-identifier="cache/posts/highways-in-otp.html">Comments</a>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-24T23:15:57+08:00" title="2013-07-24 23:15">2013-07-24 23:15</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/highways-in-otp.html#disqus_thread" data-disqus-identifier="cache/posts/highways-in-otp.html">Comments</a>
 
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/elevation-data-in-otp.html">Elevation Data in OTP</a>
-            <small>
-                 Posted: 2013-07-23 18:23
-            </small></h1>
-        </div>
-        <p><img alt="OpenTripPlanner showing elevation data" src="galleries/transit/otpelevation.png"></p>
-<p>One thing I hadn't tested out last time was OTP's support for elevation data. It makes use of this by showing the elevation you have to traverse while walking along the suggested route. It can also take it into account when suggesting bike routes.</p>
-<p>The <a href="https://github.com/openplans/OpenTripPlanner/wiki/FiveMinutes">5 minute tutorial</a> actually discusses the elevation data briefly, but a more in-depth thing you can look at is the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#elevation-data">GraphBuilder documentation</a>. It suggests using the ASTER dataset which is free but requires registration. I just opted to use the SRTM data available from the <a href="http://www.philgis.org/freegisdata.htm">PhilGIS website</a>.</p>
-<p>I don't know about the ASTER dataset, but the PhilGIS data was in the ERDAS img format. OTP only supports GeoTIFF so there was a need to convert it beforehand. You can use <a href="http://www.gdal.org/">GDAL</a> for this. You'd just then run,</p>
-<div class="code"><pre> <span class="n">gdal_translate</span> <span class="n">srtm41_90m_phl</span><span class="p">.</span><span class="n">img</span> <span class="n">phil</span><span class="p">.</span><span class="n">tiff</span>
-</pre></div>
-
-
-<p>Afterwards, it's just a matter of following the OTP instructions on using a local elevation dataset. The process actually doubled the size of the generated Graph.obj so it might not be ideal if you're running on limited RAM.</p>
-<p>I've actually hosted a <a href="http://maps.pleasantprogrammer.com">working example</a>. It's pretty much at the limits of the RAM so it might be slow and unreliable, but you can test it out just for fun. Please don't abuse it though.</p>
-            
-    <p>
-        <a href="posts/elevation-data-in-otp.html#disqus_thread" data-disqus-identifier="cache/posts/elevation-data-in-otp.html">Comments</a>
-
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/graphserver.html">GraphServer</a>
-            <small>
-                 Posted: 2013-07-23 14:48
-            </small></h1>
-        </div>
-        <p>Link: <a href="http://graphserver.github.io/graphserver/">http://graphserver.github.io/graphserver/</a></p>
-<p>One other routing webapp I saw was GraphServer. It's actually more of a general purpose Graph library which supports GTFS and OSM data than an actual dedicated routing software like OpenTripPlanner. It's also based off python and C instead of Java, so it feels a lot less heavy.</p>
-<p>The instructions on the website are already pretty good. There are just some minor errors with it. Where it says <code>gs_gtfsdb_build</code>, you should actually use <code>gs_gtfsdb_compile</code>. Also, when running <code>gs_osmdb_compile</code> you might need to use <code>-t</code> for tolerant in case you follow the instructions on chopping up the original OSM data.</p>
-<p>A nice suggestion from the GraphServer instructions was to crop the OSM data to minimize the graph size. This is actually quite helpful if you downloaded the entire Philippine OSM dump. It reduced the original 900MB file to 135MB which was a lot more workable. I did hit a problem with their instructions though. The linked version of osmosis is an old one, which doesn't support 64-bit ids. The <a href="http://wiki.openstreetmap.org/wiki/Osmosis">latest version of Osmosis</a> easily did the job though.</p>
-<p>The actual routing though, was not exactly good. I only tried one route which should normally take 1-2 transfers, it suggested a route which involved 4+ transfers. It also didn't provide any alternate routes aside from that one. I'm not sure if it's a limitation of the provided routeserver, but I didn't bother checking if it supported parameters which might provide better routes.</p>
-<p>I think graphserver could be useful, but it seems more involved than say OpenTripPlanner. There do seem to be people who use graphserver for their routing apps, but for the bounds of the contest, or just as a side project, it might require too much effort.</p>
-            
-    <p>
-        <a href="posts/graphserver.html#disqus_thread" data-disqus-identifier="cache/posts/graphserver.html">Comments</a>
-
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/transit-wand.html">Transit Wand</a>
-            <small>
-                 Posted: 2013-07-15 22:45
-            </small></h1>
-        </div>
-        <p>Link: <a href="https://play.google.com/store/apps/details?id=com.conveyal.transitwand">http://transitwand.com</a></p>
-<p>Overall, this was the simplest of the <a href="http://philippine-transit.hackathome.com/use-this-code/">open-source transit tools</a> to actually get up and running. There's already a deployed instance of the server, and you can easily download the phone app via the <a href="https://play.google.com/store/apps/details?id=com.conveyal.transitwand">Play Store</a>. Even running the server by yourself didn't have any of the hiccups I had with GTFS Editor.</p>
-<p>The phone app is actually quite simple. It allows you to capture a trip, which will record your GPS coordinates as you ride public transit. It also allows you to mark points of the trip where you stop and also how long the stop took. Lastly, it allows you to record embarking and disembarking passengers which is potentially useful for ridership data.</p>
-<p>After doing a capture session, you can review the data on the phone. It will plot out the route on a map, with markers for the stops. You then either delete the data if it looks wrong, or you can upload it to the Transit Wand server. Uploading involves registering an account, but it's free and you don't even actually need to put in a username or anything. It simply registers the phone's IMEI on the server and gives you a 6-digit identifier.</p>
-<p>You can then use the 6-digit identifier to view the data on Transit Wand's server, which is good since uploading any data automatically deletes it from the phone. There really isn't much else you can do with it though. It just allows you to view the data, and export it as a <a href="https://en.wikipedia.org/wiki/Shapefile">Shapefile</a>.</p>
-<p>As is, this is purely a data collection client-server app. Barring looking at the database, there is no way to get a list of phones which have collected data. Only the person who initiated the data collection knows the 6-digit code to view their data. There's also no way to extract the ridership information from the server yet. This isn't to say that the data won't eventually go public though.</p>
-<p>An interesting thing you <em>can</em> do with the Transit Wand data is import it into GTFS Editor to make a new route. You don't even have to manually download and upload the data. Just type in your 6-digit identifier and it will give you a list of routes you've captured via Transit Wand. This is wonderful as you get all the stop data, as well as the shape of the route.</p>
-<p>I imagine these two tools were how the DOTC came up with all the GTFS data we have now. What I don't understand is why the shape data isn't present. Importing from Transit Wand already gets you shape data. There are even facilities to edit the shape within the editor if clean up is necessary. The only problem I saw was the fact that you can't easily move stops, you have to input coordinates to change the position.</p>
-<p>It <em>might</em> also be possible that when the DOTC was still collecting the data, the route collection or editing features weren't present yet. That would just be lame and depressing though.</p>
-<p>Overall, Transit Wand does what it's supposed to do. You collect data, and then upload it to a server. There is a lot of room for improvement though. It would be nice to have a better API that allows access to more of the data. Building in analysis tools for the ridership data might also be a welcome thing. I imagine it would also be great if you could encourage people to use the app and upload their own trips.</p>
-            
-    <p>
-        <a href="posts/transit-wand.html#disqus_thread" data-disqus-identifier="cache/posts/transit-wand.html">Comments</a>
-
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/fare-data.html">Fare Data</a>
-            <small>
-                 Posted: 2013-07-13 21:15
-            </small></h1>
-        </div>
-        <p>As part of the data released by the DOTC, we also have the <a href="http://philippine-transit.hackathome.com/dataset-philippines-transit-information-service-gtfs/">fare matrix</a> for aircon buses, ordinary buses and jeeps. All as wonderful images. The data is also actually available from the <a href="http://ltfrb.gov.ph/main/farerates">LTFRB website</a>. Generally, the fare scheme is represented as "pay <em>X</em> pesos for the first <em>Y</em> kilometers, pay <em>Z</em> for every succeeding kilometer." Instead of a table, we can simply represent this as a formula instead,</p>
-<div class="code"><pre><span class="n">base_fare</span> <span class="o">+</span> <span class="p">(</span><span class="n">distance</span> <span class="o">-</span> <span class="n">initial</span><span class="p">)</span> <span class="o">*</span> <span class="n">per_km</span>
-</pre></div>
-
-
-<p>The relevant values for the three services are:</p>
-<table>
-<thead>
-  <tr>
-    <td>type</td>
-    <td>base_fare</td>
-    <td>initial</td>
-    <td>per_km</td>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>bus aircon</td>
-    <td>12.00</td>
-    <td>5 km</td>
-    <td>2.20</td>
-  </tr>
-  <tr>
-    <td>bus ordinary</td>
-    <td>10.00</td>
-    <td>5 km</td>
-    <td>1.85</td>
-  </tr>
-  <tr>
-    <td>jeep aircon</td>
-    <td>8.00</td>
-    <td>4 km</td>
-    <td>1.40</td>
-  </tr>
-</tbody>
-</table>
-
-<p>It isn't as simple as that though. Fares are also rounded to the nearest 25 centavos. So we'd need to round them off correctly. This can be achieved by doing,</p>
-<div class="code"><pre><span class="n">round</span><span class="p">(</span><span class="n">calculated_fare</span> <span class="o">*</span> <span class="mf">4.0</span><span class="p">)</span><span class="o">/</span><span class="mf">4.0</span>
-</pre></div>
-
-
-<p>There's also the discounted fare for students, senior citizens and persons with disability. They get 20% off the fare (prior to rounding) and the resulting fare is rounded off as well.</p>
-<p>Doing just this, we actually do get the same results as the fare matrices in the image for the most part. There are some discrepancies with the discounted jeep fares. I've tried to resolve it by tweaking around with the formulas, but it really doesn't make sense in any way. I presume these were manually adjusted for one reason or another.</p>
-<p>Here's a <a href="uploads/farematrix.rb">script</a> that generates CSVs of all the three fare matrices. If you're too lazy to run it, here are links to the <a href="uploads/pub_aircon.csv">aircon bus</a>, <a href="uploads/pub_ordinary.csv">ordinary bus</a> and <a href="uploads/puj.csv">jeep</a> fare matrices.</p>
-<h4>GTFS compatibility</h4>
-<p>As is, the provided GTFS data does not have any fare data. I imagine this is because the existing spec doesn't have good support for distance-based fares like we have in the Philippines. Judging from the <a href="https://code.google.com/p/googletransitdatafeed/wiki/FareExamples">fare examples</a>, the only reasonable way we could implement distance-based fares is following example 6. This would involve setting a fare for each possible pair of stops based on the distance between them. This isn't exactly ideal. In fact, the people originally working on the DOTC project have voiced <a href="https://groups.google.com/forum/#!topic/gtfs-fare-wg/V63xRSnQJGw">issues</a> and made <a href="https://groups.google.com/forum/#!msg/gtfs-changes/uybrAokZ9Cg/rqlzXdMypUgJ">proposals</a> for having distance-based fares included into GTFS.</p>
-<p>Apparently, public transit fares are a really complicated thing. You have fares based on distance, number of stops passed through, and transfers which may or may not cost extra. Not only that, you might have discounted fares, or first-class vs economy fares. The community will want to get it right before it's formally included in the spec. You can see the current state of the consolidated <a href="https://docs.google.com/document/d/1mK3--o5g4-3cCXaqmch92U63JTwChh0L2VCmcDViIlM/edit">GTFS fare proposal here</a>.</p>
-<p>Even in it's proposal form though, we might have hope of being able to see these being used. There's currently a <a href="https://github.com/OneBusAway/onebusaway-gtfs-modules/pull/30">pull request</a> for supporting the distance-based fare scheme into the OneBusAway libraries. The libraries actually used by GTFS Editor and OpenTripPlanner for working with GTFS data.</p>
-<h4>Remaining Problems</h4>
-<p>Given all that, it would probably still be a long way before this allows us to make a really good routing app. We still don't have shape data, so the distance estimates would really be rough estimates at best. There's no support for rounding to the nearest centavo. I realize that's just nitpicking, but if we want something truly polished, even that has to be taken care of.</p>
-<p>We also don't know if the jeeps or buses strictly follow the distance-based scheme. After all, if you can get on and off anywhere, you can't really measure distance that exactly. I assume they generally work off the notion of "zones" than actual distance travelled. In that sense, they work more similarly to the LRT which has fares based on how many stops you pass. For jeeps and buses, your fare is probably based more on how many "zones" you pass through.</p>
-<h4>Conclusion</h4>
-<p>Philip, a co-worker of mine at By Implication, had suggested that we might want to use a different model than what the GTFS proposes. I have to agree with him. At this point, the GTFS doesn't really fit with our system. But I do think that open data and standards are great. In fact, I applaud the developers who made proposals for the fare system, as those are great first steps towards making the GTFS a more universal standard.</p>
-<p>Side note: I'd also actually really like to hear about the DOTC developers' experience with the project. It would be nice if they had a devblog.</p>
-            
-    <p>
-        <a href="posts/fare-data.html#disqus_thread" data-disqus-identifier="cache/posts/fare-data.html">Comments</a>
-
-        </p></div>
-        <div class="postbox">
-        <div class="title">
-            <h1><a href="posts/gtfs-editor.html">GTFS Editor</a>
-            <small>
-                 Posted: 2013-07-10 11:30
-            </small></h1>
-        </div>
-        <p>Link: <a href="https://github.com/conveyal/gtfs-editor">https://github.com/conveyal/gtfs-editor</a></p>
-<p><strong>TL;DR</strong> they really meant under development</p>
-<p>When I first saw the source of GTFS Editor, I was ecstatic. They used <a href="http://playframework.com/">Play framework</a>!!! Not only that, they're targeting PostgreSQL as the main database. Those are our favorite tools for building webapps at By Implication. I was a bit sad though, when I saw it was on the 1.x release of Play though. I did have some experience with that release, but not as much compared to 2.x.</p>
-<p>Getting it to actually run though, wasn't very pleasant. The initial setup was easy enough. Get <a href="http://www.playframework.com/download">Play 1.2.5</a>, install Postgres with PostGIS, clone the repo and create backing database in Postgres. Some minor additional steps you need are to create the PostGIS extension on the database. The schema is automatically generated and applied by Play so that should be all that's necessary. Wonderful. Then, run play, open a browser, go to <a href="http://localhost:9000">http://localhost:9000</a>, compilation error. Fantastic.</p>
-<p>If you don't want to go through the technical details, you can just jump to the <a href="posts/gtfs-editor.html#conclusion">conclusion</a>.</p>
-<h3>Let's Debug!</h3>
-<p>I'll be splitting the next section up into 2 parts. In the first pass, I'll talk about what I did to just get the app to run but I won't try hard to fix any bugs. This generally is what I do when I try to get apps to run. I'll also be dropping enough information so that you can actually figure out what the real problem is. In the second pass, I'll explain what the problems were and how I fixed them.</p>
-<h4>First Pass</h4>
-<p>A thing to note about Play (and one of the reasons it's a lovely Java framework) is that you don't need to do manual compilation. Just edit some source files, refresh your browser and it will automatically do the compilation for you. One less argument for using PHP. It even shows you (in the browser!) the source and which line of code caused the compilation error. So that's what I saw, <code>Error: type Check already defined</code></p>
-<div class="code"><pre><span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Check</span> <span class="o">{</span> <span class="c1">// error here</span>
-
-    <span class="n">String</span><span class="o">[]</span> <span class="nf">value</span><span class="o">();</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>You also know that typical behavior among programmers where your program doesn't compile, but you keep trying to compile it anyway hoping that it will magically just work. That's what I did, and it actually ran. I couldn't really just let this pass, so I decided to try deleting <code>Check.java</code>. I got another compilation error, <code>Error: type Secure already defined</code></p>
-<div class="code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Secure</span> <span class="kd">extends</span> <span class="n">Controller</span> <span class="o">{</span> <span class="c1">// error here</span>
-
-    <span class="nd">@Before</span><span class="o">(</span><span class="n">unless</span><span class="o">={</span><span class="s">"login"</span><span class="o">,</span> <span class="s">"authenticate"</span><span class="o">,</span> <span class="s">"logout"</span><span class="o">})</span>
-
-    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">checkAccess</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
-</pre></div>
-
-
-<p>At that point, I just decided to just debug it later. It works by just forcing it anyway. So I put <code>Check.java</code> back in and proceeded to just refresh until it compiled and ran.</p>
-<p>The next problem is a sort of common thing most webapp developers have to solve one way or another. How do you set up the initial admin account? Phrased a different way, how do I login to this thing? The first thing I tried was just add a user into the <code>account</code> table directly. One problem though was how to set the password correctly. Plaintext obviously wouldn't work.</p>
-<p>Another note regarding Play 1.x, it provides the <a href="http://www.playframework.com/documentation/1.2.5/secure">secure module</a> which handles logins and keeping state, you simply need to implement the method <code>boolean authenticate(String username, String password)</code>. It leaves the actual process of verifying the login to the programmer. This can be exploited by just making the method return <code>true</code> and then any login would work. No need to actually set the password. Excellent.</p>
-<p>And we're logged in, just in time to encounter a runtime exception. This also works much like compilation errors in Play. It shows a page with the error and the relevant source lines. Now we get, <code>IndexOutOfBoundsException occured : Index: 0, Size: 0</code></p>
-<div class="code"><pre><span class="k">if</span><span class="o">(</span><span class="n">session</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"agencyId"</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-
-    <span class="n">Agency</span> <span class="n">agency</span> <span class="o">=</span> <span class="n">agencies</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> <span class="c1">// error here</span>
-
-    <span class="n">session</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"agencyId"</span><span class="o">,</span> <span class="n">agency</span><span class="o">.</span><span class="na">id</span><span class="o">);</span>
-    <span class="n">session</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"agencyName"</span><span class="o">,</span> <span class="n">agency</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
-</pre></div>
-
-
-<p>Apparently, we need to have an agency. That's generally simple enough. You just manually insert an agency into the <code>agency</code> table. After that's done, we finally have a view of the actual application. It's very Bootstrap-y, but that's just fine. The workflow though, is not perfectly intuitive, but I'll talk about that some other day.</p>
-<p>That's not the end of it though, we still have to fix these bugs. The developer obviously didn't have to put up with this when they were working, so what happened? Also, the log is showing some weird things,</p>
-<div class="code"><pre>~        _            _
-~  _ __ | | __ _ _  _| |
-~ | '_ \| |/ _' | || |_|
-~ |  __/|_|\____|\__ (_)
-~ |_|            |__/
-~
-~ play! 1.2.5, http://www.playframework.org
-~
-~ Ctrl+C to stop
-~
-CompilerOracle: exclude jregex/Pretokenizer.next
-Listening for transport dt_socket at address: 8000
-23:32:14,943 INFO  ~ Starting /Users/thomas/Workspace/maps/gtfs-editor
-23:32:14,948 WARN  ~ Declaring modules in application.conf is deprecated. Use dependencies.yml instead (module.secure)
-23:32:14,948 INFO  ~ Module secure is available (/Users/thomas/.root/opt/play-1.2.5/modules/secure)
-23:32:15,830 WARN  ~ You're running Play! in DEV mode
-23:32:15,952 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
-23:32:28,792 ERROR ~
-
-@6f02fa9dd
-Internal Server Error (500) for request GET /
-
-Compilation error (In /app/controllers/Check.java around line 10)
-The file /app/controllers/Check.java could not be compiled. Error raised is : The type Check is already defined
-
-play.exceptions.CompilationException: The type Check is already defined
-    at play.classloading.ApplicationCompiler$2.acceptResult(ApplicationCompiler.java:246)
-    at org.eclipse.jdt.internal.compiler.Compiler.handleInternalException(Compiler.java:672)
-    at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:516)
-    at play.classloading.ApplicationCompiler.compile(ApplicationCompiler.java:282)
-    at play.classloading.ApplicationClassloader.getAllClasses(ApplicationClassloader.java:426)
-    at play.Play.start(Play.java:516)
-    at play.Play.detectChanges(Play.java:630)
-    at play.Invoker$Invocation.init(Invoker.java:198)
-    at Invocation.HTTP Request(Play!)
-23:32:31,551 INFO  ~ Connected to jdbc:postgresql://127.0.0.1/gtfs_editor
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/Users/thomas/Workspace/maps/gtfs-editor/lib/slf4j-log4j12-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/Users/thomas/.root/opt/play-1.2.5/framework/lib/slf4j-log4j12-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-23:32:32,490 INFO  ~ Initializing HBSpatialExtension
-23:32:32,492 INFO  ~ Attempting to load Hibernate Spatial Provider org.hibernatespatial.postgis.DialectProvider
-23:32:32,494 INFO  ~ Checking for default configuration file.
-23:32:32,496 INFO  ~ No configuration file hibernate-spatial.cfg.xml on the classpath.
-23:32:34,077 INFO  ~ Application 'gtfs-editor' is now started !
-23:32:34,151 INFO  ~ Bootstrapping Database...
-23:32:34,297 DEBUG ~ select count(*) as col_0_0_ from Agency agency0_ limit ?
-play.exceptions.UnexpectedException: Unexpected Error
-    at play.vfs.VirtualFile.contentAsString(VirtualFile.java:180)
-    at play.templates.TemplateLoader.load(TemplateLoader.java:78)
-    at play.test.Fixtures.loadModels(Fixtures.java:174)
-    at jobs.BootstrapDatabase.doJob(BootstrapDatabase.java:57)
-    at play.jobs.Job.doJobWithResult(Job.java:50)
-    at play.jobs.Job.call(Job.java:146)
-    at play.jobs.Job.run(Job.java:132)
-    at play.jobs.JobsPlugin.afterApplicationStart(JobsPlugin.java:116)
-    at play.plugins.PluginCollection.afterApplicationStart(PluginCollection.java:531)
-    at play.Play.start(Play.java:547)
-    at play.Play.detectChanges(Play.java:630)
-    at play.Invoker$Invocation.init(Invoker.java:198)
-    at play.server.PlayHandler$NettyInvocation.init(PlayHandler.java:189)
-    at play.Invoker$Invocation.run(Invoker.java:276)
-    at play.server.PlayHandler$NettyInvocation.run(PlayHandler.java:229)
-    at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
-    at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
-    at java.util.concurrent.FutureTask.run(FutureTask.java:138)
-    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:98)
-    at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:206)
-    at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
-    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
-    at java.lang.Thread.run(Thread.java:680)
-Caused by: play.exceptions.UnexpectedException: Unexpected Error
-    at play.vfs.VirtualFile.inputstream(VirtualFile.java:111)
-    at play.vfs.VirtualFile.contentAsString(VirtualFile.java:178)
-    ... 22 more
-Caused by: java.io.FileNotFoundException: /Users/thomas/.root/opt/play-1.2.5/modules/docviewer/app/initial-agencies-data.yml (No such file or directory)
-    at java.io.FileInputStream.open(Native Method)
-    at java.io.FileInputStream.&lt;init&gt;(FileInputStream.java:120)
-    at play.vfs.VirtualFile.inputstream(VirtualFile.java:109)
-    ... 23 more
-23:32:34,316 ERROR ~ java.lang.RuntimeException: Cannot load fixture initial-agencies-data.yml: Unexpected Error
-23:32:40,989 DEBUG ~ select account0_.id as id15_, account0_.active as active15_, account0_.admin as admin15_, account0_.agency_id as agency9_15_, account0_.email as email15_, account0_.lastLogin as lastLogin15_, account0_.password as password15_, account0_.passwordChangeToken as password7_15_, account0_.username as username15_ from Account account0_ where account0_.username=? limit ?
-23:32:40,994 DEBUG ~ select count(*) as col_0_0_ from Account account0_ limit ?
-23:32:40,999 DEBUG ~ select nextval ('hibernate_sequence')
-23:32:41,051 DEBUG ~ insert into Account (active, admin, agency_id, email, lastLogin, password, passwordChangeToken, username, id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
-23:32:41,061 DEBUG ~ select agency0_.id as id24_, agency0_.color as color24_, agency0_.defaultLat as defaultLat24_, agency0_.defaultLon as defaultLon24_, agency0_.defaultRouteType_id as default12_24_, agency0_.gtfsAgencyId as gtfsAgen5_24_, agency0_.lang as lang24_, agency0_.name as name24_, agency0_.phone as phone24_, agency0_.systemMap as systemMap24_, agency0_.timezone as timezone24_, agency0_.url as url24_ from Agency agency0_ order by agency0_.name
-23:32:41,175 ERROR ~
-
-@6f02fa9dg
-Internal Server Error (500) for request GET /
-
-Execution exception (In /app/controllers/Application.java around line 57)
-IndexOutOfBoundsException occured : Index: 0, Size: 0
-
-play.exceptions.JavaExecutionException: Index: 0, Size: 0
-    at play.mvc.ActionInvoker.invoke(ActionInvoker.java:237)
-    at Invocation.HTTP Request(Play!)
-Caused by: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-    at java.util.ArrayList.RangeCheck(ArrayList.java:547)
-    at java.util.ArrayList.get(ArrayList.java:322)
-    at controllers.Application.initSession(Application.java:57)
-    at play.mvc.ActionInvoker.invoke(ActionInvoker.java:510)
-    at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:484)
-    at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:479)
-    at play.mvc.ActionInvoker.handleBefores(ActionInvoker.java:328)
-    at play.mvc.ActionInvoker.invoke(ActionInvoker.java:142)
-    ... 1 more
-</pre></div>
-
-
-<p>After <code>23:32:34</code> is when I get the login page. <code>23:32:40</code> is after I've logged in.</p>
-<h4>Second Pass</h4>
-<p>So how did you do? First, the error that <code>type Check already defined</code> usually does mean that <code>Check</code> was already defined elsewhere. Looking in the app folder though, there was nothing of the sort. It's the only one there that was <code>Check.java</code>. But remember the secure module? Modules work by providing source files and Play just compiles them all together. Bingo, <code>Check.java</code>. Doing a diff shows nothing was changed. So the solution really was just simply delete <code>Check.java</code> and also <code>Secure.java</code>. No more compilation errors!</p>
-<p>The next question is, how do you get the initial user? There actually is some code that looks like it creates the default admin user,</p>
-<div class="code"><pre><span class="k">if</span><span class="o">(</span><span class="n">Security</span><span class="o">.</span><span class="na">isConnected</span><span class="o">())</span> <span class="o">{</span>
-    <span class="o">...</span>
-    <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">Account</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="s">"username = ?"</span><span class="o">,</span> <span class="n">Security</span><span class="o">.</span><span class="na">connected</span><span class="o">()).</span><span class="na">first</span><span class="o">();</span>
-    <span class="o">...</span>
-    <span class="k">if</span><span class="o">(</span><span class="n">account</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">Account</span><span class="o">.</span><span class="na">count</span><span class="o">()</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">account</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Account</span><span class="o">(</span><span class="s">"admin"</span><span class="o">,</span> <span class="s">"admin"</span><span class="o">,</span> <span class="s">"admin@test.com"</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-        <span class="n">account</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
-    <span class="o">}</span>
-    <span class="o">...</span>
-<span class="o">}</span>
-</pre></div>
-
-
-<p>You can actually see this in action at <code>23:32:41,051</code> in the log. So what's wrong with all of this? The account creation happened after I've already logged in. In fact, <code>Security.isConnected()</code> checks whether the user is already logged in or not. How does this even make sense?</p>
-<p>Lastly, we have the problem of the agencies. Just by looking at the log, you can safely say we're missing a file called <code>initial-agencies-data.yml</code>. Ok, apparently it's a <a href="http://www.playframework.com/documentation/1.2.5/test#fixtures">fixture</a> like you would use for testing. It's easy enough to infer what the file's contents should be. We just copy it over from the GTFS data.</p>
-<p>But then where do you put the file? If you look at the log, it says <code>/Users/thomas/.root/opt/play-1.2.5/modules/docviewer/app/initial-agencies-data.yml</code> but that doesn't look right. That's in the Play distribution directory, probably not somewhere something app-specific should go into. Well, a fixture is used for testing, so maybe the <code>test/</code> directory? No, that doesn't work either since we're not running a test.</p>
-<p>What I ended up doing was just looking at the sources for <code>Fixtures.load</code>. If you follow the stack trace, you end up finding <code>Play.javaPath</code> which sort of works like PATH for Fixtures and some other things. So where can we put the file? <code>app/</code> and <code>conf/</code>. And with that, we're done.</p>
-<h3 id="conclusion">Conclusion
-
-</h3><p>GTFS Editor is very much in development. Just getting it to run was problematic. There also seem to be a lot of missing issues judging from the Github Issues page. If you want to try it out for yourself, I suggest you clone <a href="https://github.com/thatsmydoing/gtfs-editor">my branch</a> as I've fixed the issues discussed earlier. The default login is <code>admin:admin</code>.</p>
-<p>Even after getting it to run, it's still not quite usable. Not in the UX sense, but you really can't do much with it. There is no way to import the GTFS data into the webapp. There is something like import from TransitWand but even that is unclear to me. And even if we do get that running as well, we still don't have any data we can play around with. We would need database dumps from the already running tools for these to be of any use right now.</p>
-            
-    <p>
-        <a href="posts/gtfs-editor.html#disqus_thread" data-disqus-identifier="cache/posts/gtfs-editor.html">Comments</a>
-
-        </p></div>
-    
-<div>
-<ul class="pager clearfix">
-    <li class="next">
-        <a href="index-1.html">Older posts →</a>
-    </li>
-</ul>
+</small>
+    </article>
 </div>
 
-    
-       <script type="text/javascript">var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.type="text/javascript";a.src="http://"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("HEAD")[0]||document.getElementsByTagName("BODY")[0]).appendChild(a)}());</script>
+        <nav class="postindexpager">
+        <ul class="pager clearfix">
+            <li class="next">
+                <a href="index-2.html" rel="next">Older posts →</a>
+            </li>
+        </ul>
+        </nav>
 
 
-        </div>
+        
+       <script>var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
+
+
+
+
+
+         </main>
+         
+        <footer id="footer" role="contentinfo">
+            <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2015 Thomas Dy - Powered by <a href="http://getnikola.com">Nikola</a></p>
+            
+        </footer>
+
     </div>
-    <footer>
-        <small><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2013 Thomas Dy - Powered by <a href="http://nikola.ralsina.com.ar">Nikola</a></small>
-        <script src="assets/js/konami.js"></script>
-        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script>
-            var easter_egg = new Konami();
-            easter_egg.code = function() { 
-                $(".thomas").toggleClass("whoa");
-                $("body").scrollTop(0);
-            }
-            easter_egg.load();
-
-            // love you, thomas!
-            // yours, @_phi + @meggykawsek
-        </script>
-    </footer>
-
-
-    <script type="text/javascript">var addthis_config={"ui_language":"en"};</script>
     
+    
+    
+    
+
+    <script src="assets/js/konami.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script>
+        var easter_egg = new Konami();
+        easter_egg.code = function() {
+            $(".thomas").toggleClass("whoa");
+            $("body").scrollTop(0);
+        }
+        easter_egg.load();
+
+        // love you, thomas!
+        // yours, @_phi + @meggykawsek
+    </script>
 </body>
 </html>
