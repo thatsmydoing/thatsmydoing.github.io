@@ -70,6 +70,38 @@
     <article class="h-entry post-text">
     <header>
         <h1 class="p-name entry-title">
+            <a href="posts/is-my-terminal-window-active.html" class="u-url">Is My Terminal Window Active?</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>I've been working in OSX for almost 3 years now, but I recently switched back to Linux because of all the problems people encountered with Yosemite. There are some things I missed from OSX though. One of which is <a href="https://github.com/marzocchi/zsh-notify">zsh-notify</a>. It's a zsh plugin that alerts you if your long-running task is complete, and whether it failed or not.</p>
+<p>It's pretty convenient when you're compiling something and then go on to browse reddit while waiting. Usually, I spend too much time just reading and forget about the compilation entirely. With the plugin, I get the notification and maybe go back to work.</p>
+<p>One nice feature it has is that if you're currently looking at the terminal window of the job that just finished, it won't notify you. It only notifies on windows that aren't currently in focus. To do this, it has to actually talk to Terminal.app or iTerm2 to see if the window and tab are active.</p>
+<p>This is alright in OSX since those 2 are the generally most used terminal emulators. On Linux though, everyone has their own favorite terminal. Given that, I figured I could probably rely on talking to X to see if the window is active instead of each single terminal emulator. X can't tell if the tab is active though, but I don't use tabs in my current setup so it should still be good.</p>
+<h3>xdotool</h3>
+<p><a href="http://superuser.com/questions/382616/detecting-currently-active-window">Preliminary research</a> reveals that we can easily get what the active window is with xdotool. <code>xdotool getactivewindow</code> gives us the X window id of the active one. Now all we need is a way to get the window id of the terminal we're in.</p>
+<h3>First Attempt: $WINDOWID</h3>
+<p>Apparently, xterm and similar terminal emulators define an environment variable called <code>$WINDOWID</code> with the window id of the terminal. Obviously, this is too good to be true. In xterm and konsole the <code>$WINDOWID</code> was correct, but in VTE-based terminal emulators, <code>$WINDOWID</code> had the wrong value. In terminology, it didn't define <code>$WINDOWID</code> altogether. So <code>$WINDOWID</code> wasn't going to work.</p>
+<h3>Second Attempt: xdotool search $MAGIC</h3>
+<p>My second idea was that you can use zsh to change the window title to a magic number and then just check if the active window is the same one as the window with the magic number. This sort of worked for most terminals, except konsole which does whatever it wants with the window title. There's also the problem of some zsh configs automatically settings the window title to the current command.</p>
+<p>In hindsight, I could probably have just done <code>xdotool search --name xdotool</code> since in most cases, when you run the search, zsh or konsole will set the window name to the current command. Maybe that's another option I can explore some day.</p>
+<h3>Third Attempt: $PPID</h3>
+<p>My third idea was another environment variable called <code>$PPID</code>, which is the process id of the parent of the shell. As it happens, the parent is the window containing the zsh instance. This is actually pretty consistent across most terminals. The only problem was if you launched zsh from another shell since your new zsh's parent will now be another zsh instance instead of an X window.</p>
+<p>At first glance, launching zsh within zsh doesn't seem like something most people would do, but this is what happens when you run screen or tmux. To work around this, we can actually just save the original <code>$PPID</code> in a different variable and use that instead.</p>
+<p>Now that we have the PID of the window from zsh, we can once again use xdotool to get the PID of the current active window with <code>xdotool getactivewindow getwindowpid</code>. We just simply compare that with our <code>$PPID</code> and we can tell if we're in an active window or not. Overall, this approach worked surprisingly well so that's the final solution I went with.</p>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2015-06-07T16:20:45+08:00" title="2015-06-07 16:20">2015-06-07 16:20</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/is-my-terminal-window-active.html#disqus_thread" data-disqus-identifier="cache/posts/is-my-terminal-window-active.html">Comments</a>
+
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
             <a href="posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html" class="u-url">Removing PLDTMyDSLBiz from the ZyXEL P-2612HNU</a>
         </h1>
     </header>
@@ -217,35 +249,6 @@ sed -i .bak <span class="s1">'/^72/ s/,600/,60/'</span> frequencies.txt
         | <small class="commentline">
         
     <a href="posts/jeep-and-bus-schedules.html#disqus_thread" data-disqus-identifier="cache/posts/jeep-and-bus-schedules.html">Comments</a>
-
-</small>
-    </article>
-    <article class="h-entry post-text">
-    <header>
-        <h1 class="p-name entry-title">
-            <a href="posts/highways-in-otp.html" class="u-url">Highways in OTP</a>
-        </h1>
-    </header>
-    <div class="e-content entry-content">
-    <div>
-<p>One of the weird things that happens with OTP is sometimes it gives absurdly roundabout routes. Here is OTP's suggested route for walking from UP to Ateneo:</p>
-<p><img alt="Roundabout route from UP to Ateneo" src="galleries/transit/otproundabout.png"></p>
-<p>This is just so hilariously wrong. It's much simpler to just walk along Katipunan Avenue.</p>
-<p>OTP couldn't possibly be that dumb though, so there must be something we're doing wrong. If you notice, Katipunan Avenue is colored red compared to the other streets. OTP seems to be avoiding any path that goes along Katipunan Avenue. The problem might have something to do with the "road type" designated to Katipunan.</p>
-<p>Apparently, by default OTP will consider roads of type <code>trunk</code> to be non-walkable and non-bikable. This is documented in the <a href="http://wiki.openstreetmap.org/wiki/OpenTripPlanner">OpenStreetMap wiki</a> and the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#permissions-and-bicycle-safety">OTP wiki</a> as well. There are actually multiple ways to go about this then. The first solution that came to mind was to just edit the original OSM XML file.</p>
-<pre class="code literal-block">sed -i .bak s/trunk/primary/g manila.osm
-</pre>
-
-
-<p>And rebuild the graph. It doesn't really matter much because the OSM data isn't used to render the maps. It's just used to build the routing data. This is actually what I did for <a href="http://maps.pleasantprogrammer.com">maps.pleasantprogrammer.com</a>.</p>
-<p>It's also possible to set the default way properties in OTP. Instead of disallowing walking and biking on <code>highway=trunk</code> we could allow that. This is not much better than the <code>sed</code> solution though. It's better since you keep the weighting done by OTP, but you're still saying that all trunks are walkable which might not be the case.</p>
-<p>The most correct way to actually fix this is to go through each of the trunks and specifying <code>foot=yes</code> and <code>bicycle=yes</code> for those trunks that are actually walkable. You could either do this locally with the dumped data, or contribute it directly to OSM. I'm not sure on the particulars with updating OSM though.</p>
-</div>
-    </div>
-    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-24T23:15:57+08:00" title="2013-07-24 23:15">2013-07-24 23:15</time></small>
-        | <small class="commentline">
-        
-    <a href="posts/highways-in-otp.html#disqus_thread" data-disqus-identifier="cache/posts/highways-in-otp.html">Comments</a>
 
 </small>
     </article>

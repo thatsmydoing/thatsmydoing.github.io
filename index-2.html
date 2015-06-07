@@ -71,6 +71,35 @@
     <article class="h-entry post-text">
     <header>
         <h1 class="p-name entry-title">
+            <a href="posts/highways-in-otp.html" class="u-url">Highways in OTP</a>
+        </h1>
+    </header>
+    <div class="e-content entry-content">
+    <div>
+<p>One of the weird things that happens with OTP is sometimes it gives absurdly roundabout routes. Here is OTP's suggested route for walking from UP to Ateneo:</p>
+<p><img alt="Roundabout route from UP to Ateneo" src="galleries/transit/otproundabout.png"></p>
+<p>This is just so hilariously wrong. It's much simpler to just walk along Katipunan Avenue.</p>
+<p>OTP couldn't possibly be that dumb though, so there must be something we're doing wrong. If you notice, Katipunan Avenue is colored red compared to the other streets. OTP seems to be avoiding any path that goes along Katipunan Avenue. The problem might have something to do with the "road type" designated to Katipunan.</p>
+<p>Apparently, by default OTP will consider roads of type <code>trunk</code> to be non-walkable and non-bikable. This is documented in the <a href="http://wiki.openstreetmap.org/wiki/OpenTripPlanner">OpenStreetMap wiki</a> and the <a href="https://github.com/openplans/OpenTripPlanner/wiki/GraphBuilder#permissions-and-bicycle-safety">OTP wiki</a> as well. There are actually multiple ways to go about this then. The first solution that came to mind was to just edit the original OSM XML file.</p>
+<pre class="code literal-block">sed -i .bak s/trunk/primary/g manila.osm
+</pre>
+
+
+<p>And rebuild the graph. It doesn't really matter much because the OSM data isn't used to render the maps. It's just used to build the routing data. This is actually what I did for <a href="http://maps.pleasantprogrammer.com">maps.pleasantprogrammer.com</a>.</p>
+<p>It's also possible to set the default way properties in OTP. Instead of disallowing walking and biking on <code>highway=trunk</code> we could allow that. This is not much better than the <code>sed</code> solution though. It's better since you keep the weighting done by OTP, but you're still saying that all trunks are walkable which might not be the case.</p>
+<p>The most correct way to actually fix this is to go through each of the trunks and specifying <code>foot=yes</code> and <code>bicycle=yes</code> for those trunks that are actually walkable. You could either do this locally with the dumped data, or contribute it directly to OSM. I'm not sure on the particulars with updating OSM though.</p>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-24T23:15:57+08:00" title="2013-07-24 23:15">2013-07-24 23:15</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/highways-in-otp.html#disqus_thread" data-disqus-identifier="cache/posts/highways-in-otp.html">Comments</a>
+
+</small>
+    </article>
+    <article class="h-entry post-text">
+    <header>
+        <h1 class="p-name entry-title">
             <a href="posts/elevation-data-in-otp.html" class="u-url">Elevation Data in OTP</a>
         </h1>
     </header>
