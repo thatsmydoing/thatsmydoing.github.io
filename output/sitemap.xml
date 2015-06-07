@@ -6,110 +6,118 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>http://pleasantprogrammer.com/2013/index.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
+ </url>
+ <url>
+  <loc>http://pleasantprogrammer.com/2015/index.html</loc>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/archive.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/categories/index.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/categories/lets-debug.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/categories/philippine-transit-app.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/categories/programming.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/categories/sysadmin.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/categories/systemd.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/galleries/index.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/galleries/transit/index.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/index-1.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/index-2.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/index.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/console-keymap-switching.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/elevation-data-in-otp.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/fare-data.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/geocoding-services.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/graphserver.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/gtfs-editor.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/highways-in-otp.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
+ </url>
+ <url>
+  <loc>http://pleasantprogrammer.com/posts/is-my-terminal-window-active.html</loc>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/jeep-and-bus-schedules.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/jeepney-and-bus-routes.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/one-bus-or-maybe-jeep-away.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/open-trip-planner.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/philippine-transit-app-challenge.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
  <url>
   <loc>http://pleasantprogrammer.com/posts/transit-wand.html</loc>
-  <lastmod>2015-01-17</lastmod>
+  <lastmod>2015-06-07</lastmod>
  </url>
 </urlset>
