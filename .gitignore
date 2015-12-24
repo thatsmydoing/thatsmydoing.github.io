@@ -3,8 +3,4 @@
 __pycache__
 cache
 .DS_Store
-bin
-lib
-include
-share
-pip-selfcheck.json
+env
