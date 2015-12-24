@@ -62,8 +62,8 @@ code {
 	border-radius: 0.25em;
 }
 
-.code pre {
-	padding: 0.25em 0em;
+pre.code {
+	padding: 0.25em 0.5em;
 	overflow-x: auto;
 }
 

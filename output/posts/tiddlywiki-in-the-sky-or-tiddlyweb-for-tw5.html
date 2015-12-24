@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>TiddlyWiki in the Sky (or TiddlyWeb for TW5) | Pleasant Programmer</title>
+<link href="../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/theme.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/custom.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="canonical" href="http://pleasantprogrammer.com/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html">
+<script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script><!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><meta name="author" content="Thomas Dy">
+<link rel="prev" href="is-my-terminal-window-active.html" title="Is My Terminal Window Active?" type="text/html">
+<meta property="og:site_name" content="Pleasant Programmer">
+<meta property="og:title" content="TiddlyWiki in the Sky (or TiddlyWeb for TW5)">
+<meta property="og:url" content="http://pleasantprogrammer.com/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html">
+<meta property="og:description" content="I've always liked TiddlyWiki. Back when it first came out, it was really amazing. A wiki all in one file, that worked in the browser. It didn't need a backend, it would just save itself as an all new ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2015-12-24T14:48:20+08:00">
+<meta property="article:tag" content="sysadmin tiddlywiki">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
+    <header id="header" role="banner"><div class="thomas">
+            <img src="../assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS"><img src="../assets/img/thomas.png" alt="Pleasant Programmer">
+</div>
+        
+    <h1 id="brand"><a href="http://pleasantprogrammer.com/" title="Pleasant Programmer" rel="home">
+
+        <span id="blog-title">Pleasant Programmer</span>
+    </a></h1>
+
+        
+
+        
+    <nav id="menu" role="navigation"><ul>
+<li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+                <li><a href="../archive.html">Archives</a></li>
+                <li><a href="../categories/index.html">Tags</a></li>
+                <li><a href="../rss.xml">RSS</a></li>
+    
+    
+    </ul></nav></header><div id="container">
+         <main id="content" role="main"><article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="#" class="u-url">TiddlyWiki in the Sky (or TiddlyWeb for TW5)</a></h1>
+
+        <small>
+        <span class="dateline">Posted: <a href="#" rel="bookmark"><time class="published dt-published" datetime="2015-12-24T14:48:20+08:00" itemprop="datePublished" title="2015-12-24 14:48">2015-12-24 14:48</time></a></span>
+        |
+        More posts about
+        
+           <a class="tag p-category" href="../categories/sysadmin-tiddlywiki.html" rel="tag">sysadmin tiddlywiki</a>
+
+        </small>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>I've always liked <a href="http://tiddlywiki.com">TiddlyWiki</a>. Back when it first came out, it was really amazing. A wiki all in one file, that worked in the browser. It didn't need a backend, it would just save itself as an all new HTML file with all your posts inside. I've used it a lot over the years, as a personal wiki/journal and a class notebook. I even had a blog with it at one point using one of the server-side forks.</p>
+<p>Now, there's TiddlyWiki5 which is a rewrite of the original TiddlyWiki that looks a whole lot snazzier, and I assume has better architecture overall. It also has experimental support for all the server-side platforms (particularly TiddlyWeb) that have cropped up.</p>
+<p>If you're just looking for a simple server setup for TiddlyWiki5, it has native support for that on its own. There's plenty of documentation on the site. But if you're looking for more advanced features (like storing your posts in git or a database), then you'll need to use it with TiddlyWeb. The problem is that most of the documentation for TiddlyWeb still refers to the old TiddlyWiki.</p>
+<p>To support TiddlyWiki5, we'll need a version of the wiki which has the TiddlyWeb plugin already installed and configured. After that, some tweaking is necessary to get TiddlyWeb to provide what the wiki requires.</p>
+<h3>Setting Up TiddlyWiki</h3>
+<p>TiddlyWiki5 provides a command line tool via <code>npm</code> that allows building custom versions of the wiki. In fact, it comes with templates, called "editions", that we can use for our setup. Assuming you already have it installed, create the wiki using</p>
+<pre class="code literal-block">tiddlywiki mywiki --init tw5tank          # create wiki from template
+</pre>
+
+
+<p>This creates a wiki intended for use with <a href="https://tank.peermore.com/">Tank</a>, which is built on top of TiddlyWeb. From here, you should look in <code>mywiki/tiddlers/system</code> which contain the entries for <code>SiteTitle</code>, <code>SiteSubtitle</code>, <code>DefaultTiddlers</code>, and <code>tiddlyweb-host</code>. The first 3 should be configured however you want. These are necessary because they're needed before the wiki can load them from the server. <code>tiddlyweb-host</code> contains the location of the TiddlyWeb server, this should be <code>http://localhost:8080/</code> if you're just testing locally. With everything configured, you can build the new wiki by running</p>
+<pre class="code literal-block">tiddlywiki mywiki --build
+</pre>
+
+
+<p>This will output the wiki to <code>mywiki/output/tw5tank.html</code>. You can now serve it using your favorite local webserver, like <code>python -m http.server</code>.</p>
+<h3>Setting Up TiddlyWeb</h3>
+<p>The TiddlyWeb tutorial recommends using <code>tiddlywebwiki</code> which has all the plugins setup for a nice wiki instance for the old TiddlyWiki. It has a lot of features that aren't really needed, so we won't go with that. So first, we'll need to install TiddlyWeb and any plugins we might want to use.</p>
+<pre class="code literal-block">pip install tiddlyweb tiddlywebplugins.status tiddlywebplugins.cherrypy tiddlywebplugins.cors
+</pre>
+
+
+<p>Next, we'll need the tiddlyweb configuration in <code>tiddlywebconfig.py</code></p>
+<pre class="code literal-block"><span class="c"># A basic configuration.</span>
+<span class="c"># `pydoc tiddlyweb.config` for details on configuration items.</span>
+
+<span class="kn">import</span> <span class="nn">tiddlywebplugins.status</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'system_plugins'</span><span class="p">:</span> <span class="p">[</span><span class="s">'tiddlywebplugins.status'</span><span class="p">,</span> <span class="s">'tiddlywebplugins.cors'</span><span class="p">],</span>
+    <span class="s">'secret'</span><span class="p">:</span> <span class="s">'36c98d6d14618c79f0ed2d49cd1b9e272d8d4bd0'</span><span class="p">,</span>
+    <span class="s">'wsgi_server'</span><span class="p">:</span> <span class="s">'tiddlywebplugins.cherrypy'</span><span class="p">,</span>
+    <span class="s">'cors.enable_non_simple'</span><span class="p">:</span> <span class="bp">True</span>
+<span class="p">}</span>
+
+<span class="n">original_gather_data</span> <span class="o">=</span> <span class="n">tiddlywebplugins</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">_gather_data</span>
+
+<span class="k">def</span> <span class="nf">_status_gather_data</span><span class="p">(</span><span class="n">environ</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">original_gather_data</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">'space'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">'recipe'</span><span class="p">:</span> <span class="s">'default'</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="n">tiddlywebplugins</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">_gather_data</span> <span class="o">=</span> <span class="n">_status_gather_data</span>
+</pre>
+
+
+<p>The tweaks involved are:</p>
+<ul>
+<li>using the status plugin which the wiki requires</li>
+<li>monkeypatching the status plugin for the wiki to use the correct "recipe"</li>
+<li>using cherrypy server instead of the buggy default one</li>
+<li>using cors since we're not hosting the wiki itself on the same server</li>
+</ul>
+<p>With that, we just need to create the store that will hold our data</p>
+<pre class="code literal-block">twanager recipe default &lt;&lt;EOF
+desc: standard TiddlyWebWiki environment
+policy: {"read": [], "create": [], "manage": ["R:ADMIN"], "accept": [], "write": ["R:ADMIN"], "owner": "administrator", "delete": ["R:ADMIN"]}
+
+/bags/default/tiddlers
+EOF
+
+twanager bag default &lt;&lt;EOF
+{"policy": {"read": [], "create": [], "manage": ["R:ADMIN"], "accept": [], "write": [], "owner": "administrator", "delete": []}}
+EOF
+</pre>
+
+
+<p>Finally, we can start the TiddlyWeb server</p>
+<pre class="code literal-block">twanager server
+</pre>
+
+
+<h3>Putting it all together</h3>
+<p>Once you have the TiddlyWeb server running, you can just go to wherever you're hosting the wiki html and it should work. You can try creating some posts, and the check mark on the sidebar should be red for a while and then turn black. Once that's done it's saved. You can refresh your browser and your posts should still be there.</p>
+<p>At this point, you can start customizing your TiddlyWeb instance, by changing your store to something like a database, or adding authorization. You can also tweak the server setup so you won't need CORS anymore.</p>
+<p>TiddlyWiki5 is still relatively new. I hope that eventually, support for server-side and the plugin ecosystem grows to be as great as the old TiddlyWiki.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager clearfix">
+<li class="previous">
+                <a href="is-my-terminal-window-active.html" rel="prev" title="Is My Terminal Window Active?">← Previous post</a>
+            </li>
+        </ul></nav></aside><section class="comments"><div id="disqus_thread"></div>
+        <script>
+        var disqus_shortname ="pleasantprog",
+            disqus_url="http://pleasantprogrammer.com/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html",
+        disqus_title="TiddlyWiki in the Sky (or TiddlyWeb for TW5)",
+        disqus_identifier="cache/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html",
+        disqus_config = function () {
+            this.language = "en";
+        };
+        (function() {
+            var dsq = document.createElement('script'); dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script><noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+    <a href="//disqus.com" class="dsq-brlink" rel="nofollow">Comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+        </section></article><script>var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer" role="contentinfo"><p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2015 Thomas Dy - Powered by <a href="http://getnikola.com">Nikola</a></p>
+            
+        </footer>
+</div>
+    
+    
+    
+    
+
+    <script src="../assets/js/konami.js"></script><script src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>
+        var easter_egg = new Konami();
+        easter_egg.code = function() {
+            $(".thomas").toggleClass("whoa");
+            $("body").scrollTop(0);
+        }
+        easter_egg.load();
+
+        // love you, thomas!
+        // yours, @_phi + @meggykawsek
+    </script>
+</body>
+</html>

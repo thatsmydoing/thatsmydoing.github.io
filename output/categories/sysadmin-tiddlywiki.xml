@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Pleasant Programmer (sysadmin tiddlywiki)</title><link>http://pleasantprogrammer.com/</link><description></description><atom:link rel="self" type="application/rss+xml" href="http://pleasantprogrammer.com/categories/sysadmin-tiddlywiki.xml"></atom:link><language>en</language><lastBuildDate>Thu, 24 Dec 2015 07:49:10 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>TiddlyWiki in the Sky (or TiddlyWeb for TW5)</title><link>http://pleasantprogrammer.com/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html</link><dc:creator>Thomas Dy</dc:creator><description>&lt;div&gt;&lt;p&gt;I've always liked &lt;a href="http://tiddlywiki.com"&gt;TiddlyWiki&lt;/a&gt;. Back when it first came out, it was really amazing. A wiki all in one file, that worked in the browser. It didn't need a backend, it would just save itself as an all new HTML file with all your posts inside. I've used it a lot over the years, as a personal wiki/journal and a class notebook. I even had a blog with it at one point using one of the server-side forks.&lt;/p&gt;
+&lt;p&gt;Now, there's TiddlyWiki5 which is a rewrite of the original TiddlyWiki that looks a whole lot snazzier, and I assume has better architecture overall. It also has experimental support for all the server-side platforms (particularly TiddlyWeb) that have cropped up.&lt;/p&gt;
+&lt;p&gt;If you're just looking for a simple server setup for TiddlyWiki5, it has native support for that on its own. There's plenty of documentation on the site. But if you're looking for more advanced features (like storing your posts in git or a database), then you'll need to use it with TiddlyWeb. The problem is that most of the documentation for TiddlyWeb still refers to the old TiddlyWiki.&lt;/p&gt;
+&lt;p&gt;To support TiddlyWiki5, we'll need a version of the wiki which has the TiddlyWeb plugin already installed and configured. After that, some tweaking is necessary to get TiddlyWeb to provide what the wiki requires.&lt;/p&gt;
+&lt;h3&gt;Setting Up TiddlyWiki&lt;/h3&gt;
+&lt;p&gt;TiddlyWiki5 provides a command line tool via &lt;code&gt;npm&lt;/code&gt; that allows building custom versions of the wiki. In fact, it comes with templates, called "editions", that we can use for our setup. Assuming you already have it installed, create the wiki using&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;tiddlywiki mywiki --init tw5tank          # create wiki from template
+&lt;/pre&gt;
+
+
+&lt;p&gt;This creates a wiki intended for use with &lt;a href="https://tank.peermore.com/"&gt;Tank&lt;/a&gt;, which is built on top of TiddlyWeb. From here, you should look in &lt;code&gt;mywiki/tiddlers/system&lt;/code&gt; which contain the entries for &lt;code&gt;SiteTitle&lt;/code&gt;, &lt;code&gt;SiteSubtitle&lt;/code&gt;, &lt;code&gt;DefaultTiddlers&lt;/code&gt;, and &lt;code&gt;tiddlyweb-host&lt;/code&gt;. The first 3 should be configured however you want. These are necessary because they're needed before the wiki can load them from the server. &lt;code&gt;tiddlyweb-host&lt;/code&gt; contains the location of the TiddlyWeb server, this should be &lt;code&gt;http://localhost:8080/&lt;/code&gt; if you're just testing locally. With everything configured, you can build the new wiki by running&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;tiddlywiki mywiki --build
+&lt;/pre&gt;
+
+
+&lt;p&gt;This will output the wiki to &lt;code&gt;mywiki/output/tw5tank.html&lt;/code&gt;. You can now serve it using your favorite local webserver, like &lt;code&gt;python -m http.server&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Setting Up TiddlyWeb&lt;/h3&gt;
+&lt;p&gt;The TiddlyWeb tutorial recommends using &lt;code&gt;tiddlywebwiki&lt;/code&gt; which has all the plugins setup for a nice wiki instance for the old TiddlyWiki. It has a lot of features that aren't really needed, so we won't go with that. So first, we'll need to install TiddlyWeb and any plugins we might want to use.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;pip install tiddlyweb tiddlywebplugins.status tiddlywebplugins.cherrypy tiddlywebplugins.cors
+&lt;/pre&gt;
+
+
+&lt;p&gt;Next, we'll need the tiddlyweb configuration in &lt;code&gt;tiddlywebconfig.py&lt;/code&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="c"&gt;# A basic configuration.&lt;/span&gt;
+&lt;span class="c"&gt;# `pydoc tiddlyweb.config` for details on configuration items.&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tiddlywebplugins.status&lt;/span&gt;
+
+&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s"&gt;'system_plugins'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'tiddlywebplugins.status'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'tiddlywebplugins.cors'&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="s"&gt;'secret'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'36c98d6d14618c79f0ed2d49cd1b9e272d8d4bd0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;'wsgi_server'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'tiddlywebplugins.cherrypy'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;'cors.enable_non_simple'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;original_gather_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tiddlywebplugins&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_gather_data&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;_status_gather_data&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;original_gather_data&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'space'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;'recipe'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'default'&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+
+&lt;span class="n"&gt;tiddlywebplugins&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_gather_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;_status_gather_data&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;The tweaks involved are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using the status plugin which the wiki requires&lt;/li&gt;
+&lt;li&gt;monkeypatching the status plugin for the wiki to use the correct "recipe"&lt;/li&gt;
+&lt;li&gt;using cherrypy server instead of the buggy default one&lt;/li&gt;
+&lt;li&gt;using cors since we're not hosting the wiki itself on the same server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With that, we just need to create the store that will hold our data&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;twanager recipe default &amp;lt;&amp;lt;EOF
+desc: standard TiddlyWebWiki environment
+policy: {"read": [], "create": [], "manage": ["R:ADMIN"], "accept": [], "write": ["R:ADMIN"], "owner": "administrator", "delete": ["R:ADMIN"]}
+
+/bags/default/tiddlers
+EOF
+
+twanager bag default &amp;lt;&amp;lt;EOF
+{"policy": {"read": [], "create": [], "manage": ["R:ADMIN"], "accept": [], "write": [], "owner": "administrator", "delete": []}}
+EOF
+&lt;/pre&gt;
+
+
+&lt;p&gt;Finally, we can start the TiddlyWeb server&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;twanager server
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Putting it all together&lt;/h3&gt;
+&lt;p&gt;Once you have the TiddlyWeb server running, you can just go to wherever you're hosting the wiki html and it should work. You can try creating some posts, and the check mark on the sidebar should be red for a while and then turn black. Once that's done it's saved. You can refresh your browser and your posts should still be there.&lt;/p&gt;
+&lt;p&gt;At this point, you can start customizing your TiddlyWeb instance, by changing your store to something like a database, or adding authorization. You can also tweak the server setup so you won't need CORS anymore.&lt;/p&gt;
+&lt;p&gt;TiddlyWiki5 is still relatively new. I hope that eventually, support for server-side and the plugin ecosystem grows to be as great as the old TiddlyWiki.&lt;/p&gt;&lt;/div&gt;</description><category>sysadmin tiddlywiki</category><guid>http://pleasantprogrammer.com/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html</guid><pubDate>Thu, 24 Dec 2015 06:48:20 GMT</pubDate></item></channel></rss>
