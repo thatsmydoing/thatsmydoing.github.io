@@ -8,8 +8,8 @@
     </header>
     %if items:
     <ul class="postlist">
-    % for text, link in items:
-        <li><a href="${link}">${text}</a>
+    % for text, link, count in items:
+        <li><a href="${link}">${text} (${count})</a>
     % endfor
     </ul>
     %else:
