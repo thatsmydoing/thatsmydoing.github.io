@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Pleasant Programmer</title><link>http://pleasantprogrammer.com/</link><description></description><atom:link href="http://pleasantprogrammer.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><lastBuildDate>Sun, 07 Jun 2015 08:22:42 GMT</lastBuildDate><generator>http://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Is My Terminal Window Active?</title><link>http://pleasantprogrammer.com/posts/is-my-terminal-window-active.html</link><dc:creator>Thomas Dy</dc:creator><description>&lt;div&gt;&lt;p&gt;I've been working in OSX for almost 3 years now, but I recently switched back to Linux because of all the problems people encountered with Yosemite. There are some things I missed from OSX though. One of which is &lt;a href="https://github.com/marzocchi/zsh-notify"&gt;zsh-notify&lt;/a&gt;. It's a zsh plugin that alerts you if your long-running task is complete, and whether it failed or not.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Pleasant Programmer</title><link>http://pleasantprogrammer.com/</link><description></description><atom:link rel="self" type="application/rss+xml" href="http://pleasantprogrammer.com/rss.xml"></atom:link><language>en</language><lastBuildDate>Thu, 24 Dec 2015 07:49:10 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>TiddlyWiki in the Sky (or TiddlyWeb for TW5)</title><link>http://pleasantprogrammer.com/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html</link><dc:creator>Thomas Dy</dc:creator><description>&lt;div&gt;&lt;p&gt;I've always liked &lt;a href="http://tiddlywiki.com"&gt;TiddlyWiki&lt;/a&gt;. Back when it first came out, it was really amazing. A wiki all in one file, that worked in the browser. It didn't need a backend, it would just save itself as an all new HTML file with all your posts inside. I've used it a lot over the years, as a personal wiki/journal and a class notebook. I even had a blog with it at one point using one of the server-side forks.&lt;/p&gt;
+&lt;p&gt;Now, there's TiddlyWiki5 which is a rewrite of the original TiddlyWiki that looks a whole lot snazzier, and I assume has better architecture overall. It also has experimental support for all the server-side platforms (particularly TiddlyWeb) that have cropped up.&lt;/p&gt;
+&lt;p&gt;If you're just looking for a simple server setup for TiddlyWiki5, it has native support for that on its own. There's plenty of documentation on the site. But if you're looking for more advanced features (like storing your posts in git or a database), then you'll need to use it with TiddlyWeb. The problem is that most of the documentation for TiddlyWeb still refers to the old TiddlyWiki.&lt;/p&gt;
+&lt;p&gt;To support TiddlyWiki5, we'll need a version of the wiki which has the TiddlyWeb plugin already installed and configured. After that, some tweaking is necessary to get TiddlyWeb to provide what the wiki requires.&lt;/p&gt;
+&lt;h3&gt;Setting Up TiddlyWiki&lt;/h3&gt;
+&lt;p&gt;TiddlyWiki5 provides a command line tool via &lt;code&gt;npm&lt;/code&gt; that allows building custom versions of the wiki. In fact, it comes with templates, called "editions", that we can use for our setup. Assuming you already have it installed, create the wiki using&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;tiddlywiki mywiki --init tw5tank          # create wiki from template
+&lt;/pre&gt;
+
+
+&lt;p&gt;This creates a wiki intended for use with &lt;a href="https://tank.peermore.com/"&gt;Tank&lt;/a&gt;, which is built on top of TiddlyWeb. From here, you should look in &lt;code&gt;mywiki/tiddlers/system&lt;/code&gt; which contain the entries for &lt;code&gt;SiteTitle&lt;/code&gt;, &lt;code&gt;SiteSubtitle&lt;/code&gt;, &lt;code&gt;DefaultTiddlers&lt;/code&gt;, and &lt;code&gt;tiddlyweb-host&lt;/code&gt;. The first 3 should be configured however you want. These are necessary because they're needed before the wiki can load them from the server. &lt;code&gt;tiddlyweb-host&lt;/code&gt; contains the location of the TiddlyWeb server, this should be &lt;code&gt;http://localhost:8080/&lt;/code&gt; if you're just testing locally. With everything configured, you can build the new wiki by running&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;tiddlywiki mywiki --build
+&lt;/pre&gt;
+
+
+&lt;p&gt;This will output the wiki to &lt;code&gt;mywiki/output/tw5tank.html&lt;/code&gt;. You can now serve it using your favorite local webserver, like &lt;code&gt;python -m http.server&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Setting Up TiddlyWeb&lt;/h3&gt;
+&lt;p&gt;The TiddlyWeb tutorial recommends using &lt;code&gt;tiddlywebwiki&lt;/code&gt; which has all the plugins setup for a nice wiki instance for the old TiddlyWiki. It has a lot of features that aren't really needed, so we won't go with that. So first, we'll need to install TiddlyWeb and any plugins we might want to use.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;pip install tiddlyweb tiddlywebplugins.status tiddlywebplugins.cherrypy tiddlywebplugins.cors
+&lt;/pre&gt;
+
+
+&lt;p&gt;Next, we'll need the tiddlyweb configuration in &lt;code&gt;tiddlywebconfig.py&lt;/code&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="c"&gt;# A basic configuration.&lt;/span&gt;
+&lt;span class="c"&gt;# `pydoc tiddlyweb.config` for details on configuration items.&lt;/span&gt;
+
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;tiddlywebplugins.status&lt;/span&gt;
+
+&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s"&gt;'system_plugins'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'tiddlywebplugins.status'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'tiddlywebplugins.cors'&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="s"&gt;'secret'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'36c98d6d14618c79f0ed2d49cd1b9e272d8d4bd0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;'wsgi_server'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'tiddlywebplugins.cherrypy'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;'cors.enable_non_simple'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;original_gather_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tiddlywebplugins&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_gather_data&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;_status_gather_data&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;original_gather_data&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'space'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;'recipe'&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;'default'&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+
+&lt;span class="n"&gt;tiddlywebplugins&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_gather_data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;_status_gather_data&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;The tweaks involved are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using the status plugin which the wiki requires&lt;/li&gt;
+&lt;li&gt;monkeypatching the status plugin for the wiki to use the correct "recipe"&lt;/li&gt;
+&lt;li&gt;using cherrypy server instead of the buggy default one&lt;/li&gt;
+&lt;li&gt;using cors since we're not hosting the wiki itself on the same server&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With that, we just need to create the store that will hold our data&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;twanager recipe default &amp;lt;&amp;lt;EOF
+desc: standard TiddlyWebWiki environment
+policy: {"read": [], "create": [], "manage": ["R:ADMIN"], "accept": [], "write": ["R:ADMIN"], "owner": "administrator", "delete": ["R:ADMIN"]}
+
+/bags/default/tiddlers
+EOF
+
+twanager bag default &amp;lt;&amp;lt;EOF
+{"policy": {"read": [], "create": [], "manage": ["R:ADMIN"], "accept": [], "write": [], "owner": "administrator", "delete": []}}
+EOF
+&lt;/pre&gt;
+
+
+&lt;p&gt;Finally, we can start the TiddlyWeb server&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;twanager server
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Putting it all together&lt;/h3&gt;
+&lt;p&gt;Once you have the TiddlyWeb server running, you can just go to wherever you're hosting the wiki html and it should work. You can try creating some posts, and the check mark on the sidebar should be red for a while and then turn black. Once that's done it's saved. You can refresh your browser and your posts should still be there.&lt;/p&gt;
+&lt;p&gt;At this point, you can start customizing your TiddlyWeb instance, by changing your store to something like a database, or adding authorization. You can also tweak the server setup so you won't need CORS anymore.&lt;/p&gt;
+&lt;p&gt;TiddlyWiki5 is still relatively new. I hope that eventually, support for server-side and the plugin ecosystem grows to be as great as the old TiddlyWiki.&lt;/p&gt;&lt;/div&gt;</description><category>sysadmin tiddlywiki</category><guid>http://pleasantprogrammer.com/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html</guid><pubDate>Thu, 24 Dec 2015 06:48:20 GMT</pubDate></item><item><title>Is My Terminal Window Active?</title><link>http://pleasantprogrammer.com/posts/is-my-terminal-window-active.html</link><dc:creator>Thomas Dy</dc:creator><description>&lt;div&gt;&lt;p&gt;I've been working in OSX for almost 3 years now, but I recently switched back to Linux because of all the problems people encountered with Yosemite. There are some things I missed from OSX though. One of which is &lt;a href="https://github.com/marzocchi/zsh-notify"&gt;zsh-notify&lt;/a&gt;. It's a zsh plugin that alerts you if your long-running task is complete, and whether it failed or not.&lt;/p&gt;
 &lt;p&gt;It's pretty convenient when you're compiling something and then go on to browse reddit while waiting. Usually, I spend too much time just reading and forget about the compilation entirely. With the plugin, I get the notification and maybe go back to work.&lt;/p&gt;
 &lt;p&gt;One nice feature it has is that if you're currently looking at the terminal window of the job that just finished, it won't notify you. It only notifies on windows that aren't currently in focus. To do this, it has to actually talk to Terminal.app or iTerm2 to see if the window and tab are active.&lt;/p&gt;
 &lt;p&gt;This is alright in OSX since those 2 are the generally most used terminal emulators. On Linux though, everyone has their own favorite terminal. Given that, I figured I could probably rely on talking to X to see if the window is active instead of each single terminal emulator. X can't tell if the tab is active though, but I don't use tabs in my current setup so it should still be good.&lt;/p&gt;
@@ -124,58 +199,4 @@ sed -i .bak &lt;span class="s1"&gt;'/^72/ s/,600/,60/'&lt;/span&gt; frequencies.
 &lt;p&gt;An interesting thing you &lt;em&gt;can&lt;/em&gt; do with the Transit Wand data is import it into GTFS Editor to make a new route. You don't even have to manually download and upload the data. Just type in your 6-digit identifier and it will give you a list of routes you've captured via Transit Wand. This is wonderful as you get all the stop data, as well as the shape of the route.&lt;/p&gt;
 &lt;p&gt;I imagine these two tools were how the DOTC came up with all the GTFS data we have now. What I don't understand is why the shape data isn't present. Importing from Transit Wand already gets you shape data. There are even facilities to edit the shape within the editor if clean up is necessary. The only problem I saw was the fact that you can't easily move stops, you have to input coordinates to change the position.&lt;/p&gt;
 &lt;p&gt;It &lt;em&gt;might&lt;/em&gt; also be possible that when the DOTC was still collecting the data, the route collection or editing features weren't present yet. That would just be lame and depressing though.&lt;/p&gt;
-&lt;p&gt;Overall, Transit Wand does what it's supposed to do. You collect data, and then upload it to a server. There is a lot of room for improvement though. It would be nice to have a better API that allows access to more of the data. Building in analysis tools for the ridership data might also be a welcome thing. I imagine it would also be great if you could encourage people to use the app and upload their own trips.&lt;/p&gt;&lt;/div&gt;</description><category>philippine-transit-app</category><category>programming</category><guid>http://pleasantprogrammer.com/posts/transit-wand.html</guid><pubDate>Mon, 15 Jul 2013 14:45:20 GMT</pubDate></item><item><title>Fare Data</title><link>http://pleasantprogrammer.com/posts/fare-data.html</link><dc:creator>Thomas Dy</dc:creator><description>&lt;div&gt;&lt;p&gt;As part of the data released by the DOTC, we also have the &lt;a href="http://philippine-transit.hackathome.com/dataset-philippines-transit-information-service-gtfs/"&gt;fare matrix&lt;/a&gt; for aircon buses, ordinary buses and jeeps. All as wonderful images. The data is also actually available from the &lt;a href="http://ltfrb.gov.ph/main/farerates"&gt;LTFRB website&lt;/a&gt;. Generally, the fare scheme is represented as "pay &lt;em&gt;X&lt;/em&gt; pesos for the first &lt;em&gt;Y&lt;/em&gt; kilometers, pay &lt;em&gt;Z&lt;/em&gt; for every succeeding kilometer." Instead of a table, we can simply represent this as a formula instead,&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;base_fare + (distance - initial) * per_km
-&lt;/pre&gt;
-
-
-&lt;p&gt;The relevant values for the three services are:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-  &lt;tr&gt;
-    &lt;td&gt;type&lt;/td&gt;
-    &lt;td&gt;base_fare&lt;/td&gt;
-    &lt;td&gt;initial&lt;/td&gt;
-    &lt;td&gt;per_km&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-    &lt;td&gt;bus aircon&lt;/td&gt;
-    &lt;td&gt;12.00&lt;/td&gt;
-    &lt;td&gt;5 km&lt;/td&gt;
-    &lt;td&gt;2.20&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;bus ordinary&lt;/td&gt;
-    &lt;td&gt;10.00&lt;/td&gt;
-    &lt;td&gt;5 km&lt;/td&gt;
-    &lt;td&gt;1.85&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;jeep aircon&lt;/td&gt;
-    &lt;td&gt;8.00&lt;/td&gt;
-    &lt;td&gt;4 km&lt;/td&gt;
-    &lt;td&gt;1.40&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;It isn't as simple as that though. Fares are also rounded to the nearest 25 centavos. So we'd need to round them off correctly. This can be achieved by doing,&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;round(calculated_fare * 4.0)/4.0
-&lt;/pre&gt;
-
-
-&lt;p&gt;There's also the discounted fare for students, senior citizens and persons with disability. They get 20% off the fare (prior to rounding) and the resulting fare is rounded off as well.&lt;/p&gt;
-&lt;p&gt;Doing just this, we actually do get the same results as the fare matrices in the image for the most part. There are some discrepancies with the discounted jeep fares. I've tried to resolve it by tweaking around with the formulas, but it really doesn't make sense in any way. I presume these were manually adjusted for one reason or another.&lt;/p&gt;
-&lt;p&gt;Here's a &lt;a href="http://pleasantprogrammer.com/uploads/farematrix.rb"&gt;script&lt;/a&gt; that generates CSVs of all the three fare matrices. If you're too lazy to run it, here are links to the &lt;a href="http://pleasantprogrammer.com/uploads/pub_aircon.csv"&gt;aircon bus&lt;/a&gt;, &lt;a href="http://pleasantprogrammer.com/uploads/pub_ordinary.csv"&gt;ordinary bus&lt;/a&gt; and &lt;a href="http://pleasantprogrammer.com/uploads/puj.csv"&gt;jeep&lt;/a&gt; fare matrices.&lt;/p&gt;
-&lt;h4&gt;GTFS compatibility&lt;/h4&gt;
-&lt;p&gt;As is, the provided GTFS data does not have any fare data. I imagine this is because the existing spec doesn't have good support for distance-based fares like we have in the Philippines. Judging from the &lt;a href="https://code.google.com/p/googletransitdatafeed/wiki/FareExamples"&gt;fare examples&lt;/a&gt;, the only reasonable way we could implement distance-based fares is following example 6. This would involve setting a fare for each possible pair of stops based on the distance between them. This isn't exactly ideal. In fact, the people originally working on the DOTC project have voiced &lt;a href="https://groups.google.com/forum/#!topic/gtfs-fare-wg/V63xRSnQJGw"&gt;issues&lt;/a&gt; and made &lt;a href="https://groups.google.com/forum/#!msg/gtfs-changes/uybrAokZ9Cg/rqlzXdMypUgJ"&gt;proposals&lt;/a&gt; for having distance-based fares included into GTFS.&lt;/p&gt;
-&lt;p&gt;Apparently, public transit fares are a really complicated thing. You have fares based on distance, number of stops passed through, and transfers which may or may not cost extra. Not only that, you might have discounted fares, or first-class vs economy fares. The community will want to get it right before it's formally included in the spec. You can see the current state of the consolidated &lt;a href="https://docs.google.com/document/d/1mK3--o5g4-3cCXaqmch92U63JTwChh0L2VCmcDViIlM/edit"&gt;GTFS fare proposal here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Even in it's proposal form though, we might have hope of being able to see these being used. There's currently a &lt;a href="https://github.com/OneBusAway/onebusaway-gtfs-modules/pull/30"&gt;pull request&lt;/a&gt; for supporting the distance-based fare scheme into the OneBusAway libraries. The libraries actually used by GTFS Editor and OpenTripPlanner for working with GTFS data.&lt;/p&gt;
-&lt;h4&gt;Remaining Problems&lt;/h4&gt;
-&lt;p&gt;Given all that, it would probably still be a long way before this allows us to make a really good routing app. We still don't have shape data, so the distance estimates would really be rough estimates at best. There's no support for rounding to the nearest centavo. I realize that's just nitpicking, but if we want something truly polished, even that has to be taken care of.&lt;/p&gt;
-&lt;p&gt;We also don't know if the jeeps or buses strictly follow the distance-based scheme. After all, if you can get on and off anywhere, you can't really measure distance that exactly. I assume they generally work off the notion of "zones" than actual distance travelled. In that sense, they work more similarly to the LRT which has fares based on how many stops you pass. For jeeps and buses, your fare is probably based more on how many "zones" you pass through.&lt;/p&gt;
-&lt;h4&gt;Conclusion&lt;/h4&gt;
-&lt;p&gt;Philip, a co-worker of mine at By Implication, had suggested that we might want to use a different model than what the GTFS proposes. I have to agree with him. At this point, the GTFS doesn't really fit with our system. But I do think that open data and standards are great. In fact, I applaud the developers who made proposals for the fare system, as those are great first steps towards making the GTFS a more universal standard.&lt;/p&gt;
-&lt;p&gt;Side note: I'd also actually really like to hear about the DOTC developers' experience with the project. It would be nice if they had a devblog.&lt;/p&gt;&lt;/div&gt;</description><category>philippine-transit-app</category><category>programming</category><guid>http://pleasantprogrammer.com/posts/fare-data.html</guid><pubDate>Sat, 13 Jul 2013 13:15:09 GMT</pubDate></item></channel></rss>
+&lt;p&gt;Overall, Transit Wand does what it's supposed to do. You collect data, and then upload it to a server. There is a lot of room for improvement though. It would be nice to have a better API that allows access to more of the data. Building in analysis tools for the ridership data might also be a welcome thing. I imagine it would also be great if you could encourage people to use the app and upload their own trips.&lt;/p&gt;&lt;/div&gt;</description><category>philippine-transit-app</category><category>programming</category><guid>http://pleasantprogrammer.com/posts/transit-wand.html</guid><pubDate>Mon, 15 Jul 2013 14:45:20 GMT</pubDate></item></channel></rss>

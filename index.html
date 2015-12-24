@@ -1,45 +1,24 @@
 <!DOCTYPE html>
 <html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " vocab="http://ogp.me/ns" lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Pleasant Programmer | Pleasant Programmer</title>
-
-    
-        <link href="assets/css/rst.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/code.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/theme.css" rel="stylesheet" type="text/css">
-            <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
-
-    
-            <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
-
-      <link rel="canonical" href="http://pleasantprogrammer.com/index.html">
-
-
-
-        <link rel="next" href="index-2.html" type="text/html">
-
-    <script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
-    
-        <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
-
-    
-
-
-
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Pleasant Programmer | Pleasant Programmer</title>
+<link href="assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="assets/css/theme.css" rel="stylesheet" type="text/css">
+<link href="assets/css/custom.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="canonical" href="http://pleasantprogrammer.com/index.html">
+<link rel="next" href="index-3.html" type="text/html">
+<script type="text/javascript" src="//use.typekit.net/iwm5axp.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
     
-    <header id="header" role="banner">
-        <div class="thomas">
-            <img src="assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS">
-            <img src="assets/img/thomas.png" alt="Pleasant Programmer">
-        </div>
+    <header id="header" role="banner"><div class="thomas">
+            <img src="assets/img/thomas.gif" alt="DJ THOMAS IN DA HAUS"><img src="assets/img/thomas.png" alt="Pleasant Programmer">
+</div>
         
     <h1 id="brand"><a href="http://pleasantprogrammer.com/" title="Pleasant Programmer" rel="home">
 
@@ -49,31 +28,108 @@
         
 
         
-    <nav id="menu" role="navigation">
-    <ul>
-            <li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
+    <nav id="menu" role="navigation"><ul>
+<li class="twitter"><a href="http://twitter.com/pleasantprog">@pleasantprog</a></li>
                 <li><a href="archive.html">Archives</a></li>
                 <li><a href="categories/index.html">Tags</a></li>
                 <li><a href="rss.xml">RSS</a></li>
     
     
-    </ul>
-    </nav>
+    </ul></nav></header><div id="container">
+         <main id="content" role="main"><div class="postindex">
+    <article class="h-entry post-text"><header><h1 class="p-name entry-title">
+            <a href="posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html" class="u-url">TiddlyWiki in the Sky (or TiddlyWeb for TW5)</a>
+        </h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>I've always liked <a href="http://tiddlywiki.com">TiddlyWiki</a>. Back when it first came out, it was really amazing. A wiki all in one file, that worked in the browser. It didn't need a backend, it would just save itself as an all new HTML file with all your posts inside. I've used it a lot over the years, as a personal wiki/journal and a class notebook. I even had a blog with it at one point using one of the server-side forks.</p>
+<p>Now, there's TiddlyWiki5 which is a rewrite of the original TiddlyWiki that looks a whole lot snazzier, and I assume has better architecture overall. It also has experimental support for all the server-side platforms (particularly TiddlyWeb) that have cropped up.</p>
+<p>If you're just looking for a simple server setup for TiddlyWiki5, it has native support for that on its own. There's plenty of documentation on the site. But if you're looking for more advanced features (like storing your posts in git or a database), then you'll need to use it with TiddlyWeb. The problem is that most of the documentation for TiddlyWeb still refers to the old TiddlyWiki.</p>
+<p>To support TiddlyWiki5, we'll need a version of the wiki which has the TiddlyWeb plugin already installed and configured. After that, some tweaking is necessary to get TiddlyWeb to provide what the wiki requires.</p>
+<h3>Setting Up TiddlyWiki</h3>
+<p>TiddlyWiki5 provides a command line tool via <code>npm</code> that allows building custom versions of the wiki. In fact, it comes with templates, called "editions", that we can use for our setup. Assuming you already have it installed, create the wiki using</p>
+<pre class="code literal-block">tiddlywiki mywiki --init tw5tank          # create wiki from template
+</pre>
 
-    </header>
-    
 
-    <div id="container">
-         <main id="content" role="main">
-            
-<div class="postindex">
-    <article class="h-entry post-text">
-    <header>
-        <h1 class="p-name entry-title">
+<p>This creates a wiki intended for use with <a href="https://tank.peermore.com/">Tank</a>, which is built on top of TiddlyWeb. From here, you should look in <code>mywiki/tiddlers/system</code> which contain the entries for <code>SiteTitle</code>, <code>SiteSubtitle</code>, <code>DefaultTiddlers</code>, and <code>tiddlyweb-host</code>. The first 3 should be configured however you want. These are necessary because they're needed before the wiki can load them from the server. <code>tiddlyweb-host</code> contains the location of the TiddlyWeb server, this should be <code>http://localhost:8080/</code> if you're just testing locally. With everything configured, you can build the new wiki by running</p>
+<pre class="code literal-block">tiddlywiki mywiki --build
+</pre>
+
+
+<p>This will output the wiki to <code>mywiki/output/tw5tank.html</code>. You can now serve it using your favorite local webserver, like <code>python -m http.server</code>.</p>
+<h3>Setting Up TiddlyWeb</h3>
+<p>The TiddlyWeb tutorial recommends using <code>tiddlywebwiki</code> which has all the plugins setup for a nice wiki instance for the old TiddlyWiki. It has a lot of features that aren't really needed, so we won't go with that. So first, we'll need to install TiddlyWeb and any plugins we might want to use.</p>
+<pre class="code literal-block">pip install tiddlyweb tiddlywebplugins.status tiddlywebplugins.cherrypy tiddlywebplugins.cors
+</pre>
+
+
+<p>Next, we'll need the tiddlyweb configuration in <code>tiddlywebconfig.py</code></p>
+<pre class="code literal-block"><span class="c"># A basic configuration.</span>
+<span class="c"># `pydoc tiddlyweb.config` for details on configuration items.</span>
+
+<span class="kn">import</span> <span class="nn">tiddlywebplugins.status</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'system_plugins'</span><span class="p">:</span> <span class="p">[</span><span class="s">'tiddlywebplugins.status'</span><span class="p">,</span> <span class="s">'tiddlywebplugins.cors'</span><span class="p">],</span>
+    <span class="s">'secret'</span><span class="p">:</span> <span class="s">'36c98d6d14618c79f0ed2d49cd1b9e272d8d4bd0'</span><span class="p">,</span>
+    <span class="s">'wsgi_server'</span><span class="p">:</span> <span class="s">'tiddlywebplugins.cherrypy'</span><span class="p">,</span>
+    <span class="s">'cors.enable_non_simple'</span><span class="p">:</span> <span class="bp">True</span>
+<span class="p">}</span>
+
+<span class="n">original_gather_data</span> <span class="o">=</span> <span class="n">tiddlywebplugins</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">_gather_data</span>
+
+<span class="k">def</span> <span class="nf">_status_gather_data</span><span class="p">(</span><span class="n">environ</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">original_gather_data</span><span class="p">(</span><span class="n">environ</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s">'space'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">'recipe'</span><span class="p">:</span> <span class="s">'default'</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="n">tiddlywebplugins</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">_gather_data</span> <span class="o">=</span> <span class="n">_status_gather_data</span>
+</pre>
+
+
+<p>The tweaks involved are:</p>
+<ul>
+<li>using the status plugin which the wiki requires</li>
+<li>monkeypatching the status plugin for the wiki to use the correct "recipe"</li>
+<li>using cherrypy server instead of the buggy default one</li>
+<li>using cors since we're not hosting the wiki itself on the same server</li>
+</ul>
+<p>With that, we just need to create the store that will hold our data</p>
+<pre class="code literal-block">twanager recipe default &lt;&lt;EOF
+desc: standard TiddlyWebWiki environment
+policy: {"read": [], "create": [], "manage": ["R:ADMIN"], "accept": [], "write": ["R:ADMIN"], "owner": "administrator", "delete": ["R:ADMIN"]}
+
+/bags/default/tiddlers
+EOF
+
+twanager bag default &lt;&lt;EOF
+{"policy": {"read": [], "create": [], "manage": ["R:ADMIN"], "accept": [], "write": [], "owner": "administrator", "delete": []}}
+EOF
+</pre>
+
+
+<p>Finally, we can start the TiddlyWeb server</p>
+<pre class="code literal-block">twanager server
+</pre>
+
+
+<h3>Putting it all together</h3>
+<p>Once you have the TiddlyWeb server running, you can just go to wherever you're hosting the wiki html and it should work. You can try creating some posts, and the check mark on the sidebar should be red for a while and then turn black. Once that's done it's saved. You can refresh your browser and your posts should still be there.</p>
+<p>At this point, you can start customizing your TiddlyWeb instance, by changing your store to something like a database, or adding authorization. You can also tweak the server setup so you won't need CORS anymore.</p>
+<p>TiddlyWiki5 is still relatively new. I hope that eventually, support for server-side and the plugin ecosystem grows to be as great as the old TiddlyWiki.</p>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2015-12-24T14:48:20+08:00" title="2015-12-24 14:48">2015-12-24 14:48</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html#disqus_thread" data-disqus-identifier="cache/posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html">Comments</a>
+
+</small>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title">
             <a href="posts/is-my-terminal-window-active.html" class="u-url">Is My Terminal Window Active?</a>
         </h1>
-    </header>
-    <div class="e-content entry-content">
+    </header><div class="e-content entry-content">
     <div>
 <p>I've been working in OSX for almost 3 years now, but I recently switched back to Linux because of all the problems people encountered with Yosemite. There are some things I missed from OSX though. One of which is <a href="https://github.com/marzocchi/zsh-notify">zsh-notify</a>. It's a zsh plugin that alerts you if your long-running task is complete, and whether it failed or not.</p>
 <p>It's pretty convenient when you're compiling something and then go on to browse reddit while waiting. Usually, I spend too much time just reading and forget about the compilation entirely. With the plugin, I get the notification and maybe go back to work.</p>
@@ -98,14 +154,10 @@
     <a href="posts/is-my-terminal-window-active.html#disqus_thread" data-disqus-identifier="cache/posts/is-my-terminal-window-active.html">Comments</a>
 
 </small>
-    </article>
-    <article class="h-entry post-text">
-    <header>
-        <h1 class="p-name entry-title">
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title">
             <a href="posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html" class="u-url">Removing PLDTMyDSLBiz from the ZyXEL P-2612HNU</a>
         </h1>
-    </header>
-    <div class="e-content entry-content">
+    </header><div class="e-content entry-content">
     <div>
 <p>I've always thought that people were just too lazy to change their SSIDs when I see "PLDTMyDSLBizCafeJapan". It became apparent when we got our own PLDT line that it was because the bundled router/modem <em>does not</em> allow you to remove the prefix.</p>
 <p>This is not the kind of thing you expect as a business customer. Even for home customers, I feel it's still a bit dishonest. I'd be fine if it was just the default SSID, but forcing people to have it as part of their SSID is like advertising that your company (I mean PLDT) is a douche.</p>
@@ -121,14 +173,10 @@
     <a href="posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html#disqus_thread" data-disqus-identifier="cache/posts/removing-pldtmydslbiz-from-the-zyxel-p-2612hnu.html">Comments</a>
 
 </small>
-    </article>
-    <article class="h-entry post-text">
-    <header>
-        <h1 class="p-name entry-title">
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title">
             <a href="posts/console-keymap-switching.html" class="u-url">Console Keymap Switching</a>
         </h1>
-    </header>
-    <div class="e-content entry-content">
+    </header><div class="e-content entry-content">
     <div>
 <p>At the office, we have some people who use DVORAK. Normally, this isn't a problem. To each his own after all. It does become a bit problematic though, when we're dealing with the servers around the office.</p>
 <p>We normally leave the servers on QWERTY. After all, most people start off as QWERTY typists and migrate to something else. That said, it's apparently difficult to stay fluent in both. People tend to forget how to type in QWERTY once they learn DVORAK or something else. While it is true that they can just look a the keyboard while typing, my coworkers would prefer it to just be in DVORAK.</p>
@@ -180,7 +228,6 @@
 </pre>
 </td>
 </tr></table>
-
 <p>After putting it all together, it works! We can switch keymaps on the fly by simply pressing Alt+Up.</p>
 </div>
     </div>
@@ -190,14 +237,10 @@
     <a href="posts/console-keymap-switching.html#disqus_thread" data-disqus-identifier="cache/posts/console-keymap-switching.html">Comments</a>
 
 </small>
-    </article>
-    <article class="h-entry post-text">
-    <header>
-        <h1 class="p-name entry-title">
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title">
             <a href="posts/geocoding-services.html" class="u-url">Geocoding Services</a>
         </h1>
-    </header>
-    <div class="e-content entry-content">
+    </header><div class="e-content entry-content">
     <div>
 <p>A key component for any routing service is being able to do geocoding. Most people who are looking for routes most probably don't know exactly where their start and end points are on the map. Even then, manually looking for a location on a map is a time-consuming task.</p>
 <p>The gold standard for doing geocoding right now is Google Maps. It's hard to find a better location search experience. If they actually provided routing for jeeps here in the Philippines, I imagine there wouldn't be <em>that</em> much you could do for the competition.</p>
@@ -215,77 +258,22 @@
 
 </small>
     </article>
-    <article class="h-entry post-text">
-    <header>
-        <h1 class="p-name entry-title">
-            <a href="posts/jeep-and-bus-schedules.html" class="u-url">Jeep and Bus Schedules</a>
-        </h1>
-    </header>
-    <div class="e-content entry-content">
-    <div>
-<p>Wouldn't it be wonderful if there were no buses or jeepneys in the Philippines over the weekends? It would truly be a cyclist's paradise. Imagine biking along EDSA, normally that would be a death sentence, but according to the GTFS data, you shouldn't worry. I can assure you, it's still a death sentence.</p>
-<p>The GTFS spec defines 2 ways of statically specifying trip schedules. You can define the exact times that a service will arrive at a stop. You can also specify between what times the service is active and how often a new bus or jeep leaves the first stop. You also define which days those rules apply. You could say every MWF, the bus operates from 9:00AM to 9:00PM and every TTH, the bus services from 3:00AM to 11:00PM.</p>
-<p>This should be sufficient in theory, but real world conditions like traffic or the weather could throw the schedules off. To solve this, there's another spec, GTFS-realtime. This allows transit agencies to push temporary schedule updates and service announcements.</p>
-<p>Like much everything else about the Philippine transit system, there aren't really any "schedules" to speak of. It's generally whenever the buses or jeeps feel like it. So we have no static schedules. We don't have a central agency or the tracking technology to make it feasible to push updates via GTFS-RT.</p>
-<p>Ideally, we shouldn't bother inputting the schedule information into GTFS. Only the route data is really important for jeeps and buses. However, the schedule information is required in the GTFS, and routing apps wouldn't work without it. So we have to add a reasonable trip schedule for jeeps and buses.</p>
-<p>The current GTFS data does define these trip schedules. We assume that jeeps and buses operate between 6:00AM and 11:00PM and a new jeep passes by every 10 minutes. Also, jeeps and buses are defined to only operate on weekdays.</p>
-<p>While there might be jeeps who change routes or don't operate on weekends, I'm pretty sure that jeeps and buses run on weekends. We'll have to fix it ourselves temporarily since there's no central GTFS feed yet.</p>
-<pre class="code literal-block"><span class="c"># 724594 seems to be the service id used by jeeps and buses</span>
-sed -i .bak <span class="s1">'/^724594/ s/0,0/1,1/'</span> calendar.txt
-</pre>
-
-
-<p>Another thing we could do is to adjust the time between buses, although the improvement is arguable. With the current 10 minutes between jeeps, it might provide some routes a significant advantage just because the timing is right. So you might get differing route suggestions depending on what time you planned the route. This makes sense when you're sure what the times are, so you can minimize the wait, but with jeeps, you never really know how long the wait will actually be.</p>
-<p>If we set the frequency to one minute, it <em>might</em> give better routes by eliminating the timing issue. Or not, it's kind of hard to tell.</p>
-<pre class="code literal-block"><span class="c"># jeep and bus route ids tend to start with 72</span>
-sed -i .bak <span class="s1">'/^72/ s/,600/,60/'</span> frequencies.txt
-</pre>
-
-
-<p>Overall, the problems we're having is a symptom of the mismatch between our transit system and the GTFS. It would be great if our transit system gets better and we don't need to do hackish things for it to fit the GTFS, but that's still a dream. For now, all we can really do is fit a triangle into a square hole.</p>
-</div>
-    </div>
-    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-07-28T16:26:31+08:00" title="2013-07-28 16:26">2013-07-28 16:26</time></small>
-        | <small class="commentline">
-        
-    <a href="posts/jeep-and-bus-schedules.html#disqus_thread" data-disqus-identifier="cache/posts/jeep-and-bus-schedules.html">Comments</a>
-
-</small>
-    </article>
 </div>
 
-        <nav class="postindexpager">
-        <ul class="pager clearfix">
-            <li class="next">
-                <a href="index-2.html" rel="next">Older posts →</a>
+        <nav class="postindexpager"><ul class="pager clearfix">
+<li class="next">
+                <a href="index-3.html" rel="next">Older posts →</a>
             </li>
-        </ul>
-        </nav>
-
-
-        
-       <script>var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script>
-
-
-
-
-
-         </main>
-         
-        <footer id="footer" role="contentinfo">
-            <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2015 Thomas Dy - Powered by <a href="http://getnikola.com">Nikola</a></p>
+        </ul></nav><script>var disqus_shortname="pleasantprog";(function(){var a=document.createElement("script");a.async=true;a.src="//"+disqus_shortname+".disqus.com/count.js";(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(a)}());</script></main><footer id="footer" role="contentinfo"><p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"><img alt="CC-BY-SA" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png"></a> © 2015 Thomas Dy - Powered by <a href="http://getnikola.com">Nikola</a></p>
             
         </footer>
-
-    </div>
+</div>
     
     
     
     
 
-    <script src="assets/js/konami.js"></script>
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script>
+    <script src="assets/js/konami.js"></script><script src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>
         var easter_egg = new Konami();
         easter_egg.code = function() {
             $(".thomas").toggleClass("whoa");
