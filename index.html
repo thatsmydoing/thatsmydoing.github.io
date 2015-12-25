@@ -38,6 +38,59 @@
     </ul></nav></header><div id="container">
          <main id="content" role="main"><div class="postindex">
     <article class="h-entry post-text"><header><h1 class="p-name entry-title">
+            <a href="posts/cloudflare-shenanigans.html" class="u-url">Cloudflare Shenanigans</a>
+        </h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>An old client of ours managed to convince a telco to zero-rate the data for their app. In order to whitelist it though, we needed to use plain HTTP for domain whitelisting. For HTTPS, they can only whitelist by IP address. Like any good developer, we were using HTTPS. Also, like any good developer, we put our server behind Cloudflare.</p>
+<p>Now the problem is that Cloudflare can put you behind <a href="https://www.cloudflare.com/ips/">any IP they own</a>, which is a huge range. There's no guarantee that the IP we have now is going to be the same later on. So we did the reasonable thing and asked them to whitelist all of the Cloudflare IPs. And the telco agreed! We were in total disbelief when that happened. But hey, if life gives you free internet, you take it.</p>
+<p>We never actually empirically tested whether other sites hosted on Cloudflare were also actually zero-rated. But I like to think that we saved a lot of people on their data costs from browsing Reddit and 4chan. But alas, good things must come to an end.</p>
+<p>A few months after we started beta testing the app, Cloudflare added more IPs to their range. Unfortunately, our server got moved to those new IPs which were not whitelisted yet. Apparently, the telco whitelisting process was incredibly convoluted and time consuming. Our client didn't want to bother asking them to whitelist more IPs. We also tried asking Cloudflare to move us back to the original IP range, but they could only do that if we were in their enterprise tier. We couldn't really afford that, so we looked for other options.</p>
+<p>Since Cloudflare was essentially just a giant reverse proxy, theoretically there should be no distinction between one IP address from another. The specific IP we get is probably just for load balancing. So we tried accessing the IPs in the range directly and just setting the Host header and it worked! But we get SSL errors because the IP itself doesn't have its own certificate.</p>
+<p>After more testing, we figured out that you could actually use any Cloudflare backed domain so long as we properly set the Host header. We just needed to find one still in the old range. Coincidentally, 4chan.org was. Which led to this wonderful commit</p>
+<pre class="code literal-block">commit 123456789abcdef
+Author: ~~~~~~
+Date:   ~~~~~~
+
+    4chan hack
+
+<span class="gh">diff --git a/src/com/client/common/Util.java b/src/com/client/common/Util.java</span>
+<span class="gd">--- a/src/com/client/common/Util.java</span>
+<span class="gi">+++ b/src/com/client/common/Util.java</span>
+<span class="gu">@@ -210,7 +210,8 @@ public class Util {</span>
+        }
+
+        public static String getServerAddress(Context context) {
+<span class="gd">-               String address = "https://backend.client.com";</span>
+<span class="gi">+               // String address = "https://backend.client.com";</span>
+<span class="gi">+               String address = "https://4chan.org";</span>
+                if(!isDebug(context)) return address;
+                try {
+<span class="gh">diff --git a/src/com/client/common/logging/APIClient.java b/src/com/client/common/logging/APIClient.java</span>
+<span class="gd">--- a/src/com/client/common/logging/APIClient.java</span>
+<span class="gi">+++ b/src/com/client/common/logging/APIClient.java</span>
+<span class="gu">@@ -101,6 +101,7 @@ public class APIClient {</span>
+        private HttpResponse postInternal(String url, List&lt;NameValuePair&gt; data, boolean forRegistration) throws ClientProtocolException, IOException {
+                HttpPost request = new HttpPost(Util.getServerAddress(mContext)+"/api/"+url);
+                request.setHeader("X-API-VERSION", apiVersion);
+<span class="gi">+               request.setHeader("Host", "backend.client.com");</span>
+
+                if(data == null) {
+                        data = new ArrayList&lt;NameValuePair&gt;();
+</pre>
+
+
+<p>Eventually, we did decide to just abandon Cloudflare for the server. We probably weren't going to be the target of a DDOS or anything. This also allowed us to do more secure things like pinning the server certificate in the application itself. Clearly, this is what we should have just done in the first place, but at the time we just wanted a stopgap solution.</p>
+<p>I just still find it funny we were making people's phones go to 4chan.org everyday for more than a year.</p>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2015-12-25T14:13:26+08:00" title="2015-12-25 14:13">2015-12-25 14:13</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/cloudflare-shenanigans.html#disqus_thread" data-disqus-identifier="cache/posts/cloudflare-shenanigans.html">Comments</a>
+
+</small>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title">
             <a href="posts/tiddlywiki-in-the-sky-or-tiddlyweb-for-tw5.html" class="u-url">TiddlyWiki in the Sky (or TiddlyWeb for TW5)</a>
         </h1>
     </header><div class="e-content entry-content">
@@ -235,26 +288,6 @@ EOF
         | <small class="commentline">
         
     <a href="posts/console-keymap-switching.html#disqus_thread" data-disqus-identifier="cache/posts/console-keymap-switching.html">Comments</a>
-
-</small>
-    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title">
-            <a href="posts/geocoding-services.html" class="u-url">Geocoding Services</a>
-        </h1>
-    </header><div class="e-content entry-content">
-    <div>
-<p>A key component for any routing service is being able to do geocoding. Most people who are looking for routes most probably don't know exactly where their start and end points are on the map. Even then, manually looking for a location on a map is a time-consuming task.</p>
-<p>The gold standard for doing geocoding right now is Google Maps. It's hard to find a better location search experience. If they actually provided routing for jeeps here in the Philippines, I imagine there wouldn't be <em>that</em> much you could do for the competition.</p>
-<p>When the competition started though, I took it as a challenge to avoid Google Maps as much as possible. I wanted to see how much is currently possible with other options such as OpenStreetMap. In fact, OSM does have a geocoding service called <a href="http://nominatim.openstreetmap.org">Nominatim</a>.</p>
-<p>Sadly, for a mapping app, what you want to do is not simply just geocoding. With geocoding, you take an address and turn it into coordinates. When you want to search for a place in a mapping app, you take part of an address, infer the rest of it, and give the user options to choose from.</p>
-<p>Given a typical mapping app, you might type in "ateneo" and expect it to give you Ateneo de Manila University. With typical geocoding services like Nominatim or even Google's <a href="https://developers.google.com/maps/documentation/javascript/geocoding">geocoding API</a>, you probably won't get any result for this. What you want to use is the <a href="https://developers.google.com/maps/documentation/javascript/places">Places API</a> which provides an autocomplete search box. Using it, when you type in "ateneo", it automatically suggests in the dropdown, "Ateneo de Manila University".</p>
-<p>A downside to using the Places API is that it's against the terms of service to use it with something that isn't Google Maps, which means no OpenStreetMap. If there were more time, writing your own autocompletion engine using OpenStreetMap's data will probably be a better long term solution.</p>
-<p>For now, since the competition's deadline is just a few days away, I'll be using Google Maps.</p>
-</div>
-    </div>
-    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-09-25T12:26:59+08:00" title="2013-09-25 12:26">2013-09-25 12:26</time></small>
-        | <small class="commentline">
-        
-    <a href="posts/geocoding-services.html#disqus_thread" data-disqus-identifier="cache/posts/geocoding-services.html">Comments</a>
 
 </small>
     </article>

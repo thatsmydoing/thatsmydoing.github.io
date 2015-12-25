@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Pleasant Programmer (cloudflare)</title><link>http://pleasantprogrammer.com/</link><description></description><atom:link type="application/rss+xml" rel="self" href="http://pleasantprogrammer.com/categories/cloudflare.xml"></atom:link><language>en</language><lastBuildDate>Fri, 25 Dec 2015 07:29:48 GMT</lastBuildDate><generator>https://getnikola.com/</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Cloudflare Shenanigans</title><link>http://pleasantprogrammer.com/posts/cloudflare-shenanigans.html</link><dc:creator>Thomas Dy</dc:creator><description>&lt;div&gt;&lt;p&gt;An old client of ours managed to convince a telco to zero-rate the data for their app. In order to whitelist it though, we needed to use plain HTTP for domain whitelisting. For HTTPS, they can only whitelist by IP address. Like any good developer, we were using HTTPS. Also, like any good developer, we put our server behind Cloudflare.&lt;/p&gt;
+&lt;p&gt;Now the problem is that Cloudflare can put you behind &lt;a href="https://www.cloudflare.com/ips/"&gt;any IP they own&lt;/a&gt;, which is a huge range. There's no guarantee that the IP we have now is going to be the same later on. So we did the reasonable thing and asked them to whitelist all of the Cloudflare IPs. And the telco agreed! We were in total disbelief when that happened. But hey, if life gives you free internet, you take it.&lt;/p&gt;
+&lt;p&gt;We never actually empirically tested whether other sites hosted on Cloudflare were also actually zero-rated. But I like to think that we saved a lot of people on their data costs from browsing Reddit and 4chan. But alas, good things must come to an end.&lt;/p&gt;
+&lt;p&gt;A few months after we started beta testing the app, Cloudflare added more IPs to their range. Unfortunately, our server got moved to those new IPs which were not whitelisted yet. Apparently, the telco whitelisting process was incredibly convoluted and time consuming. Our client didn't want to bother asking them to whitelist more IPs. We also tried asking Cloudflare to move us back to the original IP range, but they could only do that if we were in their enterprise tier. We couldn't really afford that, so we looked for other options.&lt;/p&gt;
+&lt;p&gt;Since Cloudflare was essentially just a giant reverse proxy, theoretically there should be no distinction between one IP address from another. The specific IP we get is probably just for load balancing. So we tried accessing the IPs in the range directly and just setting the Host header and it worked! But we get SSL errors because the IP itself doesn't have its own certificate.&lt;/p&gt;
+&lt;p&gt;After more testing, we figured out that you could actually use any Cloudflare backed domain so long as we properly set the Host header. We just needed to find one still in the old range. Coincidentally, 4chan.org was. Which led to this wonderful commit&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;commit 123456789abcdef
+Author: ~~~~~~
+Date:   ~~~~~~
+
+    4chan hack
+
+&lt;span class="gh"&gt;diff --git a/src/com/client/common/Util.java b/src/com/client/common/Util.java&lt;/span&gt;
+&lt;span class="gd"&gt;--- a/src/com/client/common/Util.java&lt;/span&gt;
+&lt;span class="gi"&gt;+++ b/src/com/client/common/Util.java&lt;/span&gt;
+&lt;span class="gu"&gt;@@ -210,7 +210,8 @@ public class Util {&lt;/span&gt;
+        }
+
+        public static String getServerAddress(Context context) {
+&lt;span class="gd"&gt;-               String address = "https://backend.client.com";&lt;/span&gt;
+&lt;span class="gi"&gt;+               // String address = "https://backend.client.com";&lt;/span&gt;
+&lt;span class="gi"&gt;+               String address = "https://4chan.org";&lt;/span&gt;
+                if(!isDebug(context)) return address;
+                try {
+&lt;span class="gh"&gt;diff --git a/src/com/client/common/logging/APIClient.java b/src/com/client/common/logging/APIClient.java&lt;/span&gt;
+&lt;span class="gd"&gt;--- a/src/com/client/common/logging/APIClient.java&lt;/span&gt;
+&lt;span class="gi"&gt;+++ b/src/com/client/common/logging/APIClient.java&lt;/span&gt;
+&lt;span class="gu"&gt;@@ -101,6 +101,7 @@ public class APIClient {&lt;/span&gt;
+        private HttpResponse postInternal(String url, List&amp;lt;NameValuePair&amp;gt; data, boolean forRegistration) throws ClientProtocolException, IOException {
+                HttpPost request = new HttpPost(Util.getServerAddress(mContext)+"/api/"+url);
+                request.setHeader("X-API-VERSION", apiVersion);
+&lt;span class="gi"&gt;+               request.setHeader("Host", "backend.client.com");&lt;/span&gt;
+
+                if(data == null) {
+                        data = new ArrayList&amp;lt;NameValuePair&amp;gt;();
+&lt;/pre&gt;
+
+
+&lt;p&gt;Eventually, we did decide to just abandon Cloudflare for the server. We probably weren't going to be the target of a DDOS or anything. This also allowed us to do more secure things like pinning the server certificate in the application itself. Clearly, this is what we should have just done in the first place, but at the time we just wanted a stopgap solution.&lt;/p&gt;
+&lt;p&gt;I just still find it funny we were making people's phones go to 4chan.org everyday for more than a year.&lt;/p&gt;&lt;/div&gt;</description><category>cloudflare</category><category>sysadmin</category><guid>http://pleasantprogrammer.com/posts/cloudflare-shenanigans.html</guid><pubDate>Fri, 25 Dec 2015 06:13:26 GMT</pubDate></item></channel></rss>
