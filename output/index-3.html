@@ -39,6 +39,26 @@
     </ul></nav></header><div id="container">
          <main id="content" role="main"><div class="postindex">
     <article class="h-entry post-text"><header><h1 class="p-name entry-title">
+            <a href="posts/geocoding-services.html" class="u-url">Geocoding Services</a>
+        </h1>
+    </header><div class="e-content entry-content">
+    <div>
+<p>A key component for any routing service is being able to do geocoding. Most people who are looking for routes most probably don't know exactly where their start and end points are on the map. Even then, manually looking for a location on a map is a time-consuming task.</p>
+<p>The gold standard for doing geocoding right now is Google Maps. It's hard to find a better location search experience. If they actually provided routing for jeeps here in the Philippines, I imagine there wouldn't be <em>that</em> much you could do for the competition.</p>
+<p>When the competition started though, I took it as a challenge to avoid Google Maps as much as possible. I wanted to see how much is currently possible with other options such as OpenStreetMap. In fact, OSM does have a geocoding service called <a href="http://nominatim.openstreetmap.org">Nominatim</a>.</p>
+<p>Sadly, for a mapping app, what you want to do is not simply just geocoding. With geocoding, you take an address and turn it into coordinates. When you want to search for a place in a mapping app, you take part of an address, infer the rest of it, and give the user options to choose from.</p>
+<p>Given a typical mapping app, you might type in "ateneo" and expect it to give you Ateneo de Manila University. With typical geocoding services like Nominatim or even Google's <a href="https://developers.google.com/maps/documentation/javascript/geocoding">geocoding API</a>, you probably won't get any result for this. What you want to use is the <a href="https://developers.google.com/maps/documentation/javascript/places">Places API</a> which provides an autocomplete search box. Using it, when you type in "ateneo", it automatically suggests in the dropdown, "Ateneo de Manila University".</p>
+<p>A downside to using the Places API is that it's against the terms of service to use it with something that isn't Google Maps, which means no OpenStreetMap. If there were more time, writing your own autocompletion engine using OpenStreetMap's data will probably be a better long term solution.</p>
+<p>For now, since the competition's deadline is just a few days away, I'll be using Google Maps.</p>
+</div>
+    </div>
+    <small class="dateline">Posted: <time class="published dt-published" datetime="2013-09-25T12:26:59+08:00" title="2013-09-25 12:26">2013-09-25 12:26</time></small>
+        | <small class="commentline">
+        
+    <a href="posts/geocoding-services.html#disqus_thread" data-disqus-identifier="cache/posts/geocoding-services.html">Comments</a>
+
+</small>
+    </article><article class="h-entry post-text"><header><h1 class="p-name entry-title">
             <a href="posts/jeep-and-bus-schedules.html" class="u-url">Jeep and Bus Schedules</a>
         </h1>
     </header><div class="e-content entry-content">
